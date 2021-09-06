@@ -9,7 +9,6 @@ class Pictures
      * @param string $title  Optional title of picture
      *
      * @return array responseMessage
-     *@author MathiasDuus <github.com/MathiasDuus>
      */
     static function Upload(string $category,string $title = ""): array
     {
@@ -29,13 +28,12 @@ class Pictures
             mkdir($target_dir);
         }
 
-        if (true) {
+        if ($conn) {
             // Gets the id of the current category
             $sql = "SELECT id FROM categories WHERE category ='" . $category. "'" ;
 
             $result = $conn->query($sql);
             $tmp = $result->fetch_assoc();
-            var_dump($tmp);
             $categoryID = $tmp['id'];
         }
 
@@ -107,6 +105,26 @@ class Pictures
     }
 
 
+    /**
+     * Gets all images from database.
+     *
+     * @return array all info regarding pictures
+     */
+    static  function Download(): array
+    {
+        $pictures = array();
+        global $conn;
+        if ($conn) {
+            $sql = "SELECT pictures.*, categories.category FROM pictures RIGHT JOIN categories ON pictures.category = categories.id;" ;
 
+            $result = $conn->query($sql);
+            if($result){
+                $pictures=$result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+
+
+        return $pictures;
+    }
 
 }
