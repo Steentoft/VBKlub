@@ -6,7 +6,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/index_stylesheet.css">
+    <link rel="stylesheet" href="css/import.css">
 
     <title>Håndbold</title>
 </head>
@@ -21,7 +21,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="./">Forside</a>
                 </li>
@@ -41,5 +41,10 @@
                     <a class="nav-link" href="bestyrelse.php">Bestyrelse</a>
                 </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="navbar-input" placeholder="Brugernavn"/>
+                <input class="navbar-input" placeholder="Kodeord" />
+                <button class="navbar-button" >Login</button>
+            </form>
         </div>
     </nav>
