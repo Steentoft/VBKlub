@@ -42,9 +42,9 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="navbar-input" placeholder="Brugernavn"/>
-                <input class="navbar-input" placeholder="Kodeord" />
-                <button class="navbar-button" >Login</button>
+                <input class="form-control mr-sm-2" placeholder="Brugernavn"/>
+                <input class="form-control mr-sm-2" placeholder="Kodeord" />
+                <button class="btn btn-outline-success my-2 my-sm-0" >Login</button>
             </form>
         </div>
     </nav>
