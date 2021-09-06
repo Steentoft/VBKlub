@@ -15,63 +15,78 @@ class PictureUpload
         // Database connection
         //include_once("config/database.php");
 
-        $resMessage = array(
+        $response = array(
             "status" => "alert-danger",
-            "message" => "Image coudn't be uploaded."
+            "message" => "Unknown error"
         );
 
-        if(isset($_POST["submit"])) {
-            // Set image placement folder
-            $target_dir = "C:/Users/math864n/Desktop/" . $name;
-            $target_dir = "C:\Users\math864n\Desktop\pictureUpload/";
-            // Get file path
-            $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
-            // Get file extension
-            $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            // Allowed file types
-            $allowd_file_ext = array("jpg", "jpeg", "png");
+        // Set image placement folder
+        $target_dir = "C:/Users/math864n/Desktop/" . $name."/";
+        // Allowed file types
+        $allowedFileType = array("jpg", "jpeg", "png");
 
 
-            if (!file_exists($_FILES["fileUpload"]["tmp_name"])) {
-                $resMessage = array(
-                    "status" => "alert-danger",
-                    "message" => "Select image to upload."
-                );
-            } else if (!in_array($imageExt, $allowd_file_ext)) {
-                $resMessage = array(
-                    "status" => "alert-danger",
-                    "message" => "Allowed file formats .jpg, .jpeg and .png."
-                );
-            } else if ($_FILES["fileUpload"]["size"] > 2097152) {
-                $resMessage = array(
-                    "status" => "alert-danger",
-                    "message" => "File is too large. File size should be less than 2 megabytes."
-                );
-            } else if (file_exists($target_file)) {
-                $resMessage = array(
-                    "status" => "alert-danger",
-                    "message" => "File already exists."
-                );
-            } else {
-                if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
-                    $sql = "INSERT INTO user (file_path) VALUES ('$target_file')";
-                    $stmt = "";//$conn->prepare($sql);
-                    if(/*$stmt->execute() ||*/ true){
-                        $resMessage = array(
-                            "status" => "alert-success",
-                            "message" => "Image uploaded successfully."
+        // Velidate if files exist
+        if (!empty(array_filter($_FILES['fileUpload']['name']))) {
+
+            // Loop through file items
+            foreach($_FILES['fileUpload']['name'] as $id=>$val){
+
+                // Get files upload path
+                $path_parts = pathinfo($_FILES['fileUpload']['name'][$id]);
+                $fileName = $path_parts['filename'].'_'.time().'.'.$path_parts['extension'];
+                $tempLocation    = $_FILES['fileUpload']['tmp_name'][$id];
+                $targetFilePath  = $target_dir . $fileName;
+                $fileType        = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+                $uploadDate      = date('Y-m-d H:i:s');
+
+                if(in_array($fileType, $allowedFileType)){
+                    if(move_uploaded_file($tempLocation, $targetFilePath)){
+                        $sqlVal = "('".$fileName."', '".$uploadDate."')";
+                    } else {
+                        $response = array(
+                            "status" => "alert-danger",
+                            "message" => "File coud not be uploaded."
                         );
                     }
+
                 } else {
-                    $resMessage = array(
+                    $response = array(
                         "status" => "alert-danger",
-                        "message" => "Image coudn't be uploaded."
+                        "message" => "Only .jpg, .jpeg and .png file formats allowed."
                     );
+                }
+                // Add into MySQL database
+                if(!empty($sqlVal)) {
+                    $response = array(
+                        "status" => "alert-danger",
+                        "message" => "success"
+                    );
+                    /*$insert = $conn->query("INSERT INTO user (images, date_time) VALUES $sqlVal");
+                    if($insert) {
+                        $response = array(
+                            "status" => "alert-success",
+                            "message" => "Files successfully uploaded."
+                        );
+                    } else {
+                        $response = array(
+                            "status" => "alert-danger",
+                            "message" => "Files coudn't be uploaded due to database error."
+                        );
+                    }*/
                 }
             }
 
+        } else {
+            // Error
+            $response = array(
+                "status" => "alert-danger",
+                "message" => "Please select a file to upload."
+            );
         }
-        return $resMessage;
+
+
+        return $response;
     }
 
 
