@@ -1,39 +1,34 @@
 <?php include "../templates/adminHeader.php"; ?>
 
-    <table class="table table-striped">
-        <thead class="thead-dark">
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Navn</th>
+        <th scope="col">Titel</th>
+        <th scope="col">Mobil</th>
+        <th scope="col">Email</th>
+        <th style="text-align: center" scope="col">Billede</th>
+        <th style="text-align: center" scope="col">Rediger</th>
+        <th style="text-align: center" scope="col">Slet</th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php
+        $sql = "SELECT * FROM members"
+
+
+        ?>
         <tr>
-            <th scope="col">Navn</th>
-            <th scope="col">Titel</th>
-            <th scope="col">Mobil</th>
-            <th scope="col">Email</th>
-            <th></th>
+            <td>Maria Lorentsen</td>
+            <td>Formand</td>
+            <td>51600475</td>
+            <td>m_lorentsen@hotmail.com</td>
+            <td><img style="margin: auto; display: flex" src="../billeder/image_icon.png"></td>
+            <td><img style="margin: auto; display: flex" src="../billeder/edit_icon.png"></td>
+            <td><img style="margin: auto; display: flex" src="../billeder/delete_icon.png"></td>
         </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Startsstævne 2021</td>
-            <td>10. Oktober 2021</td>
-            <td>Kl. 9:00 til 16:30</td>
-            <td>Carl Nielsen Hallen</td>
-            <td><button class="btn btn-outline-success my-2 my-sm-0" >Rediger Stævne</button></td>
-        </tr>
-        <tr>
-            <td>Startsstævne 2020</td>
-            <td>10. September 2020</td>
-            <td>Kl. 9:00 til 16:30</td>
-            <td>Carl Nielsen Hallen</td>
-            <td><button class="btn btn-outline-success my-2 my-sm-0" >Rediger Stævne</button></td>
-        </tr>
-        <tr>
-            <td>Startsstævne 2019</td>
-            <td>17. Oktober 2019</td>
-            <td>Kl. 9:00 til 16:30</td>
-            <td>Carl Nielsen Hallen</td>
-            <td><button class="btn btn-outline-success my-2 my-sm-0" >Rediger Stævne</button></td>
-        </tr>
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
 
 

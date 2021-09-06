@@ -28,19 +28,19 @@
                     <a class="nav-link" href="./">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="omklubben.php">Om klubben</a>
+                    <a class="nav-link" href="../omklubben.php">Om klubben</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="staevneplan.php">Stævneplan</a>
+                    <a class="nav-link" href="../staevneplan.php">Stævneplan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tilmelding.php">Tilmelding</a>
+                    <a class="nav-link" href="../tilmelding.php">Tilmelding</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="galleri.php">Galleri</a>
+                    <a class="nav-link" href="../galleri.php">Galleri</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="bestyrelse.php">Bestyrelse</a>
+                    <a class="nav-link" href="../bestyrelse.php">Bestyrelse</a>
                 </li>
             </ul>
             <div class="my-2 my-lg-0">
