@@ -110,7 +110,7 @@ class Pictures
      *
      * @return array all info regarding pictures
      */
-    static  function Download(): array
+    static  function Load(): array
     {
         $pictures = array();
         global $conn;
