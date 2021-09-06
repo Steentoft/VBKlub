@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Bestyrelse</h5>
                     <p class="card-text">Tilføj, rediger eller fjern medlemmer i bestyrelsen.</p>
-                    <a href="#" class="btn btn-primary">Gå</a>
+                    <a href="editBestyrelse.php" class="btn btn-primary">Gå</a>
                 </div>
             </div>
         </div>
