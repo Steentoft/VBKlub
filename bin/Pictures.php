@@ -1,6 +1,6 @@
 <?php
 
-class PictureUpload
+class Pictures
 {
     /**
      * Upload image file to given folder.
