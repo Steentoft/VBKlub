@@ -1,6 +1,45 @@
 <?php include "../templates/adminHeader.php"; ?>
 
-
+<div style="padding: 1%">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Stævneplan</h5>
+                    <p class="card-text">Tilføj, rediger eller fjern stævner.</p>
+                    <a href="editStaevneplan.php" class="btn btn-primary">Gå</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Galleri</h5>
+                    <p class="card-text">Tilføj, rediger eller fjern billeder.</p>
+                    <a href="#" class="btn btn-primary">Gå</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Bestyrelse</h5>
+                    <p class="card-text">Tilføj, rediger eller fjern medlemmer i bestyrelsen.</p>
+                    <a href="#" class="btn btn-primary">Gå</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Administratorer</h5>
+                    <p class="card-text">Tilføj, rediger eller fjern administratorer til adminpanelet</p>
+                    <a href="#" class="btn btn-primary">Gå</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

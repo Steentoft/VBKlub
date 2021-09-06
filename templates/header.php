@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/import.css">
 
-    <title>Håndbold</title>
+    <title>Volleyball</title>
 </head>
 <body>
 
@@ -41,10 +41,10 @@
                     <a class="nav-link" href="bestyrelse.php">Bestyrelse</a>
                 </li>
             </ul>
-            <form method="post" class="form-inline my-2 my-lg-0">
+            <form method="post" id="loginForm" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" id="username" name="username" placeholder="Brugernavn"/>
                 <input class="form-control mr-sm-2" id="password" name="password" placeholder="Kodeord" />
-                <button type="submit" id="login" class="btn btn-outline-success my-2 my-sm-0" >Login</button>
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0" >Login</button>
             </form>
         </div>
     </nav>
