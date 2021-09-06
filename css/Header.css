@@ -122,3 +122,7 @@ body{
     color:black;
     border: 1px solid black;
 }
+
+p.card-text {
+    min-height: 5vh;
+}
