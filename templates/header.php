@@ -41,10 +41,10 @@
                     <a class="nav-link" href="bestyrelse.php">Bestyrelse</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" placeholder="Brugernavn"/>
-                <input class="form-control mr-sm-2" placeholder="Kodeord" />
-                <button class="btn btn-outline-success my-2 my-sm-0" >Login</button>
+            <form method="post" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" id="username" name="username" placeholder="Brugernavn"/>
+                <input class="form-control mr-sm-2" id="password" name="password" placeholder="Kodeord" />
+                <button type="submit" id="login" class="btn btn-outline-success my-2 my-sm-0" >Login</button>
             </form>
         </div>
     </nav>
