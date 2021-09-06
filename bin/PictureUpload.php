@@ -5,23 +5,42 @@ class PictureUpload
     /**
      * Upload image file to given folder.
      *
-     * @param Foldername   $name  Where the file should be uploaded to
+     * @param string $category  The category where the pictures belong
+     * @param string $title  Optional title of picture
      *
-     * @author MathiasDuus <github.com/MathiasDuus>
      * @return array responseMessage
+     *@author MathiasDuus <github.com/MathiasDuus>
      */
-    static function Upload($name)
+    static function Upload(string $category,string $title = ""): array
     {
+        $categoryID ="helo";
         // Database connection
-        //include_once("config/database.php");
+        global $conn;
 
         $response = array(
             "status" => "alert-danger",
-            "message" => "Unknown error"
+            "message" => "Ukendt fejl"
         );
 
         // Set image placement folder
-        $target_dir = "C:/Users/math864n/Desktop/" . $name."/";
+        $target_dir = "billeder/" . $category."/";
+
+        if (!file_exists($target_dir)) {
+            mkdir($target_dir);
+        }
+
+        if (true) {
+            // Gets the id of the current category
+            $sql = "SELECT id FROM categories WHERE category ='" . $category. "'" ;
+
+            $result = $conn->query($sql);
+            $tmp = $result->fetch_assoc();
+            var_dump($tmp);
+            $categoryID = $tmp['id'];
+        }
+
+
+
         // Allowed file types
         $allowedFileType = array("jpg", "jpeg", "png");
 
@@ -46,34 +65,32 @@ class PictureUpload
                     } else {
                         $response = array(
                             "status" => "alert-danger",
-                            "message" => "File coud not be uploaded."
+                            "message" => "Filen kunne ikke uploades."
                         );
                     }
 
                 } else {
                     $response = array(
                         "status" => "alert-danger",
-                        "message" => "Only .jpg, .jpeg and .png file formats allowed."
+                        "message" => "Kun .jpg, .jpeg og .png filer er tilladte."
                     );
                 }
                 // Add into MySQL database
                 if(!empty($sqlVal)) {
-                    $response = array(
-                        "status" => "alert-danger",
-                        "message" => "success"
-                    );
-                    /*$insert = $conn->query("INSERT INTO user (images, date_time) VALUES $sqlVal");
-                    if($insert) {
+                    $date  = date('Y-m-d');
+                    $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, category) VALUES (?, ?, ?, ?)");
+                    $stmt->bind_param("sssi", $title, $targetFilePath, $date, $categoryID);
+                    if($stmt->execute()) {
                         $response = array(
                             "status" => "alert-success",
-                            "message" => "Files successfully uploaded."
+                            "message" => "Filerne blev uploadet."
                         );
                     } else {
                         $response = array(
                             "status" => "alert-danger",
-                            "message" => "Files coudn't be uploaded due to database error."
+                            "message" => "Filerne kunne ikke uploades pga. database fejl."
                         );
-                    }*/
+                    }
                 }
             }
 
@@ -81,7 +98,7 @@ class PictureUpload
             // Error
             $response = array(
                 "status" => "alert-danger",
-                "message" => "Please select a file to upload."
+                "message" => "Vælg venligst en fil at uploade."
             );
         }
 
