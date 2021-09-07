@@ -52,7 +52,7 @@ $members = Bestyrelse::Load();
         ?>
     </tbody>
 </table>
-<button style="margin: 1%" class="btn btn-dark" onclick="createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
+<button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
@@ -95,12 +95,12 @@ $members = Bestyrelse::Load();
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control mr-sm-2 mb-2" id="createEmail   " placeholder="Email">
+                        <input type="email" class="form-control mr-sm-2 mb-2" id="createEmail" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label for="customFile">Billede</label>
                         <div class="custom-file mr-sm-2 mb-2">
-                            <input type="file" class="custom-file-input" id="customFile">
+                            <input type="file" class="custom-file-input" id="createPicture">
                             <label class="custom-file-label" id="createPicture_path" for="customFile">Vælg fil</label>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ $members = Bestyrelse::Load();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" onclick="updateRow()">Gem</button>
+                <button type="button" class="btn btn-danger " data-dismiss="modal" onclick="createRow()">Gem</button>
             </div>
         </div>
     </div>
@@ -146,8 +146,8 @@ $members = Bestyrelse::Load();
                     <div class="form-group">
                         <label for="customFile">Billede</label>
                         <div class="custom-file mr-sm-2 mb-2">
-                            <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" id="picture_path" for="customFile">Vælg fil</label>
+                            <input type="file" class="custom-file-input" id="picture">
+                            <label class="custom-file-label" id="picture_path" for="picture">Vælg fil</label>
                         </div>
                     </div>
                 </form>
@@ -177,7 +177,6 @@ $members = Bestyrelse::Load();
     </div>
 </div>
 
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -185,6 +184,7 @@ $members = Bestyrelse::Load();
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+
     function createRow(){
         let name = $('#createName').val();
         let title = $('#createTitle').val();
@@ -192,23 +192,26 @@ $members = Bestyrelse::Load();
         let email = $('#createEmail').val();
         let picture_path = $('#createPicture_path').text();
 
-        $.post("bestyrelse/bestyrelseHandler.php",
-            {
-                action: 'insert',
-                name: name,
-                title: title,
-                number: number,
-                email: email,
-                picture_path: picture_path,
+        var fd = new FormData();
+        var files = $('#createPicture')[0].files[0];
+        fd.append('action', 'create');
+        fd.append('name',name);
+        fd.append('title',title);
+        fd.append('number',number);
+        fd.append('email',email);
+        fd.append('picture_path',picture_path);
+        fd.append('fileUpload', files);
 
+        $.ajax({
+            url: 'bestyrelse/bestyrelseHandler.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                location.reload();
             },
-            function(data){
-                if (data == 'success'){
-                    location.reload();
-                } else {
-                    alert('Noget gik galt med at opdatere rækken')
-                }
-            });
+        });
     }
 
     function editRow(ele){
@@ -231,32 +234,35 @@ $members = Bestyrelse::Load();
     }
 
     function updateRow(){
+        let id = $('#hiddenID').val();
+
         let name = $('#name').val();
         let title = $('#title').val();
         let number = $('#phonenumber').val();
         let email = $('#email').val();
         let picture_path = $('#picture_path').text();
 
+        var fd = new FormData();
+        var files = $('#picture')[0].files[0];
+        fd.append('action', 'update');
+        fd.append('id',id);
+        fd.append('name',name);
+        fd.append('title',title);
+        fd.append('number',number);
+        fd.append('email',email);
+        fd.append('picture_path',picture_path);
+        fd.append('fileUpload', files);
 
-        let id = $('#hiddenID').val();
-
-        $.post("bestyrelse/bestyrelseHandler.php",
-            {
-                action: 'update',
-                id: id,
-                name: name,
-                title: title,
-                number: number,
-                email: email,
-                picture_path: picture_path
+        $.ajax({
+            url: 'bestyrelse/bestyrelseHandler.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                location.reload();
             },
-            function(data){
-                if (data == 'success'){
-                    location.reload();
-                } else {
-                    alert('Noget gik galt med at opdatere rækken')
-                }
-            });
+        });
     }
 
     function deleteConfirm(ele){
@@ -272,7 +278,6 @@ $members = Bestyrelse::Load();
                 id: id
             },
             function(data){
-                alert('Række slettet.')
                 location.reload();
             });
     }
@@ -281,6 +286,16 @@ $members = Bestyrelse::Load();
         let imgPath = ele.getAttribute('value');
         document.getElementById('modalPicture').setAttribute('src', imgPath);
     }
+
+    $('input#createPicture').change(function(e){
+        let fileName = e.target.files[0].name;
+        document.getElementById('createPicture_path').innerHTML = fileName;
+    });
+
+    $('input#picture').change(function(e){
+        let fileName = e.target.files[0].name;
+        document.getElementById('picture_path').innerHTML = fileName;
+    });
 </script>
 </body>
 </html>
