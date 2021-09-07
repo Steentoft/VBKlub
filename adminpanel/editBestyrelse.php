@@ -43,7 +43,7 @@ $members = Bestyrelse::Load();
             <td><?php echo $member['title'] ?></td>
             <td><?php echo $member['phonenumber'] ?></td>
             <td><?php echo $member['email'] ?></td>
-            <td><img class="img-row-show" value="../billeder/<?php echo $member['picture_path'] ?>" onclick="showPicture(this);" src="../billeder/image_icon.png" data-toggle="modal" data-target="#PictureModal"></td>
+            <td><img class="img-row-show" value="../billeder/bestyrelse/<?php echo $member['picture_path'] ?>" onclick="showPicture(this);" src="../billeder/image_icon.png" data-toggle="modal" data-target="#PictureModal"></td>
             <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png" onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
             <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png" onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
             </tr>

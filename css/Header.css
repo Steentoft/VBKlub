@@ -123,6 +123,6 @@ body{
     border: 1px solid black;
 }
 
-p.card-text {
-    min-height: 5vh;
+.card-img-top{
+    min-height: 35vh;
 }

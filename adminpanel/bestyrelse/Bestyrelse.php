@@ -41,7 +41,7 @@ class Bestyrelse
             if ($sql->execute()){
                 $result = $sql->get_result();
                 while ($row = $result->fetch_assoc()) {
-                    unlink('../../billeder/' . $row['picture_path']);
+                    unlink('../../billeder/bestyrelse/' . $row['picture_path']);
                 }
             }else{
                 return 'error';
@@ -63,39 +63,41 @@ class Bestyrelse
     {
         global $conn;
 
-        if ($conn) {
-            $sql = $conn->prepare("SELECT * FROM members WHERE id=?");
-            $sql->bind_param("i", $id);
-            if ($sql->execute()){
-                $result = $sql->get_result();
-                while ($row = $result->fetch_assoc()) {
-                    unlink('../../billeder/' . $row['picture_path']);
+        if ($_FILES["fileUpload"]["name"] != null) {
+            if ($conn) {
+                $sql = $conn->prepare("SELECT * FROM members WHERE id=?");
+                $sql->bind_param("i", $id);
+                if ($sql->execute()) {
+                    $result = $sql->get_result();
+                    while ($row = $result->fetch_assoc()) {
+                        unlink('../../billeder/bestyrelse/' . $row['picture_path']);
+                    }
+                } else {
+                    return 'error';
                 }
-            }else{
-                return 'error';
             }
-        }
 
-        $temp = explode(".", $_FILES["fileUpload"]["name"]);
-        $filename = round(microtime(true)) . '.' . end($temp);
+            $temp = explode(".", $_FILES["fileUpload"]["name"]);
+            $picture_path = round(microtime(true)) . '.' . end($temp);
 
-        $location = "../../billeder/".$filename;
-        $uploadOk = 1;
+            $location = "../../billeder/bestyrelse/" . $picture_path;
+            $uploadOk = 1;
 
-        if($uploadOk == 0){
-            echo 0;
-        }else{
-            if(move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)){
-                echo $location;
-            }else{
+            if ($uploadOk == 0) {
                 echo 0;
+            } else {
+                if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)) {
+                    echo $location;
+                } else {
+                    echo 0;
+                }
             }
         }
 
 
         if ($conn) {
             $sql = $conn->prepare("UPDATE members SET fullname=?, title=?, picture_path=?, phonenumber=?, email=? WHERE id=?");
-            $sql->bind_param("sssisi", $name, $title, $filename, $phoneNumber, $email, $id);
+            $sql->bind_param("sssisi", $name, $title, $picture_path, $phoneNumber, $email, $id);
             if ($sql->execute()){
                 return 'success';
             }else{
@@ -111,7 +113,7 @@ class Bestyrelse
         $temp = explode(".", $_FILES["fileUpload"]["name"]);
         $filename = round(microtime(true)) . '.' . end($temp);
 
-        $location = "../../billeder/".$filename;
+        $location = "../../billeder/bestyrelse/".$filename;
         $uploadOk = 1;
 
         if($uploadOk == 0){

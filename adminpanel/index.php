@@ -1,5 +1,11 @@
 <?php include "../templates/adminHeader.php"; ?>
 
+<style>
+    p.card-text {
+        min-height: 5vh;
+    }
+</style>
+
 <div style="padding: 1%">
     <div class="row">
         <div class="col-sm-4">
@@ -16,7 +22,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Galleri</h5>
                     <p class="card-text">Tilføj, rediger eller fjern billeder.</p>
-                    <a href="#" class="btn btn-primary">Gå</a>
+                    <a href="editGalleri.php" class="btn btn-primary">Gå</a>
                 </div>
             </div>
         </div>
