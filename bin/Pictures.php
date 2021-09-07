@@ -22,29 +22,27 @@ class Pictures
             "message" => "Ukendt fejl"
         );
 
-        // Set image placement folder
-        //$target_dir = "billeder/" . $category."/";
-
         if (!file_exists($target_dir)) {
             mkdir($target_dir);
         }
 
-        if ($conn) {
-            // Gets the id of the current category
-            $sql = "SELECT id FROM categories WHERE category =?";
+        if($category != "") {
+            if ($conn) {
+                // Gets the id of the current category
+                $sql = "SELECT id FROM categories WHERE category =?";
 
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $category);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if(!$categoryID = $result->fetch_assoc()){
-                $stmt = $conn->prepare("INSERT INTO categories(category) VALUES (?)");
+                $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $category);
                 $stmt->execute();
-                $categoryID = mysqli_insert_id($conn);
-            }
-            else{
-                $categoryID = $categoryID['id'];
+                $result = $stmt->get_result();
+                if (!$categoryID = $result->fetch_assoc()) {
+                    $stmt = $conn->prepare("INSERT INTO categories(category) VALUES (?)");
+                    $stmt->bind_param("s", $category);
+                    $stmt->execute();
+                    $categoryID = mysqli_insert_id($conn);
+                } else {
+                    $categoryID = $categoryID['id'];
+                }
             }
         }
 
@@ -53,7 +51,7 @@ class Pictures
         // Allowed file types
         $allowedFileType = array("jpg", "jpeg", "png");
 
-
+var_dump($_FILES['fileUpload']['name']);
         // Velidate if files exist
         if (!empty(array_filter($_FILES['fileUpload']['name']))) {
 
