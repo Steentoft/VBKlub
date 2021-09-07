@@ -6,11 +6,12 @@ class Pictures
      * Upload image file to given folder.
      *
      * @param string $category  The category where the pictures belong
+     * @param bool $uploadDatabase  Default true, uploads path to database
      * @param string $title  Optional title of picture
      *
      * @return array responseMessage
      */
-    static function Upload(string $category,string $title = ""): array
+    function Upload(string $category,bool $uploadDatabase = true, string $title = ""): array
     {
         $categoryID ="helo";
         // Database connection
@@ -73,22 +74,30 @@ class Pictures
                         "message" => "Kun .jpg, .jpeg og .png filer er tilladte."
                     );
                 }
-                // Add into MySQL database
-                if(!empty($sqlVal)) {
-                    $date  = date('Y-m-d');
-                    $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, category) VALUES (?, ?, ?, ?)");
-                    $stmt->bind_param("sssi", $title, $targetFilePath, $date, $categoryID);
-                    if($stmt->execute()) {
-                        $response = array(
-                            "status" => "alert-success",
-                            "message" => "Filerne blev uploadet."
-                        );
-                    } else {
-                        $response = array(
-                            "status" => "alert-danger",
-                            "message" => "Filerne kunne ikke uploades pga. database fejl."
-                        );
+                if ($uploadDatabase){
+                    // Add into MySQL database
+                    if(!empty($sqlVal)) {
+                        $date  = date('Y-m-d');
+                        $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, category) VALUES (?, ?, ?, ?)");
+                        $stmt->bind_param("sssi", $title, $targetFilePath, $date, $categoryID);
+                        if($stmt->execute()) {
+                            $response = array(
+                                "status" => "alert-success",
+                                "message" => "Filerne blev uploadet."
+                            );
+                        } else {
+                            $response = array(
+                                "status" => "alert-danger",
+                                "message" => "Filerne kunne ikke uploades pga. database fejl."
+                            );
+                        }
                     }
+                }
+                else{
+                    $response = array(
+                        "status" => "alert-success",
+                        "message" => "Filerne blev uploadet."
+                    );
                 }
             }
 
@@ -110,12 +119,12 @@ class Pictures
      *
      * @return array all info regarding pictures
      */
-    static  function Load(): array
+    function Load(): array
     {
         $pictures = array();
         global $conn;
         if ($conn) {
-            $sql = "SELECT pictures.*, categories.category FROM pictures RIGHT JOIN categories ON pictures.category = categories.id;" ;
+            $sql = "SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id;" ;
 
             $result = $conn->query($sql);
             if($result){
@@ -125,6 +134,32 @@ class Pictures
 
 
         return $pictures;
+    }
+
+    /**
+     * Deletes image from database and server
+     *
+     * @param int $id  The id of the picture
+     *
+     */
+    function Delete(int $id){
+        global $conn;
+        $picture = array();
+        $sql = "SELECT pictures.path FROM pictures";
+
+        $result = $conn->query($sql);
+        if($result){
+            $picture=$result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        $sql = "DELETE FROM pictures WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $path = "/../".$picture[0]['path'];
+        unlink($path);
+
     }
 
 }
