@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Administratorer</h5>
                     <p class="card-text">Tilføj, rediger eller fjern administratorer til adminpanelet</p>
-                    <a href="#" class="btn btn-primary">Gå</a>
+                    <a href="editAdmins.php" class="btn btn-primary">Gå</a>
                 </div>
             </div>
         </div>
