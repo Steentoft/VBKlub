@@ -5,15 +5,15 @@ class Pictures
     /**
      * Upload image file to given folder.
      *
-     * @param string $category  The category where the pictures belong
+     * @param string $target_dir  Location where the file should be saved
+     * @param string $category  Optional category where the pictures belong
      * @param bool $uploadDatabase  Default true, uploads path to database
      * @param string $title  Optional title of picture
      *
      * @return array responseMessage
      */
-    function Upload(string $category,bool $uploadDatabase = true, string $title = ""): array
+    function Upload(string $target_dir, string $category = "Galleri", string $title = "",bool $uploadDatabase = true): array
     {
-        $categoryID ="helo";
         // Database connection
         global $conn;
 
@@ -23,7 +23,7 @@ class Pictures
         );
 
         // Set image placement folder
-        $target_dir = "billeder/" . $category."/";
+        //$target_dir = "billeder/" . $category."/";
 
         if (!file_exists($target_dir)) {
             mkdir($target_dir);
@@ -31,11 +31,21 @@ class Pictures
 
         if ($conn) {
             // Gets the id of the current category
-            $sql = "SELECT id FROM categories WHERE category ='" . $category. "'" ;
+            $sql = "SELECT id FROM categories WHERE category =?";
 
-            $result = $conn->query($sql);
-            $tmp = $result->fetch_assoc();
-            $categoryID = $tmp['id'];
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $category);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if(!$categoryID = $result->fetch_assoc()){
+                $stmt = $conn->prepare("INSERT INTO categories(category) VALUES (?)");
+                $stmt->bind_param("s", $category);
+                $stmt->execute();
+                $categoryID = mysqli_insert_id($conn);
+            }
+            else{
+                $categoryID = $categoryID['id'];
+            }
         }
 
 
@@ -77,6 +87,7 @@ class Pictures
                 if ($uploadDatabase){
                     // Add into MySQL database
                     if(!empty($sqlVal)) {
+                        var_dump($categoryID);
                         $date  = date('Y-m-d');
                         $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, category) VALUES (?, ?, ?, ?)");
                         $stmt->bind_param("sssi", $title, $targetFilePath, $date, $categoryID);
@@ -157,8 +168,9 @@ class Pictures
         $stmt->bind_param("i", $id);
         $stmt->execute();
 
-        $path = "/../".$picture[0]['path'];
-        unlink($path);
+        $path = "../../".$picture[0]['path'];
+        if(unlink(realpath($path)))
+            echo "file removed";
 
     }
 
