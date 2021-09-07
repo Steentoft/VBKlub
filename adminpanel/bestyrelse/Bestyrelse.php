@@ -44,8 +44,9 @@ class Bestyrelse
             $sql = $conn->prepare("DELETE FROM members WHERE id=?");
             $sql->bind_param("i", $id);
             if ($sql->execute()){
-                $result = $sql->get_result();
-                $member = $result->fetch_assoc();
+                return 'success';
+            }else{
+                return 'error';
             }
         }
 
@@ -55,18 +56,16 @@ class Bestyrelse
 
     static function Update($id, $name, $title, $picture_path, $phonenumber, $email)
     {
-        $member = array();
         global $conn;
         if ($conn) {
-            $sql = $conn->prepare("DELETE FROM members WHERE id=?");
-            $sql->bind_param("i", $id);
+            $sql = $conn->prepare("UPDATE members SET fullname=?, title=?, picture_path=?, phonenumber=?, email=? WHERE id=?");
+            $sql->bind_param("sssisi", $name, $title, $picture_path, $phonenumber, $email, $id);
             if ($sql->execute()){
-                $result = $sql->get_result();
-                $member = $result->fetch_assoc();
+                return 'success';
+            }else{
+                return 'error';
             }
         }
-
-
-        return json_encode($member);
     }
+
 }
