@@ -6,7 +6,7 @@ global $conn;
 include "adminpanel/frontpage/Frontpage.php";
 $content = Frontpage::Load();
 $order   = array('\r\n', '\n', '\r');
-$replace = '<br />';
+$replace = '';
 $content['content'] = str_replace($order, $replace, $content['content']);
 
 ;?>

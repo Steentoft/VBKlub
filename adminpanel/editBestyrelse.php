@@ -96,6 +96,8 @@ $members = Bestyrelse::Load();
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control mr-sm-2 mb-2" id="createEmail" placeholder="Email">
+                        <small id="createEmailHelp" class="form-text text-muted" style="display: none; color: red !important;">Ugyldig email.</small>
+
                     </div>
                     <div class="form-group">
                         <label for="customFile">Billede</label>
@@ -108,7 +110,7 @@ $members = Bestyrelse::Load();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" onclick="createRow()">Gem</button>
+                <button type="button" class="btn btn-danger " data-dismiss="modal" id="createRow" onclick="createRow()">Gem</button>
             </div>
         </div>
     </div>
@@ -142,6 +144,7 @@ $members = Bestyrelse::Load();
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control mr-sm-2 mb-2" id="email" placeholder="Email">
+                        <small id="emailHelp" class="form-text text-muted" style="display: none; color: red !important;">Ugyldig email.</small>
                     </div>
                     <div class="form-group">
                         <label for="customFile">Billede</label>
@@ -154,7 +157,7 @@ $members = Bestyrelse::Load();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" onclick="updateRow()">Gem</button>
+                <button type="button" class="btn btn-danger " data-dismiss="modal" id="updateRow" onclick="updateRow()">Gem</button>
             </div>
         </div>
     </div>
@@ -286,6 +289,34 @@ $members = Bestyrelse::Load();
         let imgPath = ele.getAttribute('value');
         document.getElementById('modalPicture').setAttribute('src', imgPath);
     }
+
+    $('#createEmail').change(function (){
+
+        let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})+$/;
+        let result = regex.test($('#createEmail').val());
+        if(!result){
+            $('#createRow').prop('disabled', true);
+            $('#createEmailHelp').css('display', 'block');
+        } else {
+            $('#createRow').prop('disabled', false);
+            $('#createEmailHelp').css('display', 'none');
+
+        }
+    });
+
+    $('#email').change(function (){
+
+        let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,6})+$/;
+        let result = regex.test($('#email').val());
+        if(!result){
+            $('#updateRow').prop('disabled', true);
+            $('#emailHelp').css('display', 'block');
+        } else {
+            $('#updateRow').prop('disabled', false);
+            $('#emailHelp').css('display', 'none');
+
+        }
+    });
 
     $('input#createPicture').change(function(e){
         let fileName = e.target.files[0].name;

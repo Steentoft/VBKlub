@@ -41,10 +41,26 @@
                     <a class="nav-link" href="bestyrelse.php">Bestyrelse</a>
                 </li>
             </ul>
+            <?php
+            session_start();
+            if($_SESSION['volleyball_validation'] == false){
+            ?>
             <form method="post" id="loginForm" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" id="username" name="username" placeholder="Brugernavn"/>
                 <input class="form-control mr-sm-2" id="password" type="password" y name="password" placeholder="Kodeord" />
                 <button type="submit" class="btn btn-outline-success my-2 my-sm-0" >Login</button>
             </form>
+            <?php
+            } else{
+            ?>
+            <div class="my-2 my-lg-0 mr-3">
+                <a href="adminpanel/" class="mb-0">Adminpanel</a>
+            </div>
+            <div class="my-2 my-lg-0">
+                <a href="../BL/verification/verify_logout.php" class="mb-0">Log ud</a>
+            </div>
+            <?php
+            }
+            ?>
         </div>
     </nav>
