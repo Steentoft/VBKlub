@@ -178,22 +178,25 @@ class Galleri
         global $conn;
         $picture = "";
         $category = "";
+
         $sql = "SELECT pictures.path, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id WHERE pictures.id =?;";
 
-        $tmp = $conn->query($sql);
-        if($tmp){
-            $result=$tmp->fetch_assoc();
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $tmp = $stmt->get_result();
+        if($result=$tmp->fetch_assoc()){
             $picture = $result['path'];
             $category = $result['category'];
         }
 
-        $sql = "DELETE FROM pictures WHERE id=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $path = "../../billeder/".$category."/".$picture;
 
-        $path = "../../".$category."/".$picture;
         if(unlink(realpath($path)))
+            $sql = "DELETE FROM pictures WHERE id=?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            //$stmt->execute();
             echo "file removed";
 
     }

@@ -59,6 +59,7 @@ function deleteRow(ele){
         id: id
     },
     function(data){
+        console.log(data);
         location.reload();
     });
 }

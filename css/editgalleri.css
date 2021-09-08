@@ -1,0 +1,8 @@
+.img-row-show{
+    margin: auto;
+    display: flex;
+    cursor: pointer;
+}
+.center_table_text{
+    text-align: center;
+}

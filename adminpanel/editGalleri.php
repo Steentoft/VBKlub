@@ -9,17 +9,8 @@ if (isset($_POST['deleteImage']))
     $pic->Delete($_POST['deleteImage']);
 
 ?>
-<style>
-    .img-row-show{
-        margin: auto;
-        display: flex;
-        cursor: pointer;
-    }
-    .center_table_text{
-        text-align: center;
-    }
 
-</style>
+<link rel="stylesheet" href="../css/editgalleri.css">
 <div class="row">
     <div class="col">
         <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">Ny række</button>
