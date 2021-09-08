@@ -4,8 +4,7 @@ global $conn;
 
 include "Galleri.php";
 $pic = new Galleri();
-if (!isset($_POST['action']))
-    print_r($_FILES);
+
 $action = mysqli_real_escape_string($conn, $_POST['action']);
 
 if ($action == 'update'){
@@ -16,8 +15,19 @@ if ($action == 'update'){
     $fileUpload = $_FILES;
     $picture_path = mysqli_real_escape_string($conn, $_POST['fileName']);
 
-//$result = $_POST + $_FILES;
     $result = $pic->Update($id, $title, $category, $date, $picture_path, $fileUpload);
+
+    print_r($result);
+}
+
+if ($action == 'Create'){
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+    $date = mysqli_real_escape_string($conn, $_POST['date']);
+    $fileUpload = $_FILES;
+    $picture_path = mysqli_real_escape_string($conn, $_POST['fileName']);
+
+    $result = $pic->Upload($category, $title, $date);
 
     print_r($result);
 }

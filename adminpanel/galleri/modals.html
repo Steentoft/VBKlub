@@ -26,7 +26,7 @@
                 </button>
             </div>
             <div class="modal-body justify-content-center">
-                <form enctype="multipart/form-data" method="post" id="data" class="mb-3">
+                <form enctype="multipart/form-data" method="post" id="edit" class="mb-3">
                     <div class="form-group">
                         <label for="title">Titel: </label>
                         <input type="text" class="form-control" id="title" value="">
@@ -41,8 +41,7 @@
                     </div>
                     <div class="custom-file">
                         <input type="file" accept="<?php foreach($allowedFileType as $file){echo 'image/'.$file.', ';} ?>" name="fileUpload[]" class="custom-file-input" id="chooseFile" multiple>
-                        <input type="hidden" id="action" value="update">
-                        <label class="custom-file-label" id="uploadLabel" for="chooseFile"></label>
+                        <label class="custom-file-label" id="chooseFileLabel" for="chooseFile"></label>
                     </div>
                     <button id="hiddenID" class="btn btn-primary btn-block mt-4">
                         Upload Filer
@@ -92,7 +91,7 @@
                 </button>
             </div>
             <div class="modal-body justify-content-center">
-                <form method="post" enctype="multipart/form-data" class="mb-3">
+                <form method="post" enctype="multipart/form-data" id="create" class="mb-3">
                     <div class="form-group">
                         <label for="createTitle">Titel: </label>
                         <input type="text" class="form-control" id="createTitle" placeholder="Stævne 2021">
@@ -106,10 +105,10 @@
                         <input type="text" class="form-control" id="createCategory" placeholder="Volleyball kamp">
                     </div>
                     <div class="custom-file">
-                        <input type="file" accept="<?php foreach($allowedFileType as $file){echo 'image/'.$file.', ';} ?>" name="fileUpload[]" class="custom-file-input" id="createPicture" multiple>
-                        <label class="custom-file-label" id="createPictureLabel" for="chooseFile">Vælg fil</label>
+                        <input required type="file" accept="<?php foreach($allowedFileType as $file){echo 'image/'.$file.', ';} ?>" name="fileUpload[]" class="custom-file-input" id="createPicture" multiple>
+                        <label class="custom-file-label" id="createPictureLabel" for="createPicture">Vælg fil</label>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
+                    <button name="submit" class="btn btn-primary btn-block mt-4">
                         Upload Files
                     </button>
                 </form>

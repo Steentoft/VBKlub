@@ -10,7 +10,7 @@ class Galleri
      *
      * @return array responseMessage
      */
-    function Upload(string $category = "Galleri", string $title = ""): array
+    function Upload(string $category = "Galleri", string $title = "", int|string $date = ""): array
     {
         // Database connection
         global $conn;
@@ -21,7 +21,7 @@ class Galleri
         );
 
         // Where image is stored
-        $target_dir = "../billeder/".$category."/";
+        $target_dir = "../../billeder/".$category."/";
 
         if (!file_exists($target_dir)) {
             mkdir($target_dir);
@@ -85,7 +85,10 @@ class Galleri
                 }
                 // Add into MySQL database
                 if(!empty($sqlVal)) {
-                    $date  = date('Y-m-d');
+                    if ($date != "")
+                        $date  = date('Y-m-d', strtotime($date));
+                    else
+                        $date  = date('Y-m-d');
                     $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, category) VALUES (?, ?, ?, ?)");
                     $stmt->bind_param("sssi", $title, $fileName, $date, $categoryID);
                     if($stmt->execute()) {
