@@ -77,14 +77,14 @@ $members = Admins::Load();
                 </button>
             </div>
             <div class="modal-body justify-content-center">
-                <form>
+                <form autocomplete="off">
                     <div class="form-group">
                         <label for="name">Brugernavn</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2" id="createUsername" placeholder="Brugernavn">
+                        <input autocomplete="off" type="text" class="form-control mr-sm-2 mb-2" id="createUsername" placeholder="Brugernavn">
                     </div>
                     <div class="form-group">
                         <label for="title">Kodeord</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2 password-hidden" id="createPassword" placeholder="Kodeord">
+                        <input autocomplete="new-password" type="password" class="form-control mr-sm-2 mb-2" id="createPassword" placeholder="Kodeord">
                     </div>
                 </form>
             </div>

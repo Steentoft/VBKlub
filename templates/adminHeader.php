@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="./">Forside</a>
+                    <a class="nav-link" href="../">Forside</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../omklubben.php">Om klubben</a>

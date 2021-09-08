@@ -1,14 +1,20 @@
-<?php include "templates/header.php"; ?>
+<?php
+    include "templates/header.php";
+    include "BL/dbConnections/dbConnection.php";
+    global $conn;
+
+    include "adminpanel/omklubben/Omklubben.php";
+    $content = Omklubben::Load();
+    $order   = array('\r\n', '\n', '\r');
+    $replace = '<br />';
+    $content['content'] = str_replace($order, $replace, $content['content']);
+
+    ;?>
 
 
 
-<div class="row content justify-content-center">
-    <div class="col-lg">
-        <h3>Overskrift Lorem ipsum</h3>
-        <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-    </div>
+<div style="padding: 1%">
+    <?php echo stripslashes($content['content']); ?>
 </div>
 
 <?php include "templates/footer.php"; ?>

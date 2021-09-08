@@ -43,7 +43,7 @@
             </ul>
             <form method="post" id="loginForm" class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" id="username" name="username" placeholder="Brugernavn"/>
-                <input class="form-control mr-sm-2" id="password" name="password" placeholder="Kodeord" />
+                <input class="form-control mr-sm-2" id="password" type="password" y name="password" placeholder="Kodeord" />
                 <button type="submit" class="btn btn-outline-success my-2 my-sm-0" >Login</button>
             </form>
         </div>
