@@ -3,7 +3,7 @@
 
 class Tilmelding
 {
-    function Load(){
+    static function Load(){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM registration WHERE id=1");
@@ -17,7 +17,7 @@ class Tilmelding
         return $content;
     }
 
-    function Update($content){
+    static function Update($content){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE registration SET content=? WHERE id=1");

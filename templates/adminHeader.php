@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php session_start();
+if ($_SESSION['volleyball_validation'] == false){
+    header('Location: ../');
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -13,7 +17,6 @@
     <title>Volleyball</title>
 </head>
 <body>
-
 <div class="logo-container container">
     <img class="logo" src="../billeder/logo.png">
 </div>
@@ -42,9 +45,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../bestyrelse.php">Bestyrelse</a>
                 </li>
+
             </ul>
+            <div class="my-2 my-lg-0 mr-3">
+                <a href="./" class="mb-0">Adminpanel</a>
+            </div>
             <div class="my-2 my-lg-0">
-                <p>Velkommen <?php echo $_SESSION['volleyball_username']; ?></p>
+                <a href="../BL/verification/verify_logout.php" class="mb-0">Log ud</a>
             </div>
         </div>
     </nav>

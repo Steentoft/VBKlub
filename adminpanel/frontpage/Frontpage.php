@@ -3,7 +3,7 @@
 
 class Frontpage
 {
-    function Load(){
+    static function Load(){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM frontpage WHERE id=1");
@@ -17,7 +17,7 @@ class Frontpage
         return $content;
     }
 
-    function Update($content){
+    static function Update($content){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE frontpage SET content=? WHERE id=1");

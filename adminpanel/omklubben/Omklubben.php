@@ -3,7 +3,7 @@
 
 class Omklubben
 {
-    function Load(){
+    static function Load(){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM about WHERE id=1");
@@ -17,7 +17,7 @@ class Omklubben
         return $content;
     }
 
-    function Update($content){
+    static function Update($content){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE about SET content=? WHERE id=1");
