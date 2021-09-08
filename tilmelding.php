@@ -1,26 +1,20 @@
-<?php include "templates/header.php"; ?>
+<?php
+include "templates/header.php";
+include "BL/dbConnections/dbConnection.php";
+global $conn;
+
+include "adminpanel/tilmelding/Tilmelding.php";
+$content = Tilmelding::Load();
+$order   = array('\r\n', '\n', '\r');
+$replace = '<br />';
+$content['content'] = str_replace($order, $replace, $content['content']);
+
+;?>
 
 
 
-<div class="row content justify-content-center">
-    <div class="col-lg">
-        <h3>Volleyball</h3>
-        <p>
-            Vi træner onsdag aften fra kl. 20:30 – 22:30
-            <br>
-            i Carl Nielsen Hallen
-            <br>
-            <br>
-
-            Vi starter d. 22 august, men du er velkommen til komme og spille med, når det passer dig – de første gange spiller du GRATIS, så du/i kan prøve det af sammen med os :-) !
-            <br>
-            <br>
-
-            Kontakt evt. Maria på 51600475
-            <br>
-            Eller mød bare op
-        </p>
+    <div style="padding: 1%">
+        <?php echo stripslashes($content['content']); ?>
     </div>
-</div>
 
 <?php include "templates/footer.php"; ?>
