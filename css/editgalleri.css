@@ -6,3 +6,6 @@
 .center_table_text{
     text-align: center;
 }
+.no-pointer{
+    cursor: auto;
+}
