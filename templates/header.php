@@ -51,7 +51,6 @@ if ($_SESSION['volleyball_validation'] == true){
                 </li>
             </ul>
             <?php
-            session_start();
             if($_SESSION['volleyball_validation'] == false){
             ?>
             <form method="post" id="loginForm" class="form-inline my-2 my-lg-0">
