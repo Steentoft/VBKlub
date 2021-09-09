@@ -29,24 +29,11 @@ foreach ($pictures as $picture){
 
 </select>
 
-    <select class="custom-select" id="categorySelect">
-        <option selected value="">Kategori</option>
-<?php
-$pictures = $pic->LoadCategories();
-$oc="";
-foreach ($pictures as $picture){
-    $category = $picture['category'];
-    if ($oc == $category)
-        continue; $oc = $category;
-    $oc = $category;
+<select class="custom-select d-none" id="categorySelect">
+    <option selected value="">Kategori</option>
 
-    echo "<option value='$category'>$category</option>";
+</select>
 
-
-}
-
-?>
-    </select>
 <div class="row content">
     <div class="row img-row">
         <div id="leftCol" class="column img-column justify-content-center">
@@ -59,7 +46,7 @@ foreach ($pictures as $picture){
 
 <!-- modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-xl modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="title"></h2>

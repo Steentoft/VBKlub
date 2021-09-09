@@ -148,17 +148,19 @@ class Galleri
 
     /**
      * gets all images sorted by category
-     * @return array|mixed
+     * @param string $date
+     * @return array
      */
-    function LoadCategories(){
+    function LoadCategories(string $date):array
+    {
         $pictures = array();
         global $conn;
         if ($conn) {
-            $sql = "SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id ORDER BY pictures.category DESC;" ;
-
-            $result = $conn->query($sql);
-            if($result){
-                $pictures=$result->fetch_all(MYSQLI_ASSOC);
+            $sql = $conn->prepare("SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id WHERE YEAR(date) = ? ORDER BY pictures.category DESC;");
+            $sql->bind_param("s", $date);
+            if ($sql->execute()){
+                $result = $sql->get_result();
+                $pictures = $result->fetch_all(MYSQLI_ASSOC);
             }
         }
         return $pictures;

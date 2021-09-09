@@ -30,7 +30,8 @@ function UpdatePicture(ele){
  */
 $("#categorySelect").on('change', function(e) {
     e.preventDefault();
-
+    $("#leftCol").html("");
+    $("#rightCol").html("");
     category = $('#categorySelect').val();
     location.href = "#category="+category+"&date="+date;
 
@@ -41,10 +42,34 @@ $("#categorySelect").on('change', function(e) {
  */
 $("#dateSelect").on('change', function(e) {
     e.preventDefault();
-
+    var element = document.getElementById("categorySelect");
+    element.classList.remove("d-none");
+    $("#leftCol").html("");
+    $("#rightCol").html("");
+    $("#categorySelect").html("");
+    $('#categorySelect').append("<option value='Alle'>Alle</option>");
     date = $('#dateSelect').val();
     location.href = "#category="+category+"&date="+date;
 
+    $.post("adminpanel/galleri/galleriHandler.php",
+        {
+            action: 'SelectCategories',
+            date: date
+        },
+        function(data){
+            let info = JSON.parse(data);
+            let length = info.length;
+            let cat ="";
+
+            for (let i=0;i<length;i++){
+                if (cat === info[i]['category']){
+                    cat = info[i]['category'];
+                    continue;
+                }
+                cat = info[i]['category'];
+                $('#categorySelect').append("<option value='"+info[i]['category']+"'>"+info[i]['category']+"</option>");
+            }
+        });
 });
 
 /**
@@ -68,7 +93,7 @@ function displayImagesRight(image){
  */
 window.addEventListener('hashchange', function() {
     if (typeof date === 'undefined'){
-
+        // get from url
     }
     $.post("adminpanel/galleri/galleriHandler.php",
         {
@@ -79,7 +104,7 @@ window.addEventListener('hashchange', function() {
         function(data){
             let infomation = JSON.parse(data);
 
-            let length = infomation.length
+            let length = infomation.length;
 
             for (let i=0;i<length;i++){
                 if (i%2) {

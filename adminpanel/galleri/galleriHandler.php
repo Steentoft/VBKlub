@@ -76,7 +76,21 @@ if ($action == 'Select'){
     elseif($date !="" && $category!=""){
         $result = $pic->LoadSpecific($date, $category);
     }
+    if ($category == "Alle" && $date != ""){
+        $result = $pic->LoadSpecificYear($date);
+    }
 
     echo json_encode($result);
 }
 
+if ($action == 'SelectCategories'){
+    $date = "";
+    if (isset($_POST['date'])) {
+        $date = mysqli_real_escape_string($conn, $_POST['date']);
+    }
+
+
+    $result = $pic->LoadCategories($date);
+
+    echo json_encode($result);
+}
