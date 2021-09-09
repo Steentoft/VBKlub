@@ -10,7 +10,7 @@ class Galleri
      *
      * @return array responseMessage
      */
-    function Upload($category = "Galleri", $title = "", $date = ""): array
+    function Upload(string $category = "Galleri", string $title = "", int|string $date = ""): array
     {
         // Database connection
         global $conn;
@@ -146,6 +146,10 @@ class Galleri
         return $pictures;
     }
 
+    /**
+     * gets all images sorted by category
+     * @return array|mixed
+     */
     function LoadCategories(){
         $pictures = array();
         global $conn;
@@ -162,10 +166,10 @@ class Galleri
 
 
     /**
-     * @param $date
+     * @param string $date
      * @return array
      */
-    function LoadSpecificYear($date):array
+    function LoadSpecificYear(string $date):array
     {
         $pictures = array();
         global $conn;
@@ -182,10 +186,10 @@ class Galleri
     }
 
     /**
-     * @param $category
+     * @param string $category
      * @return array
      */
-    function LoadSpecificCategory($category):array
+    function LoadSpecificCategory(string $category):array
     {
         $pictures = array();
         global $conn;
@@ -201,7 +205,12 @@ class Galleri
         return $pictures;
     }
 
-    function LoadSpecific($date, $category):array
+    /**
+     * @param string $date
+     * @param string $category
+     * @return array
+     */
+    function LoadSpecific(string $date,string $category):array
     {
         $pictures = array();
         global $conn;
@@ -223,7 +232,7 @@ class Galleri
      * @param int $id
      * @return bool|string
      */
-    function LoadSingle($id): bool|string
+    function LoadSingle(int $id): bool|string
     {
         $member = array();
         global $conn;
@@ -280,7 +289,7 @@ class Galleri
      * @param string $imgPath
      * @return array
      */
-    function Update( $id,  $title,  $category,  $date,  $imgPath, $fileUpload)
+    function Update(int $id, string $title, string $category, string $date, string $imgPath, $fileUpload)
     {
         // Database connection
         global $conn;

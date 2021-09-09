@@ -49,3 +49,34 @@ if ($action == 'single'){
 
     echo $result;
 }
+
+if ($action == 'Select'){
+    $date = "";
+    $category = "";
+    if (isset($_POST['date'])) {
+        $date = mysqli_real_escape_string($conn, $_POST['date']);
+        if ($date == "undefined"){
+            $date = "";
+        }
+    }
+    if (isset($_POST['category'])) {
+        $category = mysqli_real_escape_string($conn, $_POST['category']);
+        if ($category == "undefined"){
+            $category = "";
+        }
+    }
+
+    $result = "";
+    if ($date =="" && $category!=""){
+        $result = $pic->LoadSpecificCategory($category);
+    }
+    elseif ($date !="" && $category==""){
+        $result = $pic->LoadSpecificYear($date);
+    }
+    elseif($date !="" && $category!=""){
+        $result = $pic->LoadSpecific($date, $category);
+    }
+
+    echo json_encode($result);
+}
+
