@@ -6,7 +6,7 @@
     include "adminpanel/omklubben/Omklubben.php";
     $content = Omklubben::Load();
     $order   = array('\r\n', '\n', '\r');
-    $replace = '<br />';
+    $replace = '';
     $content['content'] = str_replace($order, $replace, $content['content']);
 
     ;?>
