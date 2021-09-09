@@ -91,7 +91,7 @@ $members = Bestyrelse::Load();
                     </div>
                     <div class="form-group">
                         <label for="phonenumber">Mobil</label>
-                        <input type="tel" class="form-control mr-sm-2 mb-2" id="createPhonenumber" placeholder="Mobil">
+                        <input type="tel" class="form-control mr-sm-2 mb-2" maxlength="8" id="createPhonenumber" placeholder="Mobil">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -139,7 +139,7 @@ $members = Bestyrelse::Load();
                     </div>
                     <div class="form-group">
                         <label for="phonenumber">Mobil</label>
-                        <input type="tel" class="form-control mr-sm-2 mb-2" id="phonenumber" placeholder="Mobil">
+                        <input type="tel" class="form-control mr-sm-2 mb-2" maxlength="8" id="phonenumber" placeholder="Mobil">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>

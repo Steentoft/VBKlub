@@ -1,3 +1,12 @@
+<?php
+session_start();
+if ($_SESSION['volleyball_validation'] == true){
+
+}else{
+    $_SESSION['volleyball_validation'] = false;
+}
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -57,7 +66,7 @@
                 <a href="adminpanel/" class="mb-0">Adminpanel</a>
             </div>
             <div class="my-2 my-lg-0">
-                <a href="../BL/verification/verify_logout.php" class="mb-0">Log ud</a>
+                <a href="BL/verification/verify_logout.php" class="mb-0">Log ud</a>
             </div>
             <?php
             }
