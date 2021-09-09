@@ -1,6 +1,6 @@
 <?php include "../templates/header.php"; ?>
 <div class="table-responsive-sm">
-<table class="table table-striped table-responsive-sm">
+     <table class="table table-striped table-responsive-sm">
     <thead class="thead-dark">
      <tr>
         <th scope="col">Navn</th>
@@ -259,7 +259,7 @@
         UpdateConventionLocation();
     });
 
-    // On seæect change if not adding location, hide add location row.
+    // On select change if not adding location, hide add location row.
     $("#LocationSelect").on('change', function () {
         CheckNewLocation("LocationSelect","NewLocationHidden", "NewLocationInput", "LocationInput");
     });
@@ -360,7 +360,6 @@
 
     // Load conention data into editconvention modal.
     function EditConvention(button){
-        LoadLocations("EditLocationSelect");
         Id = button.parentElement.parentElement.id;
         document.getElementById("EditLocationName").value = document.getElementById("ConventionName" + Id).innerHTML;
         document.getElementById("EditLocationDate").value = document.getElementById("ConventionDate" + Id).innerHTML;
@@ -374,6 +373,7 @@
                 break;
             }
         }
+        CheckNewLocation("EditLocationSelect", "EditNewLocationHidden", "EditNewLocationInput", "EditLocationInput");
     }
 
     // Update convention and refresh
@@ -468,6 +468,8 @@
                 data: {Array : DeleteList},
                 url: 'staevne/php/deleteLocations.php',
                 success:function(){
+                    LoadLocations("LocationSelect");
+                    LoadLocations("EditLocationSelect");
                     $('#DeleteLocations').modal('hide');
                 }
             });
