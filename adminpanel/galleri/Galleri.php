@@ -10,7 +10,7 @@ class Galleri
      *
      * @return array responseMessage
      */
-    function Upload(string $category = "Galleri", string $title = "", int|string $date = ""): array
+    function Upload($category = "Galleri", $title = "", $date = ""): array
     {
         // Database connection
         global $conn;
@@ -134,7 +134,7 @@ class Galleri
         $pictures = array();
         global $conn;
         if ($conn) {
-            $sql = "SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id;" ;
+            $sql = "SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id ORDER BY pictures.date DESC;" ;
 
             $result = $conn->query($sql);
             if($result){
@@ -146,13 +146,84 @@ class Galleri
         return $pictures;
     }
 
+    function LoadCategories(){
+        $pictures = array();
+        global $conn;
+        if ($conn) {
+            $sql = "SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id ORDER BY pictures.category DESC;" ;
+
+            $result = $conn->query($sql);
+            if($result){
+                $pictures=$result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+        return $pictures;
+    }
+
+
+    /**
+     * @param $date
+     * @return array
+     */
+    function LoadSpecificYear($date):array
+    {
+        $pictures = array();
+        global $conn;
+        if ($conn) {
+            $sql = $conn->prepare("SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id WHERE YEAR(date) = ? ;");
+            $sql->bind_param("s", $date);
+            if ($sql->execute()){
+                $result = $sql->get_result();
+                $pictures = $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+
+        return $pictures;
+    }
+
+    /**
+     * @param $category
+     * @return array
+     */
+    function LoadSpecificCategory($category):array
+    {
+        $pictures = array();
+        global $conn;
+        if ($conn) {
+            $sql = $conn->prepare("SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id WHERE categories.category = ? ;");
+            $sql->bind_param("s", $category);
+            if ($sql->execute()){
+                $result = $sql->get_result();
+                $pictures = $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+
+        return $pictures;
+    }
+
+    function LoadSpecific($date, $category):array
+    {
+        $pictures = array();
+        global $conn;
+        if ($conn) {
+            $sql = $conn->prepare("SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id WHERE categories.category = ? AND YEAR(date) = ? ;");
+            $sql->bind_param("ss", $category, $date);
+            if ($sql->execute()){
+                $result = $sql->get_result();
+                $pictures = $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+
+        return $pictures;
+    }
+
     /**
      * Gets a single row from the database
      *
      * @param int $id
      * @return bool|string
      */
-    function LoadSingle(int $id): bool|string
+    function LoadSingle($id): bool|string
     {
         $member = array();
         global $conn;
@@ -209,7 +280,7 @@ class Galleri
      * @param string $imgPath
      * @return array
      */
-    function Update(int $id, string $title, string $category, string $date, string $imgPath, $fileUpload)
+    function Update( $id,  $title,  $category,  $date,  $imgPath, $fileUpload)
     {
         // Database connection
         global $conn;
