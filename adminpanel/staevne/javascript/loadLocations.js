@@ -1,6 +1,6 @@
 function LoadLocations(id) {
 $.ajax({
-    url: 'staevne/loadLocations.php',
+    url: 'staevne/php/loadLocations.php',
     success:function(data){
         var Locations = JSON.parse(data);
         var select =  document.getElementById(id);

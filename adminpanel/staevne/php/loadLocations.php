@@ -1,5 +1,5 @@
 <?php
-include '../../BL/dbConnections/dbConnection.php';
+include '../../../BL/dbConnections/dbConnection.php';
 global $conn;
 $sql = $conn->prepare("SELECT * FROM locations ORDER BY location ASC;");
 $result = $sql->execute();

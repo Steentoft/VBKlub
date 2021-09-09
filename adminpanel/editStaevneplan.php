@@ -1,6 +1,6 @@
 <?php include "../templates/header.php"; ?>
 <div class="table-responsive-sm">
-<table class="table table-striped">
+<table class="table table-striped table-responsive-sm">
     <thead class="thead-dark">
     <tr>
         <th scope="col">Navn</th>
@@ -8,15 +8,15 @@
         <th scope="col">Start tid</th>
         <th scope="col">Stop tid</th>
         <th scope="col">Lokation</th>
-        <th></th>
-        <th></th>
+        <th scope="col">Rediger</th>
+        <th scope="col">Slet</th>
     </tr>
     </thead>
     <tbody id="Table">
     </tbody>
 </table>
-    <button data-toggle="modal" data-target="#AddConvention" id="AddConventionButton" class="btn btn-outline-success my-2 my-sm-0 mx-auto" >Ny Stævne</button>
-    <button data-toggle="modal" data-target="#DeleteLocations" id="DeleteLocationsButton" class="btn btn-outline-success my-2 my-sm-0 mx-auto" >Slet Lokationer</button>
+    <button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#AddConvention" id="AddConventionButton" class="btn btn-dark" >Nyt Stævne</button>
+    <button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#DeleteLocations" id="DeleteLocationsButton" class="btn btn-dark" >Slet Lokationer</button>
 </div>
 
 <!-- Style -->
@@ -42,28 +42,35 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-responsive-sm">
                     <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Navn</th>
-                        <th scope="col">Dato</th>
-                        <th scope="col">Start tid</th>
-                        <th scope="col">Stop tid</th>
-                        <th scope="col">Lokation</th>
-                        <th scope="col" id="NewLocationHidden" type="hidden">Ny Lokation</th>
-                    </tr>
-                    <tr>
-                        <form method="post" id="AddConventionForm">
-                            <th><input id="LocationName" maxlength="255" required/></th>
-                            <th><input id="LocationDate" type="date" required/></th>
-                            <th><input id="LocationStart" type="time" required/></th>
-                            <th><input id="LocationEnd" type="time" required/></th>
-                            <th><select id="LocationSelect">
-                                </select>
-                            </th>
-                            <th type="hidden" id="NewLocationInput"><input id="LocationInput" /></th>
-                        </form>
-                    </tr>
+                    <form method="post" id="AddConventionForm">
+                        <tr>
+                            <td scope="col">Navn</td>
+                            <td><input id="LocationName" maxlength="255" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Dato</td>
+                            <td><input id="LocationDate" type="date" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Start tid</td>
+                            <td><input id="LocationStart" type="time" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Stop tid</td>
+                            <td><input id="LocationEnd" type="time" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Lokation</td>
+                            <td><select id="LocationSelect">
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" id="NewLocationHidden" type="hidden">Ny Lokation</td>
+                            <td type="hidden" id="NewLocationInput"><input id="LocationInput" /></td>
+                        </tr>
+                    </form>
                     </thead>
                     <tbody id="Table">
                     </tbody>
@@ -86,26 +93,35 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-responsive-sm">
                     <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Navn</th>
-                        <th scope="col">Dato</th>
-                        <th scope="col">Start tid</th>
-                        <th scope="col">Stop tid</th>
-                        <th scope="col">Lokation</th>
-                        <th scope="col" id="EditNewLocationHidden" type="hidden">Ny Lokation</th>
-                    </tr>
-                    <tr>
-                        <form method="post" id="EditConventionForm">
-                            <th><input id="EditLocationName" maxlength="255" required/></th>
-                            <th><input id="EditLocationDate" type="date" required/></th>
-                            <th><input id="EditLocationStart" type="time" required/></th>
-                            <th><input id="EditLocationEnd" type="time" required/></th>
-                            <th><select id="EditLocationSelect"></select></th>
-                            <th type="hidden" id="EditNewLocationInput"><input id="EditLocationInput" /></th>
-                        </form>
-                    </tr>
+                    <form method="post" id="EditConventionForm">
+                        <tr>
+                            <td scope="col">Navn</td>
+                            <td><input id="EditLocationName" maxlength="255" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Dato</td>
+                            <td><input id="EditLocationDate" type="date" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Start tid</td>
+                            <td><input id="EditLocationStart" type="time" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Stop tid</td>
+                            <td><input id="EditLocationEnd" type="time" required/></td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Lokation</td>
+                            <td><select id="EditLocationSelect">
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td scope="col" id="EditNewLocationHidden" type="hidden">Ny Lokation</td>
+                            <td type="hidden" id="EditNewLocationInput"><input id="EditLocationInput" /></td>
+                        </tr>
+                    </form>
                     </thead>
                     <tbody id="Table">
                     </tbody>
@@ -163,16 +179,16 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="staevne/loadLocations.js"></script>
+<script src="staevne/javascript/loadLocations.js"></script>
 <script>
     function UpdatePicture(ele){
         let imgPath = ele.getAttribute('src');
         document.getElementById('modalPicture').setAttribute('src', imgPath);
     }
 </script>
-<script> // TODO: FIX sometimes doesn't load
+<script>
     $.ajax({
-        url: 'staevne/loadConventions.php',
+        url: 'staevne/php/loadConventions.php',
         success:function(data){
             var Conventions = JSON.parse(data);
             Conventions.forEach((Convention)=> { // TODO: FIX dry ass havin' lips
@@ -196,8 +212,8 @@
                 td4.id = "ConventionEnd" + JSON.parse(Convention).id;
                 td5.innerHTML = JSON.parse(Convention).location;
                 td5.id = "ConventionLocation" + JSON.parse(Convention).id;
-                td6.innerHTML = "<button onclick='EditConvention(this)' data-toggle='modal' data-target='#EditConvention' class='btn btn-outline-success my-2 my-sm-0'>Rediger</button>";
-                td7.innerHTML = "<button onclick='areYouSure(this)' class='btn btn-outline-success my-2 my-sm-0'>Slet</button>";
+                td6.innerHTML = "<img class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
+                td7.innerHTML = "<img class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteModal'>";
 
                 document.getElementById("Table").appendChild(tr);
             });
@@ -214,7 +230,7 @@
                 alert("Lokation kan ikke være tom");
             }else{
                 $.ajax({
-                    url: 'staevne/createLocation.php',
+                    url: 'staevne/php/createLocation.php',
                     type: "POST",
                     data: {
                         Location: LocationInput
@@ -254,7 +270,7 @@
             Location = LocationInput;
         }
         $.ajax({
-            url: 'staevne/createConvention.php',
+            url: 'staevne/php/createConvention.php',
             type: "POST",
             data: {
                 Name: document.getElementById("LocationName").value,
@@ -280,7 +296,7 @@ function deleteConvention(button){
     $.ajax({
         type: "POST",
         data: {id: button.parentElement.parentElement.id},
-        url: 'staevne/deleteConventions.php',
+        url: 'staevne/php/deleteConventions.php',
         success:function() {
             location.reload();
         }
@@ -301,7 +317,7 @@ function deleteConvention(button){
 <script>
     function LoadLocationsCheckboxes(id) {
         $.ajax({
-            url: 'staevne/loadLocations.php',
+            url: 'staevne/php/loadLocations.php',
             success:function(data){
                 var Locations = JSON.parse(data);
                 var select =  document.getElementById(id);
@@ -334,7 +350,7 @@ function deleteConvention(button){
             $.ajax({
                 type: "POST",
                 data: {Array : DeleteList},
-                url: 'staevne/deleteLocations.php',
+                url: 'staevne/php/deleteLocations.php',
                 success:function(){
                     $('#DeleteLocations').modal('hide');
                 }
@@ -403,7 +419,7 @@ function deleteConvention(button){
                 alert("Lokation kan ikke være tom");
             }else{
                 $.ajax({
-                    url: 'staevne/createLocation.php',
+                    url: 'staevne/php/createLocation.php',
                     type: "POST",
                     data: {
                         Location: LocationInput
@@ -429,10 +445,8 @@ function deleteConvention(button){
         var Location;
         if(LocationInput == "") {
             Location = document.getElementById("LocationSelect").options[SelectedIndex].id;
-            alert("Id");
         }else{
             Location = LocationInput;
-            alert("Input");
         }
         var Name = document.getElementById("EditLocationName").value;
         var Date = document.getElementById("EditLocationDate").value;
@@ -441,9 +455,8 @@ function deleteConvention(button){
         $.ajax({
             type: "POST",
             data: {Id: Id, Name: Name, Date: Date, Start: Start, End: End, Location: Location},
-            url: 'staevne/up    dateConvention.php',
-            success:function(data) {
-                alert(data);
+            url: 'staevne/php/updateConvention.php',
+            success:function() {
                 window.location.reload();
             }
         });

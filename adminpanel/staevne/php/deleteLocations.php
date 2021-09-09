@@ -1,5 +1,5 @@
 <?php
-include '../../BL/dbConnections/dbConnection.php';
+include '../../../BL/dbConnections/dbConnection.php';
 global $conn;
 $Array = $_POST['Array'];
 foreach($Array as $Location){
