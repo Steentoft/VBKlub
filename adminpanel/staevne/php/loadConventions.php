@@ -1,5 +1,5 @@
 <?php
-include '../../BL/dbConnections/dbConnection.php';
+include '../../../BL/dbConnections/dbConnection.php';
 global $conn;
 $stmt = $conn->prepare("SELECT conventions.*, locations.location FROM conventions INNER JOIN locations ON conventions.location=locations.id");
 $row = array();

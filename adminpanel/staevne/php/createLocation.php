@@ -1,5 +1,5 @@
 <?php
-include '../../BL/dbConnections/dbConnection.php';
+include '../../../BL/dbConnections/dbConnection.php';
 global $conn;
 $Location = mysqli_real_escape_string($conn, $_POST['Location']);
 $RetrieveTable= $conn->prepare("SELECT * FROM locations");

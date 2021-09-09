@@ -1,5 +1,5 @@
 <?php
-include '../../BL/dbConnections/dbConnection.php';
+include '../../../BL/dbConnections/dbConnection.php';
 global $conn;
 $Id = mysqli_real_escape_string($conn, $_POST['Id']);
 $Name = mysqli_real_escape_string($conn, $_POST['Name']);
