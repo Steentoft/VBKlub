@@ -30,4 +30,18 @@ class Frontpage
         }
     }
 
+    static function LoadPictures(){
+        global $conn;
+        if ($conn) {
+            $sql = $conn->prepare("SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON categories.id = pictures.category WHERE frontpageEnabled=1");
+            if ($sql->execute()){
+                $result = $sql->get_result();
+                $content=$result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                return 'error';
+            }
+        }
+        return $content;
+    }
+
 }

@@ -5,6 +5,8 @@ global $conn;
 
 include "adminpanel/frontpage/Frontpage.php";
 $content = Frontpage::Load();
+
+$pictures = Frontpage::LoadPictures();
 $order   = array('\r\n', '\n', '\r');
 $replace = '';
 $content['content'] = str_replace($order, $replace, $content['content']);
@@ -105,14 +107,19 @@ $content['content'] = str_replace($order, $replace, $content['content']);
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="billeder/image3.jpeg" class="d-block justify-content-center">
+                <img src="billeder/<?php echo $pictures[0]['category']; ?>/<?php echo $pictures[0]['path']; ?>" class="d-block justify-content-center">
             </div>
+            <?php
+            unset($pictures[0]);
+            foreach ($pictures as $picture)
+            {
+            ?>
             <div class="carousel-item">
-                <img src="billeder/image1.jpeg" class="d-block justify-content-center">
+                <img src="billeder/<?php echo $picture['category'] ?>/<?php echo $picture['path'] ?>" class="d-block justify-content-center">
             </div>
-            <div class="carousel-item">
-                <img src="billeder/image2.jpeg" class="d-block justify-content-center">
-            </div>
+                <?php
+            }
+            ?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
