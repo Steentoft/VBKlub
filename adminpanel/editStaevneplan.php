@@ -2,7 +2,7 @@
 <div class="table-responsive-sm">
 <table class="table table-striped table-responsive-sm">
     <thead class="thead-dark">
-    <tr>
+     <tr>
         <th scope="col">Navn</th>
         <th scope="col">Dato</th>
         <th scope="col">Start tid</th>
@@ -42,39 +42,39 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped table-responsive-sm">
-                    <thead class="thead-dark">
-                    <form method="post" id="AddConventionForm">
-                        <tr>
-                            <td scope="col">Navn</td>
-                            <td><input id="LocationName" maxlength="255" required/></td>
-                        </tr>
-                        <tr>
-                            <td scope="col">Dato</td>
-                            <td><input id="LocationDate" type="date" required/></td>
-                        </tr>
-                        <tr>
-                            <td scope="col">Start tid</td>
-                            <td><input id="LocationStart" type="time" required/></td>
-                        </tr>
-                        <tr>
-                            <td scope="col">Stop tid</td>
-                            <td><input id="LocationEnd" type="time" required/></td>
-                        </tr>
-                        <tr>
-                            <td scope="col">Lokation</td>
-                            <td><select id="LocationSelect">
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td scope="col" id="NewLocationHidden" type="hidden">Ny Lokation</td>
-                            <td type="hidden" id="NewLocationInput"><input id="LocationInput" /></td>
-                        </tr>
-                    </form>
-                    </thead>
-                    <tbody id="Table">
-                    </tbody>
-                </table>
+                <form method="post" id="AddConventionForm">
+                    <table class="table table-striped table-responsive-sm">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>Navn</td>
+                                <td><label for="LocationName"></label><input id="LocationName" maxlength="255" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Dato</td>
+                                <td><label for="LocationDate"></label><input id="LocationDate" type="date" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Start tid</td>
+                                <td><label for="LocationStart"></label><input id="LocationStart" type="time" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Stop tid</td>
+                                <td><label for="LocationEnd"></label><input id="LocationEnd" type="time" required/></td>
+                            </tr>
+                            <tr>
+                                <td>Lokation</td>
+                                <td><label for="LocationSelect"></label><select id="LocationSelect">
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td id="NewLocationHidden" type="hidden">Ny Lokation</td>
+                                <td type="hidden" id="NewLocationInput"><label for="LocationInput"></label><input id="LocationInput" /></td>
+                            </tr>
+                        </thead>
+                        <tbody id="Table">
+                        </tbody>
+                    </table>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuller</button>
@@ -93,39 +93,39 @@
                 </button>
             </div>
             <div class="modal-body">
+                <form method="post" id="EditConventionForm">
                 <table class="table table-striped table-responsive-sm">
                     <thead class="thead-dark">
-                    <form method="post" id="EditConventionForm">
                         <tr>
-                            <td scope="col">Navn</td>
-                            <td><input id="EditLocationName" maxlength="255" required/></td>
+                            <td>Navn</td>
+                            <td><label for="EditLocationName"></label><input id="EditLocationName" maxlength="255" required/></td>
                         </tr>
                         <tr>
-                            <td scope="col">Dato</td>
-                            <td><input id="EditLocationDate" type="date" required/></td>
+                            <td>Dato</td>
+                            <td><label for="EditLocationDate"></label><input id="EditLocationDate" type="date" required/></td>
                         </tr>
                         <tr>
-                            <td scope="col">Start tid</td>
-                            <td><input id="EditLocationStart" type="time" required/></td>
+                            <td>Start tid</td>
+                            <td><label for="EditLocationStart"></label><input id="EditLocationStart" type="time" required/></td>
                         </tr>
                         <tr>
-                            <td scope="col">Stop tid</td>
-                            <td><input id="EditLocationEnd" type="time" required/></td>
+                            <td>Stop tid</td>
+                            <td><label for="EditLocationEnd"></label><input id="EditLocationEnd" type="time" required/></td>
                         </tr>
                         <tr>
-                            <td scope="col">Lokation</td>
-                            <td><select id="EditLocationSelect">
+                            <td>Lokation</td>
+                            <td><label for="EditLocationSelect"></label><select id="EditLocationSelect">
                                 </select></td>
                         </tr>
                         <tr>
-                            <td scope="col" id="EditNewLocationHidden" type="hidden">Ny Lokation</td>
-                            <td type="hidden" id="EditNewLocationInput"><input id="EditLocationInput" /></td>
+                            <td id="EditNewLocationHidden" type="hidden">Ny Lokation</td>
+                            <td type="hidden" id="EditNewLocationInput"><label for="EditLocationInput"></label><input id="EditLocationInput" /></td>
                         </tr>
-                    </form>
                     </thead>
                     <tbody id="Table">
                     </tbody>
                 </table>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuller</button>
@@ -187,46 +187,47 @@
     }
 </script>
 <script>
+    let Id;
+    let Locations = document.getElementById("LocationSelect");
+
     $.ajax({
         url: 'staevne/php/loadConventions.php',
         success:function(data){
-            var Conventions = JSON.parse(data);
+            let Conventions = JSON.parse(data);
             Conventions.forEach((Convention)=> { // TODO: FIX dry ass havin' lips
-                var tr = document.createElement("tr");
+                let tr = document.createElement("tr");
                 tr.id = JSON.parse(Convention).id;
-                var td1 = tr.appendChild(document.createElement('td'));
-                var td2 = tr.appendChild(document.createElement('td'));
-                var td3 = tr.appendChild(document.createElement('td'));
-                var td4 = tr.appendChild(document.createElement('td'));
-                var td5 = tr.appendChild(document.createElement('td'));
-                var td6 = tr.appendChild(document.createElement('td'));
-                var td7 = tr.appendChild(document.createElement('td'));
+                let td1 = tr.appendChild(document.createElement('td'));
+                let td2 = tr.appendChild(document.createElement('td'));
+                let td3 = tr.appendChild(document.createElement('td'));
+                let td4 = tr.appendChild(document.createElement('td'));
+                let td5 = tr.appendChild(document.createElement('td'));
+                let td6 = tr.appendChild(document.createElement('td'));
+                let td7 = tr.appendChild(document.createElement('td'));
 
                 td1.innerHTML = JSON.parse(Convention).name;
                 td1.id = "ConventionName" + JSON.parse(Convention).id;
                 td2.innerHTML = JSON.parse(Convention).date;
                 td2.id = "ConventionDate" + JSON.parse(Convention).id;
-                td3.innerHTML = JSON.parse(Convention).start_time;
+                td3.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
                 td3.id = "ConventionStart" + JSON.parse(Convention).id;
-                td4.innerHTML = JSON.parse(Convention).end_time;
+                td4.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
                 td4.id = "ConventionEnd" + JSON.parse(Convention).id;
                 td5.innerHTML = JSON.parse(Convention).location;
                 td5.id = "ConventionLocation" + JSON.parse(Convention).id;
-                td6.innerHTML = "<img class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
-                td7.innerHTML = "<img class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteModal'>";
+                td6.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
+                td7.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteModal'>";
 
                 document.getElementById("Table").appendChild(tr);
             });
         }
     });
-</script>
-<script>
-    var Locations = document.getElementById("LocationSelect");
+
     $("#AddConventionForm").submit(function(e) {
         e.preventDefault();
+        let LocationInput = document.getElementById("LocationInput").value;
         if(Locations.options[0].selected){
-            var LocationInput = document.getElementById("LocationInput").value;
-            if(LocationInput == "") {
+            if(LocationInput === "") {
                 alert("Lokation kan ikke være tom");
             }else{
                 $.ajax({
@@ -236,7 +237,7 @@
                         Location: LocationInput
                     },
                     success:function(data){
-                        if(data == 0){
+                        if(data === 0){
                             alert("Lokation eksistere allerede");
                         }else {
                             LoadLocations("LocationSelect");
@@ -245,7 +246,8 @@
                     }
                 });
             }
-        }else{
+        }
+        else{
             AddConvention(LocationInput);
         }
     });
@@ -261,9 +263,36 @@
         CheckNewLocation("EditLocationSelect", "EditNewLocationHidden", "EditNewLocationInput", "EditLocationInput");
     });
 
+    document.getElementById('DeleteLocationsButton').onclick = function() {
+        LoadLocationsCheckboxes("LocationsCheckboxes");
+    };
+    document.getElementById('DeleteLocationsCheckboxes').onclick = function() {
+        DeleteLocations();
+    };
+    document.getElementById('AddConventionButton').onclick = function() {
+        ClearConventionModal();
+    }
+
+    LoadLocations("LocationSelect");
+    LoadLocations("EditLocationSelect");
+
+    function CheckNewLocation(selectId, trId, inputId, Input) {
+        let tr = document.getElementById(trId);
+        let input = document.getElementById(inputId);
+        let InputValue = document.getElementById(Input);
+        let select = document.getElementById(selectId);
+        if(select.options[0].selected){
+            tr.hidden = false;
+            input.hidden = false;
+        }else{
+            tr.hidden = true;
+            input.hidden = true;
+            InputValue.value = "";
+        }
+    }
     function AddConvention(LocationInput) {
-        var SelectedIndex = document.getElementById("LocationSelect").selectedIndex;
-        var Location;
+        let SelectedIndex = document.getElementById("LocationSelect").selectedIndex;
+        let Location;
         if(LocationInput == null) {
             Location = document.getElementById("LocationSelect").options[SelectedIndex].id;
         }else{
@@ -284,49 +313,17 @@
             }
         });
     }
-</script>
-<script>
-function areYouSure(button) {
-    $("#DeleteConvention").modal();
-    document.getElementById('Yes').onclick = function() {
-        deleteConvention(button);
-    };
-}
-function deleteConvention(button){
-    $.ajax({
-        type: "POST",
-        data: {id: button.parentElement.parentElement.id},
-        url: 'staevne/php/deleteConventions.php',
-        success:function() {
-            location.reload();
-        }
-    });
-}
-</script>
-<script>
-    document.getElementById('DeleteLocationsButton').onclick = function() {
-        LoadLocationsCheckboxes("LocationsCheckboxes");
-    };
-    document.getElementById('DeleteLocationsCheckboxes').onclick = function() {
-        DeleteLocations();
-    };
-    document.getElementById('AddConventionButton').onclick = function() {
-        ClearConventionModal();
-    }
-</script>
-<script>
     function LoadLocationsCheckboxes(id) {
         $.ajax({
             url: 'staevne/php/loadLocations.php',
             success:function(data){
-                var Locations = JSON.parse(data);
-                var select =  document.getElementById(id);
+                let Locations = JSON.parse(data);
+                let select =  document.getElementById(id);
                 $(select).empty();
                 Locations.forEach((Location) => {
-                    var a = 0;
-                    var div = document.createElement("div");
-                    var a = document.createElement("a");
-                    var checkbox = document.createElement('input');
+                    let div = document.createElement("div");
+                    let a = document.createElement("a");
+                    let checkbox = document.createElement('input');
                     a.innerHTML = " " + Location.location;
                     checkbox.type = "checkbox";
                     checkbox.id = "checkbox" + Location.id;
@@ -337,85 +334,11 @@ function deleteConvention(button){
             }
         });
     }
-    function DeleteLocations(){
-        var DeleteList = [];
-        $("#LocationsCheckboxes input[type=checkbox]").each(function() {
-            var id;
-            if(this.checked){
-                id = this.id.slice(8);
-                DeleteList.push(id);
-            }
-        });
-        if (DeleteList != []){
-            $.ajax({
-                type: "POST",
-                data: {Array : DeleteList},
-                url: 'staevne/php/deleteLocations.php',
-                success:function(){
-                    $('#DeleteLocations').modal('hide');
-                }
-            });
-        }
-    }
-</script>
-<script>
-    var Id;
-    function EditConvention(button){
-        LoadLocations("EditLocationSelect");
-        Id = button.parentElement.parentElement.id;
-        var Convention = document.getElementById(Id);
-        var Name = document.getElementById("EditLocationName");
-        var Date = document.getElementById("EditLocationDate");
-        var Start = document.getElementById("EditLocationStart");
-        var End = document.getElementById("EditLocationEnd");
-        var Location = document.getElementById("EditLocationSelect");
-        Name.value = document.getElementById("ConventionName" + Id).innerHTML;
-        Date.value = document.getElementById("ConventionDate" + Id).innerHTML;
-        Start.value = document.getElementById("ConventionStart" + Id).innerHTML;
-        End.value = document.getElementById("ConventionEnd" + Id).innerHTML;
-        for (var i = 0; i < Location.options.length; i++) {
-            if (Location.options[i].innerHTML == document.getElementById("ConventionLocation" + Id).innerHTML) {
-                Location.selectedIndex = i;
-                Location.options[i].selected = true;
-                break;
-            }
-        };
-    }
-
-    function CheckNewLocation(selectId, trId, inputId, Input) {
-        var tr = document.getElementById(trId);
-        var input = document.getElementById(inputId);
-        var InputValue = document.getElementById(Input);
-        var select = document.getElementById(selectId);
-        if(select.options[0].selected){
-            tr.hidden = false;
-            input.hidden = false;
-        }else{
-            tr.hidden = true;
-            input.hidden = true;
-            InputValue.value = "";
-        }
-    }
-
-    function ClearConventionModal() {
-        var Name = document.getElementById("LocationName");
-        var Date = document.getElementById("LocationDate");
-        var Start = document.getElementById("LocationStart");
-        var End = document.getElementById("LocationEnd");
-        var Location = document.getElementById("LocationSelect");
-        Name.value = "";
-        Date.value = "";
-        Start.value = "";
-        End.value = "";
-        Location.options.selectedIndex = 0;
-        CheckNewLocation("LocationSelect","NewLocationHidden", "NewLocationInput", "LocationInput");
-    }
-
     function UpdateConventionLocation() {
-        var Locations = document.getElementById("EditLocationSelect");
+        let Locations = document.getElementById("EditLocationSelect");
         if(Locations.options[0].selected){
-            var LocationInput = document.getElementById("EditLocationInput").value;
-            if(LocationInput == "") {
+            let LocationInput = document.getElementById("EditLocationInput").value;
+            if(LocationInput === "") {
                 alert("Lokation kan ikke være tom");
             }else{
                 $.ajax({
@@ -425,7 +348,7 @@ function deleteConvention(button){
                         Location: LocationInput
                     },
                     success:function(data){
-                        if(data == 0){
+                        if(data === 0){
                             alert("Lokation eksistere allerede");
                         }else {
                             LoadLocations("EditLocationSelect");
@@ -438,20 +361,62 @@ function deleteConvention(button){
             UpdateConvention();
         }
     }
-
+    function deleteConvention(button){
+        $.ajax({
+            type: "POST",
+            data: {id: button.parentElement.parentElement.id},
+            url: 'staevne/php/deleteConventions.php',
+            success:function() {
+                location.reload();
+            }
+        });
+    }
+    function ClearConventionModal() {
+        let Name = document.getElementById("LocationName");
+        let Date = document.getElementById("LocationDate");
+        let Start = document.getElementById("LocationStart");
+        let End = document.getElementById("LocationEnd");
+        let Location = document.getElementById("LocationSelect");
+        Name.value = "";
+        Date.value = "";
+        Start.value = "";
+        End.value = "";
+        Location.options.selectedIndex = 0;
+        CheckNewLocation("LocationSelect","NewLocationHidden", "NewLocationInput", "LocationInput");
+    }
+    function EditConvention(button){
+        LoadLocations("EditLocationSelect");
+        Id = button.parentElement.parentElement.id;
+        let Name = document.getElementById("EditLocationName");
+        let Date = document.getElementById("EditLocationDate");
+        let Start = document.getElementById("EditLocationStart");
+        let End = document.getElementById("EditLocationEnd");
+        let Location = document.getElementById("EditLocationSelect");
+        Name.value = document.getElementById("ConventionName" + Id).innerHTML;
+        Date.value = document.getElementById("ConventionDate" + Id).innerHTML;
+        Start.value = document.getElementById("ConventionStart" + Id).innerHTML;
+        End.value = document.getElementById("ConventionEnd" + Id).innerHTML;
+        for (let i = 0; i < Location.options.length; i++) {
+            if (Location.options[i].innerHTML === document.getElementById("ConventionLocation" + Id).innerHTML) {
+                Location.selectedIndex = i;
+                Location.options[i].selected = true;
+                break;
+            }
+        }
+    }
     function UpdateConvention() {
-        var LocationInput = document.getElementById("EditLocationInput").value;
-        var SelectedIndex = document.getElementById("EditLocationSelect").selectedIndex;
-        var Location;
-        if(LocationInput == "") {
+        let LocationInput = document.getElementById("EditLocationInput").value;
+        let SelectedIndex = document.getElementById("EditLocationSelect").selectedIndex;
+        let Location;
+        if(LocationInput === "") {
             Location = document.getElementById("LocationSelect").options[SelectedIndex].id;
         }else{
             Location = LocationInput;
         }
-        var Name = document.getElementById("EditLocationName").value;
-        var Date = document.getElementById("EditLocationDate").value;
-        var Start = document.getElementById("EditLocationStart").value;
-        var End = document.getElementById("EditLocationEnd").value;
+        let Name = document.getElementById("EditLocationName").value;
+        let Date = document.getElementById("EditLocationDate").value;
+        let Start = document.getElementById("EditLocationStart").value;
+        let End = document.getElementById("EditLocationEnd").value;
         $.ajax({
             type: "POST",
             data: {Id: Id, Name: Name, Date: Date, Start: Start, End: End, Location: Location},
@@ -461,10 +426,30 @@ function deleteConvention(button){
             }
         });
     }
+    function areYouSure(button) {
+        $("#DeleteConvention").modal();
+        document.getElementById('Yes').onclick = function() {
+            deleteConvention(button);
+        };
+    }
+    function DeleteLocations(){
+        let DeleteList = [];
+        $("#LocationsCheckboxes input[type=checkbox]").each(function() {
+            let id;
+            if(this.checked){
+                id = this.id.slice(8);
+                DeleteList.push(id);
+            }
+        });
+        if (DeleteList !== []){
+            $.ajax({
+                type: "POST",
+                data: {Array : DeleteList},
+                url: 'staevne/php/deleteLocations.php',
+                success:function(){
+                    $('#DeleteLocations').modal('hide');
+                }
+            });
+        }
+    }
 </script>
-<script>
-    LoadLocations("LocationSelect");
-    LoadLocations("EditLocationSelect");
-</script>
-</body>
-</html>
