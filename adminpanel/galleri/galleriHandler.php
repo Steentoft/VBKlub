@@ -14,10 +14,11 @@ if ($action == 'update'){
     $date = mysqli_real_escape_string($conn, $_POST['date']);
     $fileUpload = $_FILES;
     $picture_path = mysqli_real_escape_string($conn, $_POST['fileName']);
+    $frontpageEnabled = filter_var($_POST['frontpageEnabled'], FILTER_VALIDATE_BOOLEAN);
 
-    $result = $pic->Update($id, $title, $category, $date, $picture_path, $fileUpload);
+    $result = $pic->Update($id, $title, $category, $date, $picture_path, $fileUpload, $frontpageEnabled);
 
-    print_r($result);
+    echo $result;
 }
 
 if ($action == 'Create'){
@@ -29,7 +30,7 @@ if ($action == 'Create'){
 
     $result = $pic->Upload($category, $title, $date);
 
-    print_r($result);
+    echo json_encode($result);
 }
 
 if ($action == 'Delete'){
@@ -38,7 +39,7 @@ if ($action == 'Delete'){
 
     $result = $pic->Delete($id);
 
-    echo $result;
+    echo json_encode($result);
 }
 
 if ($action == 'single'){

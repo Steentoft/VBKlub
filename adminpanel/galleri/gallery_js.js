@@ -20,11 +20,16 @@ function showEdit(ele){
     },
     function(data){
         let infomation = JSON.parse(data);
+
         $('#title').val(infomation['title']);
         $('#category').val(infomation['category']);
         $('#date').val(infomation['date']);
         $('#chooseFileLabel').text(infomation['path']);
-        $('#hiddenID').attr('value', infomation['id'])
+        $('#hiddenID').attr('value', infomation['id']);
+        if (infomation['frontpageEnabled'] === 1)
+            $('#checkFrontpage').prop('checked', true);
+        else
+            $('#checkFrontpage').prop('checked', false);
     });
 }
 
@@ -76,6 +81,7 @@ $("form#edit").submit(function(e) {
     let date = $('#date').val();
     let imageName = $('#chooseFileLabel').text();
     let id = $('#hiddenID').val();
+    let frontpageEnabled = $('#checkFrontpage').is(":checked");
 
 
     //var fd = new FormData();
@@ -85,6 +91,7 @@ $("form#edit").submit(function(e) {
     fd.append('category',category);
     fd.append('date',date);
     fd.append('fileName', imageName);
+    fd.append('frontpageEnabled', frontpageEnabled);
 
 
 
