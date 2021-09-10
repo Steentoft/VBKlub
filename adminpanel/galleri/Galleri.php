@@ -253,10 +253,11 @@ class Galleri
      * Deletes image from database and server
      *
      * @param int $id  The id of the picture
-     *
+     * @return bool
      */
-    function Delete(int $id)
+    function Delete(int $id) : bool
     {
+        $removed = false;
         global $conn;
         $picture = "";
         $category = "";
@@ -274,13 +275,15 @@ class Galleri
 
         $path = "../../billeder/".$category."/".$picture;
 
-        if(unlink(realpath($path)))
+        if(unlink(realpath($path))){
             $sql = "DELETE FROM pictures WHERE id=?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $id);
-            //$stmt->execute();
+            $stmt->execute();
             echo "file removed";
-
+            $removed = true;
+        }
+        return $removed;
     }
 
     /**
@@ -289,10 +292,19 @@ class Galleri
      * @param string $category
      * @param string $date
      * @param string $imgPath
+     * @param bool $frontpageEnabled
      * @return array
      */
-    function Update(int $id, string $title, string $category, string $date, string $imgPath, $fileUpload)
+    function Update(int $id, string $title, string $category, string $date, string $imgPath, $fileUpload, bool $frontpageEnabled)
     {
+
+        if ($frontpageEnabled){
+            $frontpageEnabled = 1;
+        }
+        else{
+            $frontpageEnabled = 0;
+        }
+
         // Database connection
         global $conn;
 
@@ -327,8 +339,8 @@ class Galleri
 
         if(file_exists($target_dir.$imgPath)){
             $date  = date('Y-m-d', strtotime($date));
-            $stmt = $conn->prepare("UPDATE pictures SET title=?, path=?, date=?, category=? WHERE id = ?");
-            $stmt->bind_param("sssii", $title, $imgPath, $date, $categoryID, $id);
+            $stmt = $conn->prepare("UPDATE pictures SET title=?, path=?, date=?, frontpageEnabled =?,  category=? WHERE id = ?");
+            $stmt->bind_param("sssiii", $title, $imgPath, $date, $frontpageEnabled, $categoryID, $id);
             if($stmt->execute()) {
                 $response = array(
                     "status" => "alert-success",
@@ -342,10 +354,20 @@ class Galleri
             }
             return $response;
         }
+        else {
+            $sql = "SELECT pictures.path, categories.category FROM pictures INNER JOIN categories ON pictures.category = categories.id WHERE pictures.id =?;";
 
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $picture = $result->fetch_assoc();
+            $path = "../../billeder/".$picture['category']."/".$picture['path'];
 
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir);
+            unlink(realpath($path));
+
+            if(!file_exists($target_dir))
+                mkdir($target_dir);
         }
 
         // Allowed file types
@@ -371,8 +393,8 @@ class Galleri
             // Add into MySQL database
             if(!empty($sqlVal)) {
                 $date  = date('Y-m-d', strtotime($date));
-                $stmt = $conn->prepare("UPDATE pictures SET title=?, path=?, date=?, category=? WHERE id = ?");
-                $stmt->bind_param("sssii", $title, $fileName, $date, $categoryID, $id);
+                $stmt = $conn->prepare("UPDATE pictures SET title=?, path=?, date=?, frontpageEnabled =?, category=? WHERE id = ?");
+                $stmt->bind_param("sssiii", $title, $fileName, $date, $frontpageEnabled, $categoryID, $id);
                 if($stmt->execute()) {
                     $response = array(
                         "status" => "alert-success",
