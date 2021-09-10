@@ -22,7 +22,7 @@ if ($_SESSION['volleyball_validation'] == false){
 </head>
 <body>
 <div class="logo-container container">
-    <img class="logo" src="../billeder/logo.png">
+    <a href="../"><img class="logo" src="../billeder/logo.png"></a>
 </div>
 <div class="container container-custom">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
