@@ -34,10 +34,10 @@ foreach ($pictures as $picture){
 
 </select>
 
-<div class="row content">
+<div class="row content justify-content-center">
     <div class="row img-row">
         <div id="leftCol" class="column img-column justify-content-center">
-        </div>
+            </div>
         <div id="rightCol" class="column img-column justify-content-center">
         </div>
     </div>
