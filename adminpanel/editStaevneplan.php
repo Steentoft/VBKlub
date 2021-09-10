@@ -418,7 +418,7 @@ global $conn;
         $.post("staevne/editStaevneplanHandler.php",
             {
                 action: "UpdateConvention",
-                Id: Id,
+                id: Id,
                 Name: document.getElementById("EditLocationName").value,
                 Date: document.getElementById("EditLocationDate").value,
                 Start: document.getElementById("EditLocationStart").value,

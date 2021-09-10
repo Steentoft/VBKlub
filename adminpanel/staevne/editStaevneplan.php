@@ -88,7 +88,7 @@ class editStaevneplan
         $sql->execute();
     }
 
-    static function UpdateConvention($Name, $Date, $Start, $End, $Location, $Id){
+    static function UpdateConvention($Name, $Date, $Start, $End, $Location, $id){
         global $conn;
         $stmt = $conn->prepare("SELECT * FROM locations where locations.location = ?");
         $stmt->bind_param("s", $Location);
@@ -100,7 +100,7 @@ class editStaevneplan
         };
         echo $Location;
         $sql = $conn->prepare("UPDATE `conventions` SET `name`=?,`date`=?,`start_time`=?,`end_time`=?,`location`=? WHERE id = ?");
-        $sql->bind_param("sssssi", $Name, $Date, $Start, $End, $Location, $Id);
+        $sql->bind_param("sssssi", $Name, $Date, $Start, $End, $Location, $id);
         $sql->execute();
     }
 }
