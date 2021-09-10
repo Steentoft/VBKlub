@@ -1,23 +1,23 @@
 <?php include "../templates/header.php"; ?>
-<div class="table-responsive-sm">
+<div class="table-responsive-sm span3">
      <table class="table table-striped table-responsive-sm">
-    <thead class="thead-dark">
-     <tr>
-        <th scope="col">Navn</th>
-        <th scope="col">Dato</th>
-        <th scope="col">Start tid</th>
-        <th scope="col">Stop tid</th>
-        <th scope="col">Lokation</th>
-        <th scope="col">Rediger</th>
-        <th scope="col">Slet</th>
-    </tr>
-    </thead>
-    <tbody id="Table">
-    </tbody>
-</table>
-    <button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#AddConvention" id="AddConventionButton" class="btn btn-dark" >Nyt Stævne</button>
-    <button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#DeleteLocations" id="DeleteLocationsButton" class="btn btn-dark" >Slet Lokationer</button>
+        <thead class="thead-dark">
+         <tr>
+            <th scope="col">Navn</th>
+            <th scope="col">Dato</th>
+            <th scope="col">Start tid</th>
+            <th scope="col">Stop tid</th>
+            <th scope="col">Lokation</th>
+            <th scope="col">Rediger</th>
+            <th scope="col">Slet</th>
+        </tr>
+        </thead>
+        <tbody id="Table">
+        </tbody>
+    </table>
 </div>
+<button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#AddConvention" id="AddConventionButton" class="btn btn-dark" >Opret Stævne</button>
+<button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#DeleteLocations" id="DeleteLocationsButton" class="btn btn-dark" >Slet Lokationer</button>
 
 <!-- Style -->
 <style>
@@ -28,6 +28,10 @@
         overflow-x: auto;
         width: auto;
         min-width: 300px;
+    }
+    .span3 {
+        height: 500px; !important;
+        overflow-y: scroll;
     }
 </style>
 
@@ -250,7 +254,7 @@
             }
         }
         else{
-            AddConvention(LocationInput);
+            AddConvention();
         }
     });
     $("#EditConventionForm").submit(function(e) {
@@ -299,7 +303,7 @@
     }
 
     // Add Convention to database and refresh
-    function AddConvention(LocationInput) {
+        function AddConvention(LocationInput) {
         let SelectedIndex = document.getElementById("LocationSelect").selectedIndex;
         let Location;
         if(LocationInput == null) {

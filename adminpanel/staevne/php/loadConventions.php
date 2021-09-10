@@ -1,7 +1,7 @@
 <?php
 include '../../../BL/dbConnections/dbConnection.php';
 global $conn;
-$stmt = $conn->prepare("SELECT conventions.*, locations.location FROM conventions INNER JOIN locations ON conventions.location=locations.id");
+$stmt = $conn->prepare("SELECT conventions.*, locations.location FROM conventions INNER JOIN locations ON conventions.location=locations.id ORDER BY conventions.name ASC");
 $row = array();
 if ($stmt->execute()){
     $result = $stmt->get_result();
