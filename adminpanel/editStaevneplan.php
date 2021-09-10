@@ -1,4 +1,9 @@
-<?php include "../templates/header.php"; ?>
+<?php
+include "../templates/adminheader.php";
+include "staevne/editStaevneplan.php";
+include "../BL/dbConnections/dbConnection.php";
+global $conn;
+?>
 <div class="table-responsive-sm span3">
      <table class="table table-striped table-responsive-sm">
         <thead class="thead-dark">
@@ -30,7 +35,7 @@
         min-width: 300px;
     }
     .span3 {
-        height: 500px; !important;
+        height: 400px; !important;
         overflow-y: scroll;
     }
 </style>
@@ -167,7 +172,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                Vælg lokationer.
                 <div id="LocationsCheckboxes">
                 </div>
             </div>
@@ -183,7 +187,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="staevne/javascript/loadLocations.js"></script>
 <script>
     function UpdatePicture(ele){
         let imgPath = ele.getAttribute('src');
@@ -191,42 +194,15 @@
     }
 </script>
 <script>
+
     let Id;
     let Locations = document.getElementById("LocationSelect");
 
-    // Load all conventions into main table
-    $.ajax({
-        url: 'staevne/php/loadConventions.php',
-        success:function(data){
-            let Conventions = JSON.parse(data);
-            Conventions.forEach((Convention)=> { // TODO: FIX dry ass havin' lips
-                let tr = document.createElement("tr");
-                tr.id = JSON.parse(Convention).id;
-                let td1 = tr.appendChild(document.createElement('td'));
-                let td2 = tr.appendChild(document.createElement('td'));
-                let td3 = tr.appendChild(document.createElement('td'));
-                let td4 = tr.appendChild(document.createElement('td'));
-                let td5 = tr.appendChild(document.createElement('td'));
-                let td6 = tr.appendChild(document.createElement('td'));
-                let td7 = tr.appendChild(document.createElement('td'));
 
-                td1.innerHTML = JSON.parse(Convention).name;
-                td1.id = "ConventionName" + JSON.parse(Convention).id;
-                td2.innerHTML = JSON.parse(Convention).date;
-                td2.id = "ConventionDate" + JSON.parse(Convention).id;
-                td3.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
-                td3.id = "ConventionStart" + JSON.parse(Convention).id;
-                td4.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
-                td4.id = "ConventionEnd" + JSON.parse(Convention).id;
-                td5.innerHTML = JSON.parse(Convention).location;
-                td5.id = "ConventionLocation" + JSON.parse(Convention).id;
-                td6.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
-                td7.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteModal'>";
-
-                document.getElementById("Table").appendChild(tr);
-            });
-        }
-    });
+    // On script load, load all locations into selects.
+    LoadLocations("LocationSelect");
+    LoadLocations("EditLocationSelect");
+    LoadConventions();
 
     // On submits prevents default.
     $("#AddConventionForm").submit(function(e) {
@@ -236,25 +212,24 @@
             if(LocationInput === "") {
                 alert("Lokation kan ikke være tom");
             }else{
-                $.ajax({
-                    url: 'staevne/php/createLocation.php',
-                    type: "POST",
-                    data: {
+                $.post("staevne/editStaevneplanHandler.php",
+                    {
+                        action: "CreateLocation",
                         Location: LocationInput
                     },
-                    success:function(data){
+                    function(data){
                         if(data === 0){
                             alert("Lokation eksistere allerede");
                         }else {
                             LoadLocations("LocationSelect");
-                            AddConvention(LocationInput);
+                            CreateConvention(LocationInput);
                         }
                     }
-                });
+                );
             }
         }
         else{
-            AddConvention();
+            CreateConvention();
         }
     });
     $("#EditConventionForm").submit(function(e) {
@@ -282,9 +257,64 @@
         ClearConventionModal();
     }
 
-    // On script load, load all locations into selects.
-    LoadLocations("LocationSelect");
-    LoadLocations("EditLocationSelect");
+
+    // Load Conventions
+    function LoadConventions(){
+        let Conventions = <?php echo editStaevneplan::LoadConventions() ?>;
+        Conventions.forEach((Convention)=> { // TODO: FIX dry ass havin' lips
+            let tr = document.createElement("tr");
+            tr.id = JSON.parse(Convention).id;
+            let td1 = tr.appendChild(document.createElement('td'));
+            let td2 = tr.appendChild(document.createElement('td'));
+            let td3 = tr.appendChild(document.createElement('td'));
+            let td4 = tr.appendChild(document.createElement('td'));
+            let td5 = tr.appendChild(document.createElement('td'));
+            let td6 = tr.appendChild(document.createElement('td'));
+            let td7 = tr.appendChild(document.createElement('td'));
+
+            td1.innerHTML = JSON.parse(Convention).name;
+            td1.id = "ConventionName" + JSON.parse(Convention).id;
+            td2.innerHTML = JSON.parse(Convention).date;
+            td2.id = "ConventionDate" + JSON.parse(Convention).id;
+            td3.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
+            td3.id = "ConventionStart" + JSON.parse(Convention).id;
+            td4.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
+            td4.id = "ConventionEnd" + JSON.parse(Convention).id;
+            td5.innerHTML = JSON.parse(Convention).location;
+            td5.id = "ConventionLocation" + JSON.parse(Convention).id;
+            td6.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
+            td7.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteModal'>";
+
+            document.getElementById("Table").appendChild(tr);
+        });
+    }
+
+    // Load Locations
+    function LoadLocations(id) {
+        let Locations = <?php echo editStaevneplan::LoadLocations() ?>;
+        let select = document.getElementById(id);
+        $(select).empty();
+        if (document.querySelector('[id*="LocationSelect"]')) {
+            var NewLocation = document.createElement("option");
+            NewLocation.innerHTML = "Ny Lokation"
+            NewLocation.id = "NewLocation";
+            select.appendChild(NewLocation);
+        }
+        Locations.forEach((Location) => {
+            var a = 0;
+            var option = document.createElement("option");
+            option.innerHTML = JSON.parse(Location).location;
+            option.id = JSON.parse(Location).id;
+            for (var i = 0; i < select.length; ++i) {
+                if (select.options[i].innerHTML == option.innerHTML) {
+                    a = 1;
+                }
+            }
+            if (a == 0) {
+                select.appendChild(option);
+            }
+        });
+    }
 
     // Check if the select is chosing to add a new location, if not remove add new location row.
     function CheckNewLocation(selectId, trId, inputId, Input) {
@@ -303,7 +333,7 @@
     }
 
     // Add Convention to database and refresh
-        function AddConvention(LocationInput) {
+    function CreateConvention(LocationInput) {
         let SelectedIndex = document.getElementById("LocationSelect").selectedIndex;
         let Location;
         if(LocationInput == null) {
@@ -311,55 +341,50 @@
         }else{
             Location = LocationInput;
         }
-        $.ajax({
-            url: 'staevne/php/createConvention.php',
-            type: "POST",
-            data: {
+        $.post("staevne/editStaevneplanHandler.php",
+            {
+                action: "CreateConvention",
                 Name: document.getElementById("LocationName").value,
                 Date: document.getElementById("LocationDate").value,
                 Start: document.getElementById("LocationStart").value,
                 End: document.getElementById("LocationEnd").value,
                 Location: Location
             },
-            success:function(){
+            function(){
                 window.location.reload();
             }
-        });
+        );
     }
 
     // Load locations into checkboxes
     function LoadLocationsCheckboxes(id) {
-        $.ajax({
-            url: 'staevne/php/loadLocations.php',
-            success:function(data){
-                let Locations = JSON.parse(data);
-                let select =  document.getElementById(id);
-                $(select).empty();
-                Locations.forEach((Location) => {
-                    let div = document.createElement("div");
-                    let a = document.createElement("a");
-                    let checkbox = document.createElement('input');
-                    a.innerHTML = " " + Location.location;
-                    checkbox.type = "checkbox";
-                    checkbox.id = "checkbox" + Location.id;
-                    div.appendChild(checkbox);
-                    div.appendChild(a);
-                    select.appendChild(div);
-                });
-            }
+        let Locations =  <?php echo editStaevneplan::LoadLocations() ?>;
+        let select =  document.getElementById(id);
+        $(select).empty();
+        Locations.forEach((Location) => {
+            let div = document.createElement("div");
+            let a = document.createElement("a");
+            let checkbox = document.createElement('input');
+            a.innerHTML = " " + JSON.parse(Location).location;
+            checkbox.type = "checkbox";
+            checkbox.id = "checkbox" + JSON.parse(Location).id;
+            div.appendChild(checkbox);
+            div.appendChild(a);
+            select.appendChild(div);
         });
     }
 
     // Delete convention from database and refresh
     function deleteConvention(button){
-        $.ajax({
-            type: "POST",
-            data: {id: button.parentElement.parentElement.id},
-            url: 'staevne/php/deleteConventions.php',
-            success:function() {
-                location.reload();
+        $.post("staevne/editStaevneplanHandler.php",
+            {
+                action: "DeleteConvention",
+                id: button.parentElement.parentElement.id
+            },
+            function(){
+                window.location.reload();
             }
-        });
+        );
     }
 
     // Load conention data into editconvention modal.
@@ -390,18 +415,20 @@
         }else{
             Location = LocationInput;
         }
-        let Name = document.getElementById("EditLocationName").value;
-        let Date = document.getElementById("EditLocationDate").value;
-        let Start = document.getElementById("EditLocationStart").value;
-        let End = document.getElementById("EditLocationEnd").value;
-        $.ajax({
-            type: "POST",
-            data: {Id: Id, Name: Name, Date: Date, Start: Start, End: End, Location: Location},
-            url: 'staevne/php/updateConvention.php',
-            success:function() {
+        $.post("staevne/editStaevneplanHandler.php",
+            {
+                action: "UpdateConvention",
+                Id: Id,
+                Name: document.getElementById("EditLocationName").value,
+                Date: document.getElementById("EditLocationDate").value,
+                Start: document.getElementById("EditLocationStart").value,
+                End: document.getElementById("EditLocationEnd").value,
+                Location: Location
+            },
+            function(){
                 window.location.reload();
             }
-        });
+        );
     }
 
     // Clear convention modal
@@ -427,21 +454,20 @@
             if(LocationInput === "") {
                 alert("Lokation kan ikke være tom");
             }else{
-                $.ajax({
-                    url: 'staevne/php/createLocation.php',
-                    type: "POST",
-                    data: {
+                $.post("staevne/editStaevneplanHandler.php",
+                    {
+                        action: "CreateLocation",
                         Location: LocationInput
                     },
-                    success:function(data){
+                    function(data){
                         if(data === 0){
                             alert("Lokation eksistere allerede");
                         }else {
-                            LoadLocations("EditLocationSelect");
+                            LoadLocations("LocationSelect");
                             UpdateConvention();
                         }
                     }
-                });
+                );
             }
         }else{
             UpdateConvention();
@@ -467,16 +493,16 @@
             }
         });
         if (DeleteList !== []){
-            $.ajax({
-                type: "POST",
-                data: {Array : DeleteList},
-                url: 'staevne/php/deleteLocations.php',
-                success:function(){
-                    LoadLocations("LocationSelect");
-                    LoadLocations("EditLocationSelect");
-                    $('#DeleteLocations').modal('hide');
+            $.post("staevne/editStaevneplanHandler.php",
+                {
+                    action: "DeleteLocations",
+                    Array : DeleteList
+                },
+                function(){
+                    window.location.reload();
                 }
-            });
+            );
         }
     }
+
 </script>
