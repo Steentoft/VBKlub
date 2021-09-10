@@ -3,15 +3,23 @@ $allowedFileType = array("jpg", "jpeg", "png", "jfif", "pjpeg", "pjp", "svg", "g
 class Galleri
 {
     /**
-     * Upload image file to given folder.
+     * Uploads picture
      *
-     * @param string $category  Optional category where the pictures belong
-     * @param string $title  Optional title of picture
-     *
-     * @return array responseMessage
+     * @param string $category
+     * @param bool $frontpageEnabled
+     * @param string $title
+     * @param string $date
+     * @return string[]
      */
-    function Upload(string $category = "Galleri", string $title = "", int|string $date = ""): array
+    function Upload(string $category, bool $frontpageEnabled, string $title = "", string $date = ""): array
     {
+        if ($category == "")
+            $category = "Galleri";
+        if ($date =="")
+            $date = date('Y-m-d');
+
+
+
         // Database connection
         global $conn;
 
@@ -85,12 +93,9 @@ class Galleri
                 }
                 // Add into MySQL database
                 if(!empty($sqlVal)) {
-                    if ($date != "")
-                        $date  = date('Y-m-d', strtotime($date));
-                    else
-                        $date  = date('Y-m-d');
-                    $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, category) VALUES (?, ?, ?, ?)");
-                    $stmt->bind_param("sssi", $title, $fileName, $date, $categoryID);
+                    $date  = date('Y-m-d', strtotime($date));
+                    $stmt = $conn->prepare("INSERT INTO pictures (title, path, date, frontpageEnabled, category) VALUES (?, ?, ?, ?, ?)");
+                    $stmt->bind_param("sssii", $title, $fileName, $date, $frontpageEnabled, $categoryID);
                     if($stmt->execute()) {
                         $response = array(
                             "status" => "alert-success",
@@ -151,7 +156,7 @@ class Galleri
      * @param string $date
      * @return array
      */
-    function LoadCategories(string $date):array
+    function LoadOrderByCategories(string $date):array
     {
         $pictures = array();
         global $conn;
@@ -166,8 +171,8 @@ class Galleri
         return $pictures;
     }
 
-
     /**
+     * Gets Gets all images by their year
      * @param string $date
      * @return array
      */
@@ -188,6 +193,7 @@ class Galleri
     }
 
     /**
+     * Gets all images by their category
      * @param string $category
      * @return array
      */
@@ -208,6 +214,7 @@ class Galleri
     }
 
     /**
+     * Gets all images by their category and title
      * @param string $date
      * @param string $category
      * @return array
@@ -287,15 +294,17 @@ class Galleri
     }
 
     /**
+     * Updates specific image
      * @param int $id
      * @param string $title
      * @param string $category
      * @param string $date
      * @param string $imgPath
+     * @param $fileUpload
      * @param bool $frontpageEnabled
-     * @return array
+     * @return string[]
      */
-    function Update(int $id, string $title, string $category, string $date, string $imgPath, $fileUpload, bool $frontpageEnabled)
+    function Update(int $id, string $title, string $category, string $date, string $imgPath, $fileUpload, bool $frontpageEnabled) :array
     {
 
         if ($frontpageEnabled){

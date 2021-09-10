@@ -25,12 +25,13 @@ if ($action == 'Create'){
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $date = mysqli_real_escape_string($conn, $_POST['date']);
-    $fileUpload = $_FILES;
     $picture_path = mysqli_real_escape_string($conn, $_POST['fileName']);
+    $frontpageEnabled = filter_var($_POST['frontpageEnabled'], FILTER_VALIDATE_BOOLEAN);
 
-    $result = $pic->Upload($category, $title, $date);
 
-    echo json_encode($result);
+    $result = $pic->Upload($category, $frontpageEnabled, $title, $date);
+
+    echo($result);
 }
 
 if ($action == 'Delete'){
@@ -91,7 +92,7 @@ if ($action == 'SelectCategories'){
     }
 
 
-    $result = $pic->LoadCategories($date);
+    $result = $pic->LoadOrderByCategories($date);
 
     echo json_encode($result);
 }

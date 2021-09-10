@@ -99,7 +99,7 @@ $("form#edit").submit(function(e) {
         url: "galleri/galleriHandler.php",
         type: 'POST',
         data: fd,
-        success: function (data) {
+        success: function () {
             location.reload();
         },
         cache: false,
@@ -119,6 +119,7 @@ $("form#create").submit(function(e) {
     let category = $('#createCategory').val();
     let date = $('#createDate').val();
     let imageName = $('#createPictureLabel').text();
+    let frontpageEnabled = $('#createCheckFrontpage').is(":checked");
 
 
     //var fd = new FormData();
@@ -127,6 +128,7 @@ $("form#create").submit(function(e) {
     fd.append('category',category);
     fd.append('date',date);
     fd.append('fileName', imageName);
+    fd.append('frontpageEnabled', frontpageEnabled);
 
 
 
@@ -134,7 +136,7 @@ $("form#create").submit(function(e) {
         url: "galleri/galleriHandler.php",
         type: 'POST',
         data: fd,
-        success: function (data) {
+        success: function () {
             location.reload();
         },
         cache: false,
