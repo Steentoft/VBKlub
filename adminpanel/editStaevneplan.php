@@ -415,18 +415,14 @@ global $conn;
         }else{
             Location = LocationInput;
         }
-        let Name = document.getElementById("EditLocationName").value;
-        let Date = document.getElementById("EditLocationDate").value;
-        let Start = document.getElementById("EditLocationStart").value;
-        let End = document.getElementById("EditLocationEnd").value;
         $.post("staevne/editStaevneplanHandler.php",
             {
                 action: "UpdateConvention",
                 Id: Id,
-                Name: Name,
-                Date: Date,
-                Start: Start,
-                End: End,
+                Name: document.getElementById("EditLocationName").value,
+                Date: document.getElementById("EditLocationDate").value,
+                Start: document.getElementById("EditLocationStart").value,
+                End: document.getElementById("EditLocationEnd").value,
                 Location: Location
             },
             function(){
@@ -458,21 +454,20 @@ global $conn;
             if(LocationInput === "") {
                 alert("Lokation kan ikke være tom");
             }else{
-                $.ajax({
-                    url: 'staevne/php/createLocation.php',
-                    type: "POST",
-                    data: {
+                $.post("staevne/editStaevneplanHandler.php",
+                    {
+                        action: "CreateLocation",
                         Location: LocationInput
                     },
-                    success:function(data){
+                    function(data){
                         if(data === 0){
                             alert("Lokation eksistere allerede");
                         }else {
-                            EditStaevneplan("EditLocationSelect");
+                            LoadLocations("LocationSelect");
                             UpdateConvention();
                         }
                     }
-                });
+                );
             }
         }else{
             UpdateConvention();
