@@ -7,5 +7,5 @@
     text-align: center;
 }
 .no-pointer{
-    cursor: auto;
+    cursor: default;
 }
