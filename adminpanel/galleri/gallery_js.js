@@ -170,6 +170,15 @@ function changeState(ele){
     let sfp = ele.getAttribute('value');
     let id = ele.getAttribute('data-id');
 
+    if (sfp === 'true'){
+        ele.setAttribute('value', 'false');
+        ele.setAttribute('src', '../billeder/cross.png');
+
+    } else {
+        ele.setAttribute('value', 'true');
+        ele.setAttribute('src', '../billeder/check.png');
+    }
+
     $.post("galleri/galleriHandler.php",
         {
             action: 'UpdateFrontpage',
@@ -178,6 +187,6 @@ function changeState(ele){
         },
         function(data){
             //console.log(data);
-            location.reload();
+            // location.reload();
         });
 }
