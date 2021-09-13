@@ -18,12 +18,13 @@ class editStaevneplan
                 }
             }
         }
+        return false;
     }
 
     static function CreateLocation($Location){
         global $conn;
         $RetrieveTable= $conn->prepare("SELECT * FROM locations");
-        $result = $RetrieveTable->execute();
+        $RetrieveTable->execute();
         $Locations = $RetrieveTable->get_result();
         foreach($Locations as $d){
             if($d['location'] == $Location){
@@ -34,7 +35,7 @@ class editStaevneplan
 
         $AddLocation = $conn->prepare("INSERT INTO locations (`location`) VALUES (?)");
         $AddLocation->bind_param("s", $Location);
-        $result2 = $AddLocation->execute();
+        $AddLocation->execute();
         echo 1;
     }
 
@@ -51,7 +52,6 @@ class editStaevneplan
     static function LoadConventions() {
         global $conn;
         $stmt = $conn->prepare("SELECT conventions.*, locations.location FROM conventions INNER JOIN locations ON conventions.location=locations.id ORDER BY conventions.name ASC");
-        $row = array();
         if ($stmt->execute()){
             $result = $stmt->get_result();
             if (mysqli_num_rows($result) > 0) {
@@ -64,6 +64,7 @@ class editStaevneplan
                 return "false";
             }
         }
+        return false;
     }
 
     static function CreateConvention($Name, $Date, $Start, $End, $Location) {
@@ -97,7 +98,7 @@ class editStaevneplan
         if (mysqli_num_rows($result) > 0) {
             foreach($result as $location)
                 $Location = $location['id'];
-        };
+        }
         echo $Location;
         $sql = $conn->prepare("UPDATE `conventions` SET `name`=?,`date`=?,`start_time`=?,`end_time`=?,`location`=? WHERE id = ?");
         $sql->bind_param("sssssi", $Name, $Date, $Start, $End, $Location, $id);

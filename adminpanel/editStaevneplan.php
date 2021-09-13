@@ -1,11 +1,14 @@
+<!-- Include + PHP -->
 <?php
 include "../templates/adminheader.php";
 include "staevne/editStaevneplan.php";
 include "../BL/dbConnections/dbConnection.php";
 global $conn;
 ?>
-<div class="table-responsive-sm span3">
-     <table class="table table-striped table-responsive-sm">
+
+
+<div class="table-responsive-sm">
+     <table class="table table-striped table-responsive-sm" id="ConventionTable">
         <thead class="thead-dark">
          <tr>
             <th scope="col">Navn</th>
@@ -13,8 +16,8 @@ global $conn;
             <th scope="col">Start tid</th>
             <th scope="col">Stop tid</th>
             <th scope="col">Lokation</th>
-            <th scope="col">Rediger</th>
-            <th scope="col">Slet</th>
+            <th scope="col" class="no-sort">Rediger</th>
+            <th scope="col" class="no-sort">Slet</th>
         </tr>
         </thead>
         <tbody id="Table">
@@ -23,22 +26,6 @@ global $conn;
 </div>
 <button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#AddConvention" id="AddConventionButton" class="btn btn-dark" >Opret Stævne</button>
 <button data-keyboard="false" data-backdrop="static" data-toggle="modal" data-target="#DeleteLocations" id="DeleteLocationsButton" class="btn btn-dark" >Slet Lokationer</button>
-
-<!-- Style -->
-<style>
-    .modal-dialog{
-        position: relative;
-        display: table; /* This is important */
-        overflow-y: auto;
-        overflow-x: auto;
-        width: auto;
-        min-width: 300px;
-    }
-    .span3 {
-        height: 400px; !important;
-        overflow-y: scroll;
-    }
-</style>
 
 <!-- Modal -->
 <div class="modal fade" id="AddConvention" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -185,9 +172,19 @@ global $conn;
 
 <!-- JavaScript -->
 <?php include "../templates/javaScriptLinks.html"?>
-
 <script>
-
+    $(document).ready( function () {
+        $('#ConventionTable').dataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
+            },
+            "columnDefs": [ {
+                "targets"  : 'no-sort',
+                "orderable": false,
+                "order": []
+            }]
+        });
+    } );
     let Id;
     let Locations = document.getElementById("LocationSelect");
 
@@ -253,57 +250,72 @@ global $conn;
 
     // Load Conventions
     function LoadConventions(){
-        let Conventions = <?php echo editStaevneplan::LoadConventions() ?>;
-        Conventions.forEach((Convention)=> { // TODO: FIX dry ass havin' lips
+        <?php echo editStaevneplan::LoadConventions() ?>.forEach((Convention)=> {
             let tr = document.createElement("tr");
             tr.id = JSON.parse(Convention).id;
-            let td1 = tr.appendChild(document.createElement('td'));
-            let td2 = tr.appendChild(document.createElement('td'));
-            let td3 = tr.appendChild(document.createElement('td'));
-            let td4 = tr.appendChild(document.createElement('td'));
-            let td5 = tr.appendChild(document.createElement('td'));
-            let td6 = tr.appendChild(document.createElement('td'));
-            let td7 = tr.appendChild(document.createElement('td'));
-
-            td1.innerHTML = JSON.parse(Convention).name;
-            td1.id = "ConventionName" + JSON.parse(Convention).id;
-            td2.innerHTML = JSON.parse(Convention).date;
-            td2.id = "ConventionDate" + JSON.parse(Convention).id;
-            td3.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
-            td3.id = "ConventionStart" + JSON.parse(Convention).id;
-            td4.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
-            td4.id = "ConventionEnd" + JSON.parse(Convention).id;
-            td5.innerHTML = JSON.parse(Convention).location;
-            td5.id = "ConventionLocation" + JSON.parse(Convention).id;
-            td6.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
-            td7.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteModal'>";
-
+            td(Convention, tr, "Name");
+            td(Convention, tr, "Date");
+            td(Convention, tr, "Start");
+            td(Convention, tr, "End");
+            td(Convention, tr, "Location");
+            td(Convention, tr, "Edit");
+            td(Convention, tr, "Remove");
             document.getElementById("Table").appendChild(tr);
         });
     }
 
+    // Create td
+    function td(Convention, tr, text) {
+        let td = tr.appendChild(document.createElement('td'));
+        switch(text){
+            case "Name":
+                td.innerHTML = JSON.parse(Convention).name;
+                break;
+            case "Date":
+                td.innerHTML = JSON.parse(Convention).date;
+                break;
+            case "Start":
+                td.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
+                break;
+            case "End":
+                td.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
+                break;
+            case "Location":
+                td.innerHTML = JSON.parse(Convention).location;
+                break;
+            case "Edit":
+                td.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
+                break;
+            case "Remove":
+                td.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteConvention'>";
+                break;
+            default:
+                break;
+        }
+        td.id = "Convention" + text + JSON.parse(Convention).id;
+    }
+
     // Load Locations
     function LoadLocations(id) {
-        let Locations = <?php echo editStaevneplan::LoadLocations() ?>;
         let select = document.getElementById(id);
         $(select).empty();
         if (document.querySelector('[id*="LocationSelect"]')) {
-            var NewLocation = document.createElement("option");
+            let NewLocation = document.createElement("option");
             NewLocation.innerHTML = "Ny Lokation"
             NewLocation.id = "NewLocation";
             select.appendChild(NewLocation);
         }
-        Locations.forEach((Location) => {
-            var a = 0;
-            var option = document.createElement("option");
+        <?php echo editStaevneplan::LoadLocations() ?>.forEach((Location) => {
+            let a = 0;
+            let option = document.createElement("option");
             option.innerHTML = JSON.parse(Location).location;
             option.id = JSON.parse(Location).id;
-            for (var i = 0; i < select.length; ++i) {
-                if (select.options[i].innerHTML == option.innerHTML) {
+            for (let i = 0; i < select.length; ++i) {
+                if (select.options[i].innerHTML === option.innerHTML) {
                     a = 1;
                 }
             }
-            if (a == 0) {
+            if (a === 0) {
                 select.appendChild(option);
             }
         });
@@ -351,10 +363,9 @@ global $conn;
 
     // Load locations into checkboxes
     function LoadLocationsCheckboxes(id) {
-        let Locations =  <?php echo editStaevneplan::LoadLocations() ?>;
         let select =  document.getElementById(id);
         $(select).empty();
-        Locations.forEach((Location) => {
+        <?php echo editStaevneplan::LoadLocations() ?>.forEach((Location) => {
             let div = document.createElement("div");
             let a = document.createElement("a");
             let checkbox = document.createElement('input');
@@ -469,7 +480,6 @@ global $conn;
 
     // On delete convention ask for additional confirmation
     function areYouSure(button) {
-        $("#DeleteConvention").modal();
         document.getElementById('Yes').onclick = function() {
             deleteConvention(button);
         };
