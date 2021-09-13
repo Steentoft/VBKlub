@@ -1,3 +1,20 @@
+
+/**
+ * Enables sorting of the table
+ */
+$(document).ready( function () {
+    $('#editGallery').DataTable( {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
+        },
+        "columnDefs": [ {
+            "targets"  : 'no-sort',
+            "orderable": false,
+            "order": []
+        }]
+    } );
+} );
+
 /**
  * Sends image src to modalPicture
  * @param img
@@ -64,7 +81,6 @@ function deleteRow(ele){
         id: id
     },
     function(data){
-        console.log(data);
         location.reload();
     });
 }
@@ -144,3 +160,22 @@ $("form#create").submit(function(e) {
         processData: false
     });
 });
+
+/**
+ * Changes wheter or not the image should be shown on frontpage.
+ * @param ele
+ */
+function changeState(ele){
+    let sfp = ele.getAttribute('value');
+    let id = document.getElementById('hiddenID').getAttribute('value');
+
+    $.post("galleri/galleriHandler.php",
+        {
+            action: 'UpdateFrontpage',
+            id: id,
+            frontpageEnabled: sfp
+        },
+        function(data){
+            location.reload();
+        });
+}

@@ -96,3 +96,13 @@ if ($action == 'SelectCategories'){
 
     echo json_encode($result);
 }
+
+if ($action == 'UpdateFrontpage'){
+    $frontpageEnabled = filter_var($_POST['frontpageEnabled'], FILTER_VALIDATE_BOOLEAN);
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+
+    $result = $pic->updateFrontpage($id, $frontpageEnabled);
+
+    echo json_encode($result);
+}
+

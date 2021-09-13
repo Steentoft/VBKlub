@@ -441,4 +441,34 @@ class Galleri
 
     }
 
+    /**
+     * Changes whether the image should be displayed on the frontpage
+     * @param int $id
+     * @param bool $frontpageEnabled
+     * @return string[]
+     */
+    function updateFrontpage(int $id, bool $frontpageEnabled)//: array
+    {
+        if ($frontpageEnabled)
+            $frontpageEnabled = false;
+        else
+            $frontpageEnabled = true;
+
+        //return var_dump($frontpageEnabled);
+        global $conn;
+        $stmt = $conn->prepare("UPDATE pictures SET frontpageEnabled =? WHERE id = ?");
+        $stmt->bind_param("ii", $frontpageEnabled, $id);
+        if($stmt->execute()) {
+            $response = array(
+                "status" => "alert-success",
+                "message" => "Status opdateret"
+            );
+        } else {
+            $response = array(
+                "status" => "alert-danger",
+                "message" => "Kunne ikke opdatere status pga. databse fejl"
+            );
+        }
+        return $response;
+    }
 }
