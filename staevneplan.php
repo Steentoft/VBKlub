@@ -38,7 +38,7 @@ if ($conn) {
 
 <div class="table-responsive-sm">
     <h4 class="h4-padding">Kommende stævner</h4>
-    <table class="table table-striped">
+    <table class="table table-striped" id="ComingConventions">
     <thead class="thead-dark">
     <tr>
         <th scope="col">Navn</th>
@@ -68,7 +68,7 @@ if ($conn) {
 
 <div class="table-responsive-sm">
     <h4 class="h4-padding">Ældre stævner</h4>
-    <table class="table table-striped">
+    <table class="table table-striped" id="FinishedConventions">
         <thead class="thead-dark">
         <tr>
             <th scope="col">Navn</th>
@@ -95,3 +95,19 @@ if ($conn) {
     </table>
 </div>
 <?php include "templates/footer.php"; ?>
+<script>
+    $(document).ready( function () {
+        $('#FinishedConventions').dataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
+            }
+        });
+    } );
+    $(document).ready( function () {
+        $('#ComingConventions').dataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
+            }
+        });
+    } );
+</script>
