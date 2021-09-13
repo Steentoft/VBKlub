@@ -40,7 +40,7 @@ if ($action == 'Delete'){
 
     $result = $pic->Delete($id);
 
-    echo json_encode($result);
+    echo $result;
 }
 
 if ($action == 'single'){
