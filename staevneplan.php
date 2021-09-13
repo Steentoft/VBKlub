@@ -36,7 +36,7 @@ if ($conn) {
     }
 </style>
 
-<div class="table-responsive-sm">
+<div class="table-responsive">
     <h4 class="h4-padding">Kommende stævner</h4>
     <table class="table table-striped" id="ComingConventions">
     <thead class="thead-dark">
@@ -66,7 +66,7 @@ if ($conn) {
 </div>
 
 
-<div class="table-responsive-sm">
+<div class="table-responsive">
     <h4 class="h4-padding">Ældre stævner</h4>
     <table class="table table-striped" id="FinishedConventions">
         <thead class="thead-dark">

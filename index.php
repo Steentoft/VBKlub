@@ -10,7 +10,9 @@ $pictures = Frontpage::LoadPictures();
 $order   = array('\r\n', '\n', '\r');
 $replace = '';
 $content['content'] = str_replace($order, $replace, $content['content']);
-
+if (count($pictures) > 0){
+    echo 'test';
+}
 ;?>
 
 <style>
@@ -107,7 +109,7 @@ $content['content'] = str_replace($order, $replace, $content['content']);
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="billeder/<?php echo $pictures[0]['category']; ?>/<?php echo $pictures[0]['path']; ?>" class="d-block justify-content-center">
+                <img <?php if(count($pictures) > 0){ echo 'src="billeder/' .  $pictures[0]['category'] . '/' . $pictures[0]['path'] . '"'; }else echo 'src="billeder/default.png"'?> class="d-block justify-content-center">
             </div>
             <?php
             unset($pictures[0]);

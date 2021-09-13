@@ -1,5 +1,6 @@
-body{
-
+body {
+    background-image: url("../billeder/tile.png");
+    background-repeat: repeat;
 }
 
 .logo-container{
@@ -7,18 +8,21 @@ body{
 }
 
 .logo{
-    margin-top: 1%;
-    height: 90%;
+    height: 100%;
+    z-index: -10;
 }
 
 .container{
     padding: 0;
+    z-index: 10;
+    position: relative;
 }
 
 .container-custom{
     box-shadow: 1px 1px 5px 5px lightgrey;
     height: auto;
     min-height: 80vh;
+    background: white;
 }
 
 .content{
