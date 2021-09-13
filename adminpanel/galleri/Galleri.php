@@ -262,7 +262,7 @@ class Galleri
      * @param int $id  The id of the picture
      * @return bool
      */
-    function Delete(int $id) : bool
+    function Delete(int $id) //: bool
     {
         $removed = false;
         global $conn;
@@ -281,7 +281,7 @@ class Galleri
         }
 
         $path = "../../billeder/".$category."/".$picture;
-
+//return realpath($path);
         if(unlink(realpath($path))){
             $sql = "DELETE FROM pictures WHERE id=?";
             $stmt = $conn->prepare($sql);
