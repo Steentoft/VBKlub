@@ -47,7 +47,7 @@ if (isset($_POST['deleteImage']))
                 ?>
                 onclick="changeState(this);"></td>
 
-                <td><img class="img-row-show" value="../../billeder/<?php echo $picture['category']."/".$picture['path']; ?>" onclick="showPicture(this);"
+                <td><img class="img-row-show" value="../billeder/<?php echo $picture['category']."/".$picture['path']; ?>" onclick="showPicture(this);"
                          src="../billeder/image_icon.png" data-toggle="modal" data-target="#imageModal"></td>
 
                 <td><img class="img-row-show" value="<?php print($id);?>" src="../billeder/edit_icon.png"
