@@ -8,37 +8,24 @@ $members = Bestyrelse::Load();
 
 ?>
 
-<style>
-    .img-row-show{
-        margin: auto;
-        display: flex;
-        cursor: pointer;
-    }
-    .custom-file-label{
-        justify-content: start !important;
-        align-items: start !important;
-    }
-
-</style>
-
-<table class="table table-striped">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Navn</th>
-        <th scope="col">Titel</th>
-        <th scope="col">Mobil</th>
-        <th scope="col">Email</th>
-        <th style="text-align: center" scope="col">Billede</th>
-        <th style="text-align: center" scope="col">Rediger</th>
-        <th style="text-align: center" scope="col">Slet</th>
-    </tr>
-    </thead>
-    <tbody>
-        <?php
-        foreach ($members as $member)
-        {
+<table class="table table-striped" id="bestyrelseTable" class="display" width="100%">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Navn</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Mobil</th>
+            <th scope="col">Email</th>
+            <th style="text-align: center" scope="col">Billede</th>
+            <th style="text-align: center" scope="col">Rediger</th>
+            <th style="text-align: center" scope="col">Slet</th>
+        </tr>
+        </thead>
+        <tbody>
+    <?php
+    foreach ($members as $member)
+    {
         ?>
-            <tr>
+        <tr>
             <td><?php echo $member['fullname'] ?></td>
             <td><?php echo $member['title'] ?></td>
             <td><?php echo $member['phonenumber'] ?></td>
@@ -46,12 +33,13 @@ $members = Bestyrelse::Load();
             <td><img class="img-row-show" value="../billeder/bestyrelse/<?php echo $member['picture_path'] ?>" onclick="showPicture(this);" src="../billeder/image_icon.png" data-toggle="modal" data-target="#PictureModal"></td>
             <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png" onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
             <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png" onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
-            </tr>
+        </tr>
         <?php
-        }
-        ?>
+    }
+    ?>
     </tbody>
 </table>
+
 <button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
@@ -181,7 +169,6 @@ $members = Bestyrelse::Load();
 </div>
 
 </div>
-
 
 <?php include "../templates/javaScriptLinks.html"?>
 <script src="bestyrelse/bestyrelse.js"></script>

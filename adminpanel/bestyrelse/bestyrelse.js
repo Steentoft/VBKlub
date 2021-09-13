@@ -1,3 +1,12 @@
+
+$(document).ready(function () {
+    $('#bestyrelseTable').DataTable( {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
+        }
+    } );
+});
+
 function createRow(){
     let name = $('#createName').val();
     let title = $('#createTitle').val();

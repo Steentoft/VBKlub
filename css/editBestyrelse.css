@@ -1,0 +1,23 @@
+.img-row-show{
+    margin: auto;
+    display: flex;
+    cursor: pointer;
+}
+.custom-file-label{
+    justify-content: start !important;
+    align-items: start !important;
+}
+
+.dataTables_filter{
+    padding: 1%;
+}
+
+.dataTables_length{
+    padding: 1%;
+
+}
+
+.dataTables_info{
+    padding: 1%;
+
+}

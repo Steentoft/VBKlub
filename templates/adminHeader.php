@@ -13,6 +13,8 @@ if ($_SESSION['volleyball_validation'] == false){
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/import.css">
+    <link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet"/>
+
 
     <!-- TinyMCE WYSIWYG -->
     <script src="https://cdn.tiny.cloud/1/af7kksyzobw5301ef24l8ls6ix9f9nksoxhl21geyd0l6kmq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
