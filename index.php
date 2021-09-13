@@ -10,9 +10,6 @@ $pictures = Frontpage::LoadPictures();
 $order   = array('\r\n', '\n', '\r');
 $replace = '';
 $content['content'] = str_replace($order, $replace, $content['content']);
-if (count($pictures) > 0){
-    echo 'test';
-}
 ;?>
 
 <style>
