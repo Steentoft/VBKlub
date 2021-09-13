@@ -3,7 +3,15 @@ $(document).ready(function () {
     $('#bestyrelseTable').DataTable( {
         language: {
             url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
-        }
+        },
+        "columnDefs": [
+            {
+                "targets"  : 'no-sort',
+                "orderable": false,
+                "order": [],
+                "targets": [-1, -2, -3]
+            }
+        ],
     } );
 });
 
@@ -14,6 +22,12 @@ function createRow(){
     let email = $('#createEmail').val();
     let picture_path = $('#createPicture_path').text();
 
+    if (name == "" || title == ""){
+        $('#createModalAlert').css('display', 'block');
+        return null;
+    }
+
+    $('#CreateModal').modal('hide');
     var fd = new FormData();
     var files = $('#createPicture')[0].files[0];
     fd.append('action', 'create');
@@ -64,6 +78,12 @@ function updateRow(){
     let email = $('#email').val();
     let picture_path = $('#picture_path').text();
 
+    if (name == "" || title == ""){
+        $('#editModalAlert').css('display', 'block');
+        return null;
+    }
+
+    $('#EditModal').modal('hide');
     var fd = new FormData();
     var files = $('#picture')[0].files[0];
     fd.append('action', 'update');

@@ -22,7 +22,7 @@ if ($stmt->execute()){
     $result = $stmt->get_result();
     if (mysqli_num_rows($result) > 0) {
         $_SESSION['volleyball_validation'] = true;
-        echo "true";
+        header('Location: ../../adminpanel');
     } else {
         echo "false";
     }

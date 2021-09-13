@@ -21,3 +21,8 @@
     padding: 1%;
 
 }
+
+.modalAlert{
+    color: red;
+    display: none;
+}

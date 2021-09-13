@@ -5,40 +5,41 @@ include "../BL/dbConnections/dbConnection.php";
 
 include "bestyrelse/Bestyrelse.php";
 $members = Bestyrelse::Load();
-
 ?>
 
-<table class="table table-striped" id="bestyrelseTable" class="display" width="100%">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Navn</th>
-            <th scope="col">Titel</th>
-            <th scope="col">Mobil</th>
-            <th scope="col">Email</th>
-            <th style="text-align: center" scope="col">Billede</th>
-            <th style="text-align: center" scope="col">Rediger</th>
-            <th style="text-align: center" scope="col">Slet</th>
-        </tr>
-        </thead>
-        <tbody>
-    <?php
-    foreach ($members as $member)
-    {
-        ?>
-        <tr>
-            <td><?php echo $member['fullname'] ?></td>
-            <td><?php echo $member['title'] ?></td>
-            <td><?php echo $member['phonenumber'] ?></td>
-            <td><?php echo $member['email'] ?></td>
-            <td><img class="img-row-show" value="../billeder/bestyrelse/<?php echo $member['picture_path'] ?>" onclick="showPicture(this);" src="../billeder/image_icon.png" data-toggle="modal" data-target="#PictureModal"></td>
-            <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png" onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
-            <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png" onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
-        </tr>
+<div class="table-responsive">
+    <table class="table table-striped" id="bestyrelseTable" class="display" width="100%">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Navn</th>
+                <th scope="col">Titel</th>
+                <th scope="col">Mobil</th>
+                <th scope="col">Email</th>
+                <th style="text-align: center" scope="col">Billede</th>
+                <th style="text-align: center" scope="col">Rediger</th>
+                <th style="text-align: center" scope="col">Slet</th>
+            </tr>
+            </thead>
+            <tbody>
         <?php
-    }
-    ?>
-    </tbody>
-</table>
+        foreach ($members as $member)
+        {
+            ?>
+            <tr>
+                <td><?php echo $member['fullname'] ?></td>
+                <td><?php echo $member['title'] ?></td>
+                <td><?php echo $member['phonenumber'] ?></td>
+                <td><?php echo $member['email'] ?></td>
+                <td><img class="img-row-show" value="../billeder/bestyrelse/<?php echo $member['picture_path'] ?>" onclick="showPicture(this);" src="../billeder/image_icon.png" data-toggle="modal" data-target="#PictureModal"></td>
+                <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png" onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
+                <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png" onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
 
 <button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 
@@ -68,9 +69,10 @@ $members = Bestyrelse::Load();
             </div>
             <div class="modal-body justify-content-center">
                 <form>
+                    <p id="createModalAlert" class="modalAlert">Navn og titel skal udfyldes.</p>
                     <div class="form-group">
-                        <label for="name">Fuldtnavn</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2" id="createName" placeholder="Fuldtnavn">
+                        <label for="name">Fuldenavn</label>
+                        <input type="text" class="form-control mr-sm-2 mb-2" id="createName" placeholder="Fuldenavn">
                     </div>
                     <div class="form-group">
                         <label for="title">Titel</label>
@@ -90,7 +92,7 @@ $members = Bestyrelse::Load();
                     <div class="form-group">
                         <label for="customFile">Billede</label>
                         <div class="custom-file mr-sm-2 mb-2">
-                            <input type="file" class="custom-file-input" id="createPicture">
+                            <input type="file" class="custom-file-input" id="createPicture" accept="image/*">
                             <label class="custom-file-label" id="createPicture_path" for="customFile">Vælg fil</label>
                         </div>
                     </div>
@@ -98,7 +100,7 @@ $members = Bestyrelse::Load();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" id="createRow" onclick="createRow()">Gem</button>
+                <button type="button" class="btn btn-danger " id="createRow" onclick="createRow()">Gem</button>
             </div>
         </div>
     </div>
@@ -116,9 +118,10 @@ $members = Bestyrelse::Load();
             <div class="modal-body justify-content-center">
                 <form>
                     <input value="" id="hiddenID" hidden>
+                    <p id="editModalAlert" class="modalAlert">Navn og titel skal udfyldes.</p>
                     <div class="form-group">
-                        <label for="name">Fuldtnavn</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2" id="name" placeholder="Fuldtnavn">
+                        <label for="name">Fuldenavn</label>
+                        <input type="text" class="form-control mr-sm-2 mb-2" id="name" placeholder="Fuldenavn">
                     </div>
                     <div class="form-group">
                         <label for="title">Titel</label>
@@ -137,7 +140,7 @@ $members = Bestyrelse::Load();
                     <div class="form-group">
                         <label for="customFile">Billede</label>
                         <div class="custom-file mr-sm-2 mb-2">
-                            <input type="file" class="custom-file-input" id="picture">
+                            <input type="file" class="custom-file-input" id="picture" accept="image/*">
                             <label class="custom-file-label" id="picture_path" for="picture">Vælg fil</label>
                         </div>
                     </div>
@@ -145,7 +148,7 @@ $members = Bestyrelse::Load();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" id="updateRow" onclick="updateRow()">Gem</button>
+                <button type="button" class="btn btn-danger" id="updateRow" onclick="updateRow()">Gem</button>
             </div>
         </div>
     </div>
