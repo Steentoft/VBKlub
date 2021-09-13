@@ -39,7 +39,9 @@ function createRow(){
         contentType: false,
         processData: false,
         success: function(response){
-            // console.log(response);
+            let info = JSON.parse(response);
+            if (info['status'] === "error")
+                alert(info['message']);
             location.reload();
         },
     });
@@ -80,6 +82,9 @@ function updateRow(){
         contentType: false,
         processData: false,
         success: function(response){
+            let info = JSON.parse(response);
+            if (info['status'] === "error")
+                alert(info['message']);
             location.reload();
         },
     });

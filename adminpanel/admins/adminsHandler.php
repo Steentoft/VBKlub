@@ -43,5 +43,5 @@ if ($action == 'create'){
 
     $result = Admins::Create($username, $password);
 
-    echo $result;
+    echo json_encode($result);
 }
