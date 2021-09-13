@@ -29,7 +29,7 @@ $members = Admins::Load();
     <thead class="thead-dark">
     <tr>
         <th scope="col">Brugernavn</th>
-        <th scope="col">Kodeord</th>
+<!--        <th scope="col">Kodeord</th>-->
         <th class="no-sort center_table_text" scope="col">Rediger</th>
         <th class="no-sort center_table_text" scope="col">Slet</th>
     </tr>
@@ -41,7 +41,7 @@ $members = Admins::Load();
         ?>
         <tr>
             <td><?php echo $member['username'] ?></td>
-            <td class="password-hidden"><?php echo $member['password'] ?></td>
+<!--            <td class="password-hidden">--><?php //echo $member['password'] ?><!--</td>-->
             <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png" onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
             <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png" onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
         </tr>
@@ -52,6 +52,7 @@ $members = Admins::Load();
 </table>
 <button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 
+<!--Picture Modal-->
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
@@ -67,6 +68,7 @@ $members = Admins::Load();
     </div>
 </div>
 
+<!-- Create Modal-->
 <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="CreateModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
@@ -96,6 +98,7 @@ $members = Admins::Load();
     </div>
 </div>
 
+<!--Edit Modal-->
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
@@ -113,7 +116,7 @@ $members = Admins::Load();
                         <input type="text" class="form-control mr-sm-2 mb-2" id="username" placeholder="Brugernavn">
                     </div>
                     <div class="form-group">
-                        <label for="title">Kodeord</label>
+                        <label for="title">Nyt kodeord</label>
                         <input type="text" class="form-control mr-sm-2 mb-2 password-hidden" id="password" placeholder="Kodeord">
                     </div>
                 </form>
@@ -126,6 +129,7 @@ $members = Admins::Load();
     </div>
 </div>
 
+<!--Delete Modal-->
 <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog" role="document">
         <div class="modal-content">

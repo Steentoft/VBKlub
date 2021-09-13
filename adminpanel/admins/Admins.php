@@ -50,9 +50,10 @@ class Admins
     {
         global $conn;
 
+        $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
         if ($conn) {
             $sql = $conn->prepare("UPDATE administrators SET username=?, password=? WHERE id=?");
-            $sql->bind_param("ssi", $username, $password, $id);
+            $sql->bind_param("ssi", $username, $hashedPassword, $id);
             if ($sql->execute()){
                 return 'success';
             }else{
@@ -61,12 +62,19 @@ class Admins
         }
     }
 
+    /**
+     * Creates a new admin
+     * @param $username
+     * @param $password
+     * @return string|void
+     */
     static function Create($username, $password)
     {
         global $conn;
+        $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
         if ($conn) {
             $sql = $conn->prepare("INSERT INTO administrators (username, password) VALUES (?,?)");
-            $sql->bind_param("ss", $username, $password);
+            $sql->bind_param("ss", $username, $hashedPassword);
             if ($sql->execute()){
                 return 'success';
             }else{
