@@ -18,7 +18,7 @@ class Galleri
         if ($date =="")
             $date = date('Y-m-d');
 
-
+        $category = ucfirst(strtolower($category));
 
         // Database connection
         global $conn;
@@ -313,6 +313,8 @@ class Galleri
         else{
             $frontpageEnabled = 0;
         }
+
+        $category = ucfirst(strtolower($category));
 
         // Database connection
         global $conn;

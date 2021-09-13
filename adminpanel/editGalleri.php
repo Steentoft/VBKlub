@@ -10,7 +10,6 @@ if (isset($_POST['deleteImage']))
 
 ?>
 
-<link rel="stylesheet" href="../css/editgalleri.css">
 <div class="row">
     <div class="col">
         <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">Ny række</button>
