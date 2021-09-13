@@ -1,6 +1,6 @@
 <!-- Include + PHP -->
 <?php
-include "../templates/adminheader.php";
+include "../templates/adminHeader.php";
 include "staevne/editStaevneplan.php";
 include "../BL/dbConnections/dbConnection.php";
 global $conn;
