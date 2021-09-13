@@ -250,32 +250,49 @@ global $conn;
 
     // Load Conventions
     function LoadConventions(){
-        <?php echo editStaevneplan::LoadConventions() ?>.forEach((Convention)=> { // TODO: FIX dry ass havin' lips
+        <?php echo editStaevneplan::LoadConventions() ?>.forEach((Convention)=> {
             let tr = document.createElement("tr");
             tr.id = JSON.parse(Convention).id;
-            let td1 = tr.appendChild(document.createElement('td'));
-            let td2 = tr.appendChild(document.createElement('td'));
-            let td3 = tr.appendChild(document.createElement('td'));
-            let td4 = tr.appendChild(document.createElement('td'));
-            let td5 = tr.appendChild(document.createElement('td'));
-            let td6 = tr.appendChild(document.createElement('td'));
-            let td7 = tr.appendChild(document.createElement('td'));
-
-            td1.innerHTML = JSON.parse(Convention).name;
-            td1.id = "ConventionName" + JSON.parse(Convention).id;
-            td2.innerHTML = JSON.parse(Convention).date;
-            td2.id = "ConventionDate" + JSON.parse(Convention).id;
-            td3.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
-            td3.id = "ConventionStart" + JSON.parse(Convention).id;
-            td4.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
-            td4.id = "ConventionEnd" + JSON.parse(Convention).id;
-            td5.innerHTML = JSON.parse(Convention).location;
-            td5.id = "ConventionLocation" + JSON.parse(Convention).id;
-            td6.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
-            td7.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteConvention'>";
-
+            td(Convention, tr, "Name");
+            td(Convention, tr, "Date");
+            td(Convention, tr, "Start");
+            td(Convention, tr, "End");
+            td(Convention, tr, "Location");
+            td(Convention, tr, "Edit");
+            td(Convention, tr, "Remove");
             document.getElementById("Table").appendChild(tr);
         });
+    }
+
+    // Create td
+    function td(Convention, tr, text) {
+        let td = tr.appendChild(document.createElement('td'));
+        switch(text){
+            case "Name":
+                td.innerHTML = JSON.parse(Convention).name;
+                break;
+            case "Date":
+                td.innerHTML = JSON.parse(Convention).date;
+                break;
+            case "Start":
+                td.innerHTML = JSON.parse(Convention).start_time.slice(0, -3);
+                break;
+            case "End":
+                td.innerHTML = JSON.parse(Convention).end_time.slice(0, -3);
+                break;
+            case "Location":
+                td.innerHTML = JSON.parse(Convention).location;
+                break;
+            case "Edit":
+                td.innerHTML = "<img alt='edit' class='img-row-show' onclick='EditConvention(this)' src='../billeder/edit_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#EditConvention'>";
+                break;
+            case "Remove":
+                td.innerHTML = "<img alt='delete' class='img-row-show' onclick='areYouSure(this)' src='../billeder/delete_icon.png' data-keyboard='false' data-backdrop='static' data-toggle='modal' data-target='#DeleteConvention'>";
+                break;
+            default:
+                break;
+        }
+        td.id = "Convention" + text + JSON.parse(Convention).id;
     }
 
     // Load Locations
