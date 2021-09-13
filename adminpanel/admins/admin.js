@@ -15,14 +15,6 @@ $(document).ready( function () {
     } );
 } );
 
-// $('.password-hidden').mouseover(function(){
-//     $(this).css('filter','blur(0px)');
-// });
-//
-// $('.password-hidden').mouseleave(function(){
-//     $(this).css('filter','blur(5px)');
-// });
-
 function createRow(){
     let username = $('#createUsername').val();
     let password = $('#createPassword').val();

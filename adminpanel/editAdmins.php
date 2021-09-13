@@ -34,7 +34,7 @@ $members = Admins::Load();
     ?>
     </tbody>
 </table>
-<button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
+<button style="margin: 1%" class="btn btn-dark" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 
 <!--Picture Modal-->
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
