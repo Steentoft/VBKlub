@@ -12,19 +12,20 @@ if ($action == 'single'){
 
     $admin = Admins::LoadSingle($id);
 
-    echo $admin;
+    echo json_encode($admin);
 }
 
 if ($action == 'update'){
 
     $id = mysqli_real_escape_string($conn, $_POST['id']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $oldUsername = mysqli_real_escape_string($conn, $_POST['oldUsername']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
 
-    $result = Admins::Update($id, $username, $password);
+    $result = Admins::Update($id, $username,$oldUsername, $password);
 
-    echo $result;
+    echo json_encode($result);
 }
 
 if ($action == 'delete'){

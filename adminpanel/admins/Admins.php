@@ -2,7 +2,11 @@
 
 class Admins
 {
-    static function Load()
+    /**
+     * Gets all admins from database
+     * @return array
+     */
+    static function Load():array
     {
         $admins = array();
         global $conn;
@@ -16,9 +20,14 @@ class Admins
         return $admins;
     }
 
-    static function LoadSingle($id)
+    /**
+     * Gets single admin
+     * @param $id
+     * @return array
+     */
+    static function LoadSingle($id):array
     {
-        $member = array();
+        $admin = array();
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM administrators WHERE id=?");
@@ -28,22 +37,38 @@ class Admins
                 $admin = $result->fetch_assoc();
             }
         }
-        return json_encode($admin);
+        return $admin;
     }
 
-    static function Delete($id)
+    /**
+     * Deletes given admin
+     * @param $id
+     * @return string[]
+     */
+    static function Delete($id):array
     {
+        $response = array(
+            "status" => "error",
+            "message" => "Ukendt fejl"
+        );
         global $conn;
 
         if ($conn) {
-            $sql2 = $conn->prepare("DELETE FROM administrators WHERE id=?");
-            $sql2->bind_param("i", $id);
-            if ($sql2->execute()){
-                return 'success';
+            $sql = $conn->prepare("DELETE FROM administrators WHERE id=?");
+            $sql->bind_param("i", $id);
+            if ($sql->execute()){
+                $response = array(
+                    "status" => "success",
+                    "message" => "Bruger slettet"
+                );
             }else{
-                return 'error';
+                $response = array(
+                    "status" => "error",
+                    "message" => "Der skete en fejl med databasen"
+                );
             }
         }
+        return $response;
     }
 
     /**
@@ -53,7 +78,7 @@ class Admins
      * @param $password
      * @return string[]
      */
-    static function Update($id, $username, $password):array
+    static function Update($id, $username,$oldUsername, $password):array
     {
         $response = array(
             "status" => "error",
@@ -61,7 +86,9 @@ class Admins
         );
         global $conn;
         $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
-        if (self::checkUsername($username)){
+
+
+        if ($oldUsername != $username && self::checkUsername($username)){
             $response = array(
                 "status" => "error",
                 "message" => "Brugernavnet findes, vælg venligst et andet"
@@ -78,7 +105,7 @@ class Admins
                 else
                     $response = array(
                         "status" => "error",
-                        "message" => "Der skete en fejl"
+                        "message" => "Der skete en fejl med databasen"
                     );
             }
         }
@@ -117,7 +144,7 @@ class Admins
                 else
                     $response = array(
                         "status" => "error",
-                        "message" => "Der skete en fejl"
+                        "message" => "Der skete en fejl med databasen"
                     );
             }
         }

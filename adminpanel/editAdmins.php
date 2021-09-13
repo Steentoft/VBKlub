@@ -8,23 +8,6 @@ $members = Admins::Load();
 
 ?>
 
-<style>
-    .img-row-show{
-        margin: auto;
-        display: flex;
-        cursor: pointer;
-    }
-    .custom-file-label{
-        justify-content: start !important;
-        align-items: start !important;
-    }
-
-    .password-hidden{
-        filter:blur(5px);
-    }
-
-</style>
-
 <table class="table table-striped" id="table">
     <thead class="thead-dark">
     <tr>
@@ -41,9 +24,10 @@ $members = Admins::Load();
         ?>
         <tr>
             <td><?php echo $member['username'] ?></td>
-<!--            <td class="password-hidden">--><?php //echo $member['password'] ?><!--</td>-->
-            <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png" onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
-            <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png" onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
+            <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/edit_icon.png"
+                     onclick="editRow(this);" data-toggle="modal" data-target="#EditModal"></td>
+            <td><img class="img-row-show" value="<?php echo $member['id'] ?>" src="../billeder/delete_icon.png"
+                     onclick="deleteConfirm(this)" data-toggle="modal" data-target="#DeleteModal"></td>
         </tr>
         <?php
     }
@@ -113,11 +97,11 @@ $members = Admins::Load();
                     <input value="" id="hiddenID" hidden>
                     <div class="form-group">
                         <label for="name">Brugernavn</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2" id="username" placeholder="Brugernavn">
+                        <input data-oldName="" type="text" class="form-control mr-sm-2 mb-2" id="username" placeholder="Brugernavn">
                     </div>
                     <div class="form-group">
                         <label for="title">Nyt kodeord</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2 password-hidden" id="password" placeholder="Kodeord">
+                        <input type="text" class="form-control mr-sm-2 mb-2" id="password" placeholder="Kodeord">
                     </div>
                 </form>
             </div>
