@@ -11,7 +11,7 @@ $yesterday = date("Y-m-d", strtotime('-1 day', strtotime($today)));
 
     $conventions = array();
     if ($conn) {
-        $sql = "SELECT name, date, start_time, end_time, locations.location FROM conventions LEFT JOIN locations ON conventions.location = locations.id WHERE date >= '" . $today . "' LIMIT 5" ;
+        $sql = "SELECT name, date, start_time, end_time, locations.location FROM conventions LEFT JOIN locations ON conventions.location = locations.id WHERE date >= '" . $today . "'" ;
         $result = $conn->query($sql);
         if($result){
             $conventions=$result->fetch_all(MYSQLI_ASSOC);
@@ -21,7 +21,7 @@ $yesterday = date("Y-m-d", strtotime('-1 day', strtotime($today)));
 
 $oldConventions = array();
 if ($conn) {
-    $sql = "SELECT name, date, start_time, end_time, locations.location FROM conventions LEFT JOIN locations ON conventions.location = locations.id WHERE date <= '" . $yesterday . "' LIMIT 5" ;
+    $sql = "SELECT name, date, start_time, end_time, locations.location FROM conventions LEFT JOIN locations ON conventions.location = locations.id WHERE date <= '" . $yesterday . "'" ;
     $result = $conn->query($sql);
     if($result){
         $oldConventions=$result->fetch_all(MYSQLI_ASSOC);
@@ -98,6 +98,7 @@ if ($conn) {
 <script>
     $(document).ready( function () {
         $('#FinishedConventions').dataTable({
+            "dom": 'rtip',
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
             }
@@ -105,6 +106,7 @@ if ($conn) {
     } );
     $(document).ready( function () {
         $('#ComingConventions').dataTable({
+            "dom": 'rtip',
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
             }
