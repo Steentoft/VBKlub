@@ -15,10 +15,12 @@ class editStaevneplan
                         array_push($Locations, json_encode($Location));
                     }
                     return json_encode($Locations);
+                }else{
+                    return "false";
                 }
             }
         }
-        return false;
+        return "false";
     }
 
     static function CreateLocation($Location){
