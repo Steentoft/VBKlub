@@ -1,15 +1,14 @@
 <!-- Include + PHP -->
 <?php
-include "../templates/adminheader.php";
+include "../templates/adminHeader.php";
 include "staevne/editStaevneplan.php";
 include "../BL/dbConnections/dbConnection.php";
 global $conn;
 ?>
 
-
 <div class="table-responsive-sm">
      <table class="table table-striped table-responsive-sm" id="ConventionTable">
-        <thead class="thead-dark">
+        <thead class="thead-dark" >
          <tr>
             <th scope="col">Navn</th>
             <th scope="col">Dato</th>
@@ -20,7 +19,7 @@ global $conn;
             <th scope="col" class="no-sort">Slet</th>
         </tr>
         </thead>
-        <tbody id="Table">
+        <tbody id="test">
         </tbody>
     </table>
 </div>
@@ -250,18 +249,23 @@ global $conn;
 
     // Load Conventions
     function LoadConventions(){
-        <?php echo editStaevneplan::LoadConventions() ?>.forEach((Convention)=> {
-            let tr = document.createElement("tr");
-            tr.id = JSON.parse(Convention).id;
-            td(Convention, tr, "Name");
-            td(Convention, tr, "Date");
-            td(Convention, tr, "Start");
-            td(Convention, tr, "End");
-            td(Convention, tr, "Location");
-            td(Convention, tr, "Edit");
-            td(Convention, tr, "Remove");
-            document.getElementById("Table").appendChild(tr);
-        });
+        let tr = document.createElement("tr");
+        let conventions = <?php echo editStaevneplan::LoadConventions(); ?>;
+        if(conventions === false){
+            tr.appendChild(document.createElement('td'));
+        }else{
+            conventions.forEach((Convention)=> {
+                tr.id = JSON.parse(Convention).id;
+                td(Convention, tr, "Name");
+                td(Convention, tr, "Date");
+                td(Convention, tr, "Start");
+                td(Convention, tr, "End");
+                td(Convention, tr, "Location");
+                td(Convention, tr, "Edit");
+                td(Convention, tr, "Remove");
+                document.getElementById("test").appendChild(tr);
+            });
+        }
     }
 
     // Create td
@@ -305,20 +309,23 @@ global $conn;
             NewLocation.id = "NewLocation";
             select.appendChild(NewLocation);
         }
-        <?php echo editStaevneplan::LoadLocations() ?>.forEach((Location) => {
-            let a = 0;
-            let option = document.createElement("option");
-            option.innerHTML = JSON.parse(Location).location;
-            option.id = JSON.parse(Location).id;
-            for (let i = 0; i < select.length; ++i) {
-                if (select.options[i].innerHTML === option.innerHTML) {
-                    a = 1;
+        let locations = <?php echo editStaevneplan::LoadLocations(); ?>;
+        if(locations !== false){
+            locations.forEach((Location) => {
+                let a = 0;
+                let option = document.createElement("option");
+                option.innerHTML = JSON.parse(Location).location;
+                option.id = JSON.parse(Location).id;
+                for (let i = 0; i < select.length; ++i) {
+                    if (select.options[i].innerHTML === option.innerHTML) {
+                        a = 1;
+                    }
                 }
-            }
-            if (a === 0) {
-                select.appendChild(option);
-            }
-        });
+                if (a === 0) {
+                    select.appendChild(option);
+                }
+            });
+        }
     }
 
     // Check if the select is chosing to add a new location, if not remove add new location row.
@@ -363,19 +370,22 @@ global $conn;
 
     // Load locations into checkboxes
     function LoadLocationsCheckboxes(id) {
-        let select =  document.getElementById(id);
+        let select = document.getElementById(id);
         $(select).empty();
-        <?php echo editStaevneplan::LoadLocations() ?>.forEach((Location) => {
-            let div = document.createElement("div");
-            let a = document.createElement("a");
-            let checkbox = document.createElement('input');
-            a.innerHTML = " " + JSON.parse(Location).location;
-            checkbox.type = "checkbox";
-            checkbox.id = "checkbox" + JSON.parse(Location).id;
-            div.appendChild(checkbox);
-            div.appendChild(a);
-            select.appendChild(div);
-        });
+        let locations = <?php echo editStaevneplan::LoadLocations(); ?>;
+        if(locations !== false) {
+            locations.forEach((Location) => {
+                let div = document.createElement("div");
+                let a = document.createElement("a");
+                let checkbox = document.createElement('input');
+                a.innerHTML = " " + JSON.parse(Location).location;
+                checkbox.type = "checkbox";
+                checkbox.id = "checkbox" + JSON.parse(Location).id;
+                div.appendChild(checkbox);
+                div.appendChild(a);
+                select.appendChild(div);
+            });
+        }
     }
 
     // Delete convention from database and refresh
