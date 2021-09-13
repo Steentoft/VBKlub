@@ -11,7 +11,8 @@ $(document).ready( function () {
             "targets"  : 'no-sort',
             "orderable": false,
             "order": []
-        }]
+        }],
+        "order": [[ 3, "asc" ]]
     } );
 } );
 
