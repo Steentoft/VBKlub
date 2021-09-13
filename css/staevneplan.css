@@ -6,3 +6,8 @@
     width: auto;
     min-width: 300px;
 }
+
+.span3 {
+    height: 400px; !important;
+    overflow-y: scroll;
+}
