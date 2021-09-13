@@ -18,8 +18,8 @@ global $conn;
             <th scope="col" class="no-sort">Rediger</th>
             <th scope="col" class="no-sort">Slet</th>
         </tr>
-        </thead>
-        <tbody id="test">
+        </thead >
+        <tbody id="Conventions">
         </tbody>
     </table>
 </div>
@@ -249,12 +249,13 @@ global $conn;
 
     // Load Conventions
     function LoadConventions(){
-        let tr = document.createElement("tr");
         let conventions = <?php echo editStaevneplan::LoadConventions(); ?>;
         if(conventions === false){
+            let tr = document.createElement("tr");
             tr.appendChild(document.createElement('td'));
         }else{
             conventions.forEach((Convention)=> {
+                let tr = document.createElement("tr");
                 tr.id = JSON.parse(Convention).id;
                 td(Convention, tr, "Name");
                 td(Convention, tr, "Date");
@@ -263,7 +264,7 @@ global $conn;
                 td(Convention, tr, "Location");
                 td(Convention, tr, "Edit");
                 td(Convention, tr, "Remove");
-                document.getElementById("test").appendChild(tr);
+                document.getElementById("Conventions").appendChild(tr);
             });
         }
     }
