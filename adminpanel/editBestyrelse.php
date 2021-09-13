@@ -15,9 +15,9 @@ $members = Bestyrelse::Load();
                 <th scope="col">Titel</th>
                 <th scope="col">Mobil</th>
                 <th scope="col">Email</th>
-                <th style="text-align: center" scope="col">Billede</th>
-                <th style="text-align: center" scope="col">Rediger</th>
-                <th style="text-align: center" scope="col">Slet</th>
+                <th class="center_table_text" scope="col">Billede</th>
+                <th class="center_table_text" scope="col">Rediger</th>
+                <th class="center_table_text" scope="col">Slet</th>
             </tr>
             </thead>
             <tbody>
@@ -40,9 +40,9 @@ $members = Bestyrelse::Load();
         </tbody>
     </table>
 </div>
-
-<button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
-
+<div class="btn-create">
+<button class="btn btn-dark" data-toggle="modal" data-target="#CreateModal">Ny række</button>
+</div>
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">

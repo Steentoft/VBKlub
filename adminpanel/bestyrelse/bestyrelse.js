@@ -6,7 +6,6 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets"  : 'no-sort',
                 "orderable": false,
                 "order": [],
                 "targets": [-1, -2, -3]
@@ -22,7 +21,7 @@ function createRow(){
     let email = $('#createEmail').val();
     let picture_path = $('#createPicture_path').text();
 
-    if (name == "" || title == ""){
+    if (name === "" || title === ""){
         $('#createModalAlert').css('display', 'block');
         return null;
     }
@@ -78,7 +77,7 @@ function updateRow(){
     let email = $('#email').val();
     let picture_path = $('#picture_path').text();
 
-    if (name == "" || title == ""){
+    if (name === "" || title === ""){
         $('#editModalAlert').css('display', 'block');
         return null;
     }

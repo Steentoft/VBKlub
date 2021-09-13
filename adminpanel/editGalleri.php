@@ -10,7 +10,7 @@ if (isset($_POST['deleteImage']))
 
 ?>
 
-<div class="create row">
+<div class="btn-create row">
     <div class="col">
         <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">Ny række</button>
     </div>

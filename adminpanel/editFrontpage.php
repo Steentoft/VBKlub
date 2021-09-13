@@ -15,9 +15,9 @@ $content['content'] = str_replace($order, "", $content['content']);
 <form>
     <textarea id="editor"> <?php echo stripslashes($content['content']); ?> </textarea>
 </form>
-
-<button class="btn btn-dark" style="margin: 1%" onclick="Update();">Gem</button>
-
+<div class="btn-create">
+<button class="btn btn-dark" onclick="Update();">Gem</button>
+</div>
 
 
 

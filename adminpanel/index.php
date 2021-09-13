@@ -1,12 +1,7 @@
 <?php include "../templates/adminHeader.php"; ?>
 
-<style>
-    p.card-text {
-        min-height: 6vh;
-    }
-</style>
 
-<div style="padding: 1%">
+<div class="btn-create">
     <div class="row">
         <div class="col-md-4">
             <div class="card">

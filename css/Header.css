@@ -127,3 +127,7 @@ body {
 .card-img-top{
     min-height: 35vh;
 }
+
+p.card-text {
+    min-height: 6vh;
+}
