@@ -103,6 +103,6 @@ if ($action == 'UpdateFrontpage'){
 
     $result = $pic->updateFrontpage($id, $frontpageEnabled);
 
-    echo json_encode($result);
+    echo $result;
 }
 

@@ -10,7 +10,7 @@ if (isset($_POST['deleteImage']))
 
 ?>
 
-<div class="row">
+<div class="create row">
     <div class="col">
         <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">Ny række</button>
     </div>
@@ -31,6 +31,7 @@ if (isset($_POST['deleteImage']))
         <tbody>
             <?php
             foreach ($pictures as $picture){
+                $id = $picture['id'];
             ?>
             <tr>
                 <td><?php echo $picture['title'] ?></td>
@@ -38,10 +39,10 @@ if (isset($_POST['deleteImage']))
                 <td><?php echo $picture['date'] ?></td>
                 <?php
                 if ($picture['frontpageEnabled']==true){
-                    echo "<td data-sort=0 ><img class='img-row-show' src='../billeder/check.png' value='true'";
+                    echo "<td data-sort=0 ><img data-id=$id class='img-row-show' src='../billeder/check.png' value='true' ";
                 }
                 else{
-                    echo "<td data-sort=1 ><img class='img-row-show' src='../billeder/cross.png' value='false'";
+                    echo "<td data-sort=1 ><img data-id=$id class='img-row-show' src='../billeder/cross.png' value='false' ";
                 }
                 ?>
                 onclick="changeState(this);"></td>
@@ -49,10 +50,10 @@ if (isset($_POST['deleteImage']))
                 <td><img class="img-row-show" value="../../billeder/<?php echo $picture['category']."/".$picture['path']; ?>" onclick="showPicture(this);"
                          src="../billeder/image_icon.png" data-toggle="modal" data-target="#imageModal"></td>
 
-                <td><img class="img-row-show" id="hiddenID" value="<?php print($picture['id']);?>" src="../billeder/edit_icon.png"
+                <td><img class="img-row-show" value="<?php print($id);?>" src="../billeder/edit_icon.png"
                          data-toggle="modal" data-target="#editModal" onclick="showEdit(this);"></td>
 
-                <td><img class="img-row-show" value="<?php print($picture['id']);?>" src="../billeder/delete_icon.png"
+                <td><img class="img-row-show" value="<?php print($id);?>" src="../billeder/delete_icon.png"
                          data-toggle="modal" data-target="#deleteModal" onclick="showDelete(this);"></td>
             </tr>
 

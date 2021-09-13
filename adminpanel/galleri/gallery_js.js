@@ -167,7 +167,7 @@ $("form#create").submit(function(e) {
  */
 function changeState(ele){
     let sfp = ele.getAttribute('value');
-    let id = document.getElementById('hiddenID').getAttribute('value');
+    let id = ele.getAttribute('data-id');
 
     $.post("galleri/galleriHandler.php",
         {
@@ -176,6 +176,7 @@ function changeState(ele){
             frontpageEnabled: sfp
         },
         function(data){
+            //console.log(data);
             location.reload();
         });
 }

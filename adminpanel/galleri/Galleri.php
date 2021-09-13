@@ -450,11 +450,11 @@ class Galleri
     function updateFrontpage(int $id, bool $frontpageEnabled)//: array
     {
         if ($frontpageEnabled)
-            $frontpageEnabled = false;
+            $frontpageEnabled = 0;
         else
-            $frontpageEnabled = true;
+            $frontpageEnabled = 1;
 
-        //return var_dump($frontpageEnabled);
+
         global $conn;
         $stmt = $conn->prepare("UPDATE pictures SET frontpageEnabled =? WHERE id = ?");
         $stmt->bind_param("ii", $frontpageEnabled, $id);
