@@ -25,13 +25,13 @@ $members = Admins::Load();
 
 </style>
 
-<table class="table table-striped">
+<table class="table table-striped" id="table">
     <thead class="thead-dark">
     <tr>
         <th scope="col">Brugernavn</th>
         <th scope="col">Kodeord</th>
-        <th style="text-align: center" scope="col">Rediger</th>
-        <th style="text-align: center" scope="col">Slet</th>
+        <th class="no-sort center_table_text" scope="col">Rediger</th>
+        <th class="no-sort center_table_text" scope="col">Slet</th>
     </tr>
     </thead>
     <tbody>
@@ -53,7 +53,7 @@ $members = Admins::Load();
 <button style="margin: 1%" class="btn btn-dark" onclick="//createRow();" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -68,7 +68,7 @@ $members = Admins::Load();
 </div>
 
 <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="CreateModal" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Oprettelse</h5>
@@ -97,7 +97,7 @@ $members = Admins::Load();
 </div>
 
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Rediger</h5>
@@ -127,7 +127,7 @@ $members = Admins::Load();
 </div>
 
 <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-sm modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Slet række</h5>

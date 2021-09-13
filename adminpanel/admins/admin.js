@@ -1,6 +1,24 @@
+
+/**
+ * Enables sorting of the table
+ */
+$(document).ready( function () {
+    $('#table').DataTable( {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
+        },
+        "columnDefs": [ {
+            "targets"  : 'no-sort',
+            "orderable": false,
+            "order": []
+        }]
+    } );
+} );
+
 $('.password-hidden').mouseover(function(){
     $(this).css('filter','blur(0px)');
 });
+
 $('.password-hidden').mouseleave(function(){
     $(this).css('filter','blur(5px)');
 });
@@ -83,3 +101,4 @@ function deleteRow(ele){
             location.reload();
         });
 }
+
