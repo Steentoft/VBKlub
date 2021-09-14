@@ -27,7 +27,7 @@
 <script>
     function Update(){
         tinyMCE.triggerSave();
-        let content = $('#full-featured-non-premium').val();
+        let content = $('#editor').val();
 
         $.post("omklubben/omklubbenHandler.php",
             {
