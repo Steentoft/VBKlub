@@ -27,11 +27,11 @@
     display: none;
 }
 
-.valid:valid{
+.bestyrelseInput:valid{
     border-color: #ced4da;
 }
 
-.valid:invalid{
+.bestyrelseInput:invalid{
     border-color: red;
 }
 

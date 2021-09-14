@@ -75,20 +75,20 @@ $members = Bestyrelse::Load();
                     <p id="createModalAlertNumber" class="modalAlert">Ugyldigt telefonnummer</p>
                     <div class="form-group">
                         <label for="createName">Fuldenavn</label>
-                        <input type="text" class="form-control mr-sm-2 mb-2 valid" id="createName" placeholder="Fuldenavn">
+                        <input type="text" class="form-control mr-sm-2 mb-2 bestyrelseInput" id="createName" placeholder="Fuldenavn">
                     </div>
                     <div class="form-group">
                         <label for="createTitle">Titel</label>
-                        <input type="text"  class="form-control mr-sm-2 mb-2 valid" id="createTitle" placeholder="Titel">
+                        <input type="text"  class="form-control mr-sm-2 mb-2 bestyrelseInput" id="createTitle" placeholder="Titel">
 
                     </div>
                     <div class="form-group">
                         <label for="createPhonenumber">Mobil</label>
-                        <input type="tel" pattern="[0-9]+"  class="form-control mr-sm-2 mb-2 valid" maxlength="8" id="createPhonenumber" placeholder="Mobil">
+                        <input type="tel" pattern="[0-9]+"  class="form-control mr-sm-2 mb-2 bestyrelseInput" maxlength="8" id="createPhonenumber" placeholder="Mobil">
                     </div>
                     <div class="form-group">
                         <label for="createEmail">Email</label>
-                        <input type="email"  class="form-control mr-sm-2 mb-2 valid" id="createEmail" placeholder="Email">
+                        <input type="email"  class="form-control mr-sm-2 mb-2 bestyrelseInput" id="createEmail" placeholder="Email">
                         <small id="createEmailHelp" class="form-text text-muted" style="display: none; color: red !important;">Ugyldig email.</small>
 
                     </div>
@@ -126,20 +126,20 @@ $members = Bestyrelse::Load();
                     <p id="editModalAlertNumber" class="modalAlert">Ugyldigt telefonnummer</p>
                     <div class="form-group">
                         <label for="name">Fuldenavn</label>
-                        <input type="text"  class="form-control mr-sm-2 mb-2 valid" id="name" placeholder="Fuldenavn">
+                        <input type="text"  class="form-control mr-sm-2 mb-2 bestyrelseInput" id="name" placeholder="Fuldenavn">
                     </div>
                     <div class="form-group">
                         <label for="title">Titel</label>
-                        <input type="text"  class="form-control mr-sm-2 mb-2 valid" id="title" placeholder="Titel">
+                        <input type="text"  class="form-control mr-sm-2 mb-2 bestyrelseInput" id="title" placeholder="Titel">
 
                     </div>
                     <div class="form-group">
                         <label for="phonenumber">Mobil</label>
-                        <input type="tel" pattern="[0-9]+"  class="form-control mr-sm-2 mb-2 valid" maxlength="8" id="phonenumber" placeholder="Mobil">
+                        <input type="tel" pattern="[0-9]+"  class="form-control mr-sm-2 mb-2 bestyrelseInput" maxlength="8" id="phonenumber" placeholder="Mobil">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email"  class="form-control mr-sm-2 mb-2 valid" id="email" placeholder="Email">
+                        <input type="email"  class="form-control mr-sm-2 mb-2 bestyrelseInput" id="email" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label for="customFile">Billede</label>
