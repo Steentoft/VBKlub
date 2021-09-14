@@ -7,13 +7,14 @@
     $content = Omklubben::Load();
     $order   = array('\r\n', '\n', '\r' );
     $replace = '<br />';
-    $content['content'] = str_replace($order, "", $content['content']);
+    if ($content != null)
+        $content['content'] = str_replace($order, "", $content['content']);
 ?>
 
 
 
 <form>
-    <textarea id="editor"> <?php echo stripslashes($content['content']); ?> </textarea>
+    <textarea id="editor"> <?php if ($content != null) echo stripslashes($content['content']); ?> </textarea>
 </form>
 <div class="btn-create">
 <button class="btn btn-dark" onclick="Update();">Gem</button>
@@ -34,8 +35,12 @@
                 action: 'update',
                 content: content
             },
-            function(data){
-                location.reload();
+            function(response){
+                let info = JSON.parse(response);
+                if (info['status'] === "error")
+                    alert(info['message']);
+                if (info['status'] === "success")
+                    location.reload();
             });
     }
 </script>

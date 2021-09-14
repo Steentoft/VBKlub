@@ -21,5 +21,5 @@ if ($action == 'update'){
 
     $result = Omklubben::Update($content);
 
-    echo $result;
+    echo json_encode($result);
 }
