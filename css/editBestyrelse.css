@@ -34,3 +34,7 @@ input:valid{
 input:invalid{
     border-color: red;
 }
+
+.btn-create{
+    padding: 1%;
+}

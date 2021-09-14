@@ -8,6 +8,7 @@ $members = Admins::Load();
 
 ?>
 
+<div class="table-responsive">
 <table class="table table-striped" id="table">
     <thead class="thead-dark">
     <tr>
@@ -34,6 +35,7 @@ $members = Admins::Load();
     ?>
     </tbody>
 </table>
+</div>
 <div class="btn-create">
 <button class="btn btn-dark" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 </div>
