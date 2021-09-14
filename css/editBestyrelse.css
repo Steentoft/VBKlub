@@ -27,11 +27,11 @@
     display: none;
 }
 
-input:valid{
+.valid:valid{
     border-color: #ced4da;
 }
 
-input:invalid{
+.valid:invalid{
     border-color: red;
 }
 

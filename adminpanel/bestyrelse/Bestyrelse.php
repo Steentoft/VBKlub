@@ -99,7 +99,7 @@ class Bestyrelse
      * @param string $email
      * @return string[]
      */
-    static function Update(int $id, string $name, string $title, string $picture_path,int $phoneNumber,string $email):array
+    static function Update(int $id, string $name, string $title, string $picture_path,string $phoneNumber,string $email):array
     {
         $response = array(
             "status" => "error",
@@ -179,7 +179,7 @@ class Bestyrelse
      * @param string $email
      * @return string[]
      */
-    static function Create(string $name,string $title,int $phoneNumber,string $email):array
+    static function Create(string $name,string $title,string $phoneNumber,string $email):array
     {
         $response = array(
             "status" => "error",
@@ -189,28 +189,28 @@ class Bestyrelse
 
         if ($phoneNumber == "" || $phoneNumber == 0)
             $phoneNumber = NULL;
+        if (isset($_FILES["fileUpload"]))
+        {
+            $temp = explode(".", $_FILES["fileUpload"]["name"]);
+            $filename = round(microtime(true)) . '.' . end($temp);
 
-        $temp = explode(".", $_FILES["fileUpload"]["name"]);
-        $filename = round(microtime(true)) . '.' . end($temp);
+            $location = "../../billeder/bestyrelse/" . $filename;
 
+
+            if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)) {
+                $response = array(
+                    "status" => "success",
+                    "message" => "Billede tilføjet til serveren"
+                );
+            } else {
+                $response = array(
+                    "status" => "error",
+                    "message" => "Kunne tilføje billedet til serveren"
+                );
+            }
+        }
         if (!isset($_FILES["fileUpload"]))
             $filename = "bestyrelseDefault.png";
-
-        $location = "../../billeder/bestyrelse/".$filename;
-
-
-        if(move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)){
-            $response = array(
-                "status" => "success",
-                "message" => "Billede tilføjet til serveren"
-            );
-        } else {
-            $response = array(
-                "status" => "error",
-                "message" => "Kunne tilføje billedet til serveren"
-            );
-        }
-
 
         if ($conn) {
             $sql = $conn->prepare("INSERT INTO members (fullname, title, picture_path, phonenumber, email) VALUES (?,?,?,?,?)");
