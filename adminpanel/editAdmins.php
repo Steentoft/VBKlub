@@ -66,18 +66,18 @@ $members = Admins::Load();
             <div class="modal-body justify-content-center">
                 <form autocomplete="off">
                     <div class="form-group">
-                        <label for="name">Brugernavn</label>
+                        <label for="createUsername">Brugernavn</label>
                         <input autocomplete="off" type="text" class="form-control mr-sm-2 mb-2" id="createUsername" placeholder="Brugernavn">
                     </div>
                     <div class="form-group">
-                        <label for="title">Kodeord</label>
+                        <label for="createPassword">Kodeord</label>
                         <input autocomplete="new-password" type="password" class="form-control mr-sm-2 mb-2" id="createPassword" placeholder="Kodeord">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" onclick="createRow()">Gem</button>
+                <button type="button" class="btn btn-danger" onclick="createRow()">Gem</button>
             </div>
         </div>
     </div>
@@ -108,7 +108,7 @@ $members = Admins::Load();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fortryd</button>
-                <button type="button" class="btn btn-danger " data-dismiss="modal" onclick="updateRow()">Gem</button>
+                <button type="button" class="btn btn-danger" onclick="updateRow()">Gem</button>
             </div>
         </div>
     </div>

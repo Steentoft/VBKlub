@@ -85,8 +85,15 @@ class Admins
             "message" => "Ukendt fejl"
         );
         global $conn;
-        $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
 
+        if (!self::passwordStrength($password)){
+            return array(
+                "status" => "error",
+                "message" => "Kodeord skal minimum være 8 karakterer lang og skal indeholde minimum et lille bogstav, et stort bogstav, et tal og et specialtegn",
+            );
+        }
+
+        $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
 
         if ($oldUsername != $username && self::checkUsername($username)){
             $response = array(
@@ -125,6 +132,14 @@ class Admins
             "message" => "Ukendt fejl"
         );
         global $conn;
+        if (!self::passwordStrength($password)){
+            return array(
+                "status" => "error",
+                "message" => "Kodeord skal minimum være 8 karakterer lang og skal indeholde minimum et lille bogstav, et stort bogstav, et tal og et specialtegn",
+            );
+        }
+
+
         $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
         if (self::checkUsername($username)){
             $response = array(
@@ -173,5 +188,25 @@ class Admins
             }
         }
         return $exists;
+    }
+
+    /**
+     * Checks if the password is strong enough
+     * @param $password
+     * @return bool
+     */
+    static function passwordStrength($password):bool
+    {
+        // Validate password strength
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+
+        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+            return false;
+        }else{
+            return true;
+        }
     }
 }

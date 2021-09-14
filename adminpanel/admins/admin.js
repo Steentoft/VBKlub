@@ -34,7 +34,8 @@ function createRow(){
             let info = JSON.parse(response);
             if (info['status'] === "error")
                 alert(info['message']);
-            location.reload();
+            if (info['status'] === "success")
+                location.reload();
         },
     });
 }
@@ -79,7 +80,8 @@ function updateRow(){
             let info = JSON.parse(response);
             if (info['status'] === "error")
                 alert(info['message']);
-            location.reload();
+            if (info['status'] === "success")
+                location.reload();
         },
     });
 }
