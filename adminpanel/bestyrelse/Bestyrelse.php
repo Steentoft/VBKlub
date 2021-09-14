@@ -62,6 +62,8 @@ class Bestyrelse
     static function Update($id, $name, $title, $picture_path, $phoneNumber, $email)
     {
         global $conn;
+        if ($phoneNumber == "" || $phoneNumber == 0)
+            $phoneNumber = NULL;
 
         if ($_FILES["fileUpload"]["name"] != null) {
             if ($conn) {
@@ -109,6 +111,9 @@ class Bestyrelse
     static function Create($name, $title, $picture_path, $phoneNumber, $email)
     {
         global $conn;
+
+        if ($phoneNumber == "" || $phoneNumber == 0)
+            $phoneNumber = NULL;
 
         $temp = explode(".", $_FILES["fileUpload"]["name"]);
         $filename = round(microtime(true)) . '.' . end($temp);

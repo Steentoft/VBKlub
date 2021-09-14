@@ -26,3 +26,11 @@
     color: red;
     display: none;
 }
+
+input:valid{
+    border-color: #ced4da;
+}
+
+input:invalid{
+    border-color: red;
+}

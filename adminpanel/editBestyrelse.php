@@ -43,6 +43,7 @@ $members = Bestyrelse::Load();
 <div class="btn-create">
 <button class="btn btn-dark" data-toggle="modal" data-target="#CreateModal">Ny række</button>
 </div>
+<!-- Picture modal-->
 <div class="modal fade" id="PictureModal" tabindex="-1" role="dialog" aria-labelledby="PictureModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
@@ -58,6 +59,7 @@ $members = Bestyrelse::Load();
     </div>
 </div>
 
+<!-- Create modal-->
 <div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="CreateModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
@@ -70,30 +72,31 @@ $members = Bestyrelse::Load();
             <div class="modal-body justify-content-center">
                 <form>
                     <p id="createModalAlert" class="modalAlert">Navn og titel skal udfyldes.</p>
+                    <p id="createModalAlertNumber" class="modalAlert">Ugyldigt telefonnummer</p>
                     <div class="form-group">
-                        <label for="name">Fuldenavn</label>
+                        <label for="createName">Fuldenavn</label>
                         <input type="text" class="form-control mr-sm-2 mb-2" id="createName" placeholder="Fuldenavn">
                     </div>
                     <div class="form-group">
-                        <label for="title">Titel</label>
+                        <label for="createTitle">Titel</label>
                         <input type="text" class="form-control mr-sm-2 mb-2" id="createTitle" placeholder="Titel">
 
                     </div>
                     <div class="form-group">
-                        <label for="phonenumber">Mobil</label>
-                        <input type="tel" class="form-control mr-sm-2 mb-2" maxlength="8" id="createPhonenumber" placeholder="Mobil">
+                        <label for="createPhonenumber">Mobil</label>
+                        <input type="tel" pattern="[0-9]+" class="form-control mr-sm-2 mb-2" maxlength="8" id="createPhonenumber" placeholder="Mobil">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="createEmail">Email</label>
                         <input type="email" class="form-control mr-sm-2 mb-2" id="createEmail" placeholder="Email">
                         <small id="createEmailHelp" class="form-text text-muted" style="display: none; color: red !important;">Ugyldig email.</small>
 
                     </div>
                     <div class="form-group">
-                        <label for="customFile">Billede</label>
+                        <label for="createPicture">Billede</label>
                         <div class="custom-file mr-sm-2 mb-2">
                             <input type="file" class="custom-file-input" id="createPicture" accept="image/*">
-                            <label class="custom-file-label" id="createPicture_path" for="customFile">Vælg fil</label>
+                            <label class="custom-file-label" id="createPicture_path" for="createPicture">Vælg fil</label>
                         </div>
                     </div>
                 </form>
@@ -106,6 +109,7 @@ $members = Bestyrelse::Load();
     </div>
 </div>
 
+<!-- Edit modal-->
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModal" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog" role="document">
         <div class="modal-content">
@@ -119,6 +123,7 @@ $members = Bestyrelse::Load();
                 <form>
                     <input value="" id="hiddenID" hidden>
                     <p id="editModalAlert" class="modalAlert">Navn og titel skal udfyldes.</p>
+                    <p id="editModalAlertNumber" class="modalAlert">Ugyldigt telefonnummer</p>
                     <div class="form-group">
                         <label for="name">Fuldenavn</label>
                         <input type="text" class="form-control mr-sm-2 mb-2" id="name" placeholder="Fuldenavn">
@@ -130,12 +135,11 @@ $members = Bestyrelse::Load();
                     </div>
                     <div class="form-group">
                         <label for="phonenumber">Mobil</label>
-                        <input type="tel" class="form-control mr-sm-2 mb-2" maxlength="8" id="phonenumber" placeholder="Mobil">
+                        <input type="tel" pattern="[0-9]+" class="form-control mr-sm-2 mb-2" maxlength="8" id="phonenumber" placeholder="Mobil">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control mr-sm-2 mb-2" id="email" placeholder="Email">
-                        <small id="emailHelp" class="form-text text-muted" style="display: none; color: red !important;">Ugyldig email.</small>
                     </div>
                     <div class="form-group">
                         <label for="customFile">Billede</label>
@@ -154,6 +158,7 @@ $members = Bestyrelse::Load();
     </div>
 </div>
 
+<!-- Delete modal-->
 <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog" role="document">
         <div class="modal-content">

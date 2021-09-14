@@ -15,14 +15,30 @@ $(document).ready(function () {
 });
 
 function createRow(){
-    let name = $('#createName').val();
-    let title = $('#createTitle').val();
-    let number = $('#createPhonenumber').val();
-    let email = $('#createEmail').val();
-    let picture_path = $('#createPicture_path').text();
+    let name, title, number, email, picture_path, validPhone;
+    name = $('#createName');
+    title = $('#createTitle');
+    number = $('#createPhonenumber');
+    email = $('#createEmail').val();
+    picture_path = $('#createPicture_path').text();
+    validPhone = number.is(':valid');
+    number = number.val();
+
+    title.attr('required',"");
+    title = title.val();
+
+    name.attr('required',"");
+    name = name.val();
+
+    if (!validPhone){
+        $('#createModalAlert').css('display', 'none');
+        $('#createModalAlertNumber').css('display', 'block');
+        return null;
+    }
 
     if (name === "" || title === ""){
         $('#createModalAlert').css('display', 'block');
+        $('#createModalAlertNumber').css('display', 'none');
         return null;
     }
 
@@ -69,16 +85,32 @@ function editRow(ele){
 }
 
 function updateRow(){
-    let id = $('#hiddenID').val();
+    let id, name, title, number, email, picture_path, validPhone;
+    id = $('#hiddenID').val();
 
-    let name = $('#name').val();
-    let title = $('#title').val();
-    let number = $('#phonenumber').val();
-    let email = $('#email').val();
-    let picture_path = $('#picture_path').text();
+    name = $('#name');
+    title = $('#title');
+    number = $('#phonenumber');
+    email = $('#email').val();
+    picture_path = $('#picture_path').text();
+    validPhone = number.is(':valid');
+    number = number.val();
+
+    title.attr('required',"");
+    title = title.val();
+
+    name.attr('required',"");
+    name = name.val();
+
+    if (!validPhone){
+        $('#editModalAlert').css('display', 'none');
+        $('#editModalAlertNumber').css('display', 'block');
+        return null;
+    }
 
     if (name === "" || title === ""){
         $('#editModalAlert').css('display', 'block');
+        $('#editModalAlertNumber').css('display', 'none');
         return null;
     }
 
