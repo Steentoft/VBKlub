@@ -82,6 +82,9 @@ class Bestyrelse
             $temp = explode(".", $_FILES["fileUpload"]["name"]);
             $picture_path = round(microtime(true)) . '.' . end($temp);
 
+            if (!isset($_FILES["fileUpload"]))
+                $picture_path = "bestyrelseDefault.png";
+
             $location = "../../billeder/bestyrelse/" . $picture_path;
             $uploadOk = 1;
 
@@ -117,6 +120,9 @@ class Bestyrelse
 
         $temp = explode(".", $_FILES["fileUpload"]["name"]);
         $filename = round(microtime(true)) . '.' . end($temp);
+
+        if (!isset($_FILES["fileUpload"]))
+            $filename = "bestyrelseDefault.png";
 
         $location = "../../billeder/bestyrelse/".$filename;
         $uploadOk = 1;

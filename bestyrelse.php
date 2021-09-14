@@ -25,7 +25,7 @@
     ?>
     <div class="col-4 member justify-content-center">
         <div class="card" style="width: 18rem;">
-            <img src="billeder/bestyrelse/<?php echo $member['picture_path'] ?>" class="card-img-top" alt="...">
+            <img src="billeder/bestyrelse/<?php echo $member['picture_path'] ?>" class="card-img-top" alt="Bestryrelse billede">
             <div class="card-body">
                 <h5><?php echo $member['title'] ?></h5>
                 <p class="card-text"><?php echo $member['fullname'] ?></p>
