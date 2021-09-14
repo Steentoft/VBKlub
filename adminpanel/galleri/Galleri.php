@@ -4,7 +4,6 @@ class Galleri
 {
     /**
      * Uploads picture
-     *
      * @param string $category
      * @param bool $frontpageEnabled
      * @param string $title

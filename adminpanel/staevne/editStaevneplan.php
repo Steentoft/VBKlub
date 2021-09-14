@@ -2,7 +2,10 @@
 
 class editStaevneplan
 {
-    // Locations
+    /**
+     * Gets all locations
+     * @return false|string
+     */
     static function LoadLocations(){
         global $conn;
         if($conn){
@@ -23,7 +26,11 @@ class editStaevneplan
         return "false";
     }
 
-    static function CreateLocation($Location){
+    /**
+     * Creates a new location
+     * @param string $Location
+     */
+    static function CreateLocation(string $Location){
         global $conn;
         $RetrieveTable= $conn->prepare("SELECT * FROM locations");
         $RetrieveTable->execute();
@@ -41,7 +48,11 @@ class editStaevneplan
         echo 1;
     }
 
-    static function DeleteLocation($Array) {
+    /**
+     * Deletes a location
+     * @param string $Array
+     */
+    static function DeleteLocation(string $Array) {
         global $conn;
         foreach($Array as $Location){
             $sql = $conn->prepare("DELETE FROM locations WHERE id=?");
@@ -50,7 +61,10 @@ class editStaevneplan
         }
     }
 
-    // Conventions
+    /**
+     * Gets all conventions
+     * @return false|string
+     */
     static function LoadConventions() {
         global $conn;
         $stmt = $conn->prepare("SELECT conventions.*, locations.location FROM conventions INNER JOIN locations ON conventions.location=locations.id ORDER BY conventions.name ASC");
@@ -69,7 +83,15 @@ class editStaevneplan
         return false;
     }
 
-    static function CreateConvention($Name, $Date, $Start, $End, $Location) {
+    /**
+     * Creates a new convention
+     * @param string $Name
+     * @param string $Date
+     * @param string $Start
+     * @param string $End
+     * @param string $Location
+     */
+    static function CreateConvention(string $Name, string $Date, string $Start, string $End, string $Location) {
         global $conn;
         $stmt = $conn->prepare("SELECT * FROM locations where locations.location = ?");
         $stmt->bind_param("s", $Location);
@@ -84,14 +106,27 @@ class editStaevneplan
         $sql->execute();
     }
 
-    static function DeleteConvention($id) {
+    /**
+     * Deletes a convention
+     * @param int $id
+     */
+    static function DeleteConvention(int $id) {
         global $conn;
         $sql = $conn->prepare("DELETE FROM conventions WHERE id = ?");
         $sql->bind_param("i", $id);
         $sql->execute();
     }
 
-    static function UpdateConvention($Name, $Date, $Start, $End, $Location, $id){
+    /**
+     * Updates convention
+     * @param string $Name
+     * @param string $Date
+     * @param string $Start
+     * @param string $End
+     * @param string $Location
+     * @param int $id
+     */
+    static function UpdateConvention(string $Name, string $Date, string $Start, string $End, string $Location, int $id){
         global $conn;
         $stmt = $conn->prepare("SELECT * FROM locations where locations.location = ?");
         $stmt->bind_param("s", $Location);

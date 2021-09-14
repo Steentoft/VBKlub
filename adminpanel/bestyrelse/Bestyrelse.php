@@ -2,6 +2,10 @@
 
 class Bestyrelse
 {
+    /**
+     * Gets everything from members database
+     * @return array|mixed
+     */
     static function Load()
     {
         $members = array();
@@ -16,7 +20,12 @@ class Bestyrelse
         return $members;
     }
 
-    static function LoadSingle($id)
+    /**
+     * Gets a single member from database
+     * @param int $id
+     * @return false|string
+     */
+    static function LoadSingle(int $id)
     {
         $member = array();
         global $conn;
@@ -31,7 +40,12 @@ class Bestyrelse
         return json_encode($member);
     }
 
-    static function Delete($id):array
+    /**
+     * Delete a member from the database, and their image
+     * @param int $id
+     * @return string[]
+     */
+    static function Delete(int $id):array
     {
         $response = array(
             "status" => "error",
@@ -75,7 +89,17 @@ class Bestyrelse
         return $response;
     }
 
-    static function Update($id, $name, $title, $picture_path, $phoneNumber, $email):array
+    /**
+     * Updates a member in the database
+     * @param int $id
+     * @param string $name
+     * @param string $title
+     * @param string $picture_path
+     * @param int $phoneNumber
+     * @param string $email
+     * @return string[]
+     */
+    static function Update(int $id, string $name, string $title, string $picture_path,int $phoneNumber,string $email):array
     {
         $response = array(
             "status" => "error",
@@ -147,7 +171,15 @@ class Bestyrelse
         return $response;
     }
 
-    static function Create($name, $title, $phoneNumber, $email):array
+    /**
+     * Creates a new member in the database and uploads their image
+     * @param string $name
+     * @param string $title
+     * @param int $phoneNumber
+     * @param string $email
+     * @return string[]
+     */
+    static function Create(string $name,string $title,int $phoneNumber,string $email):array
     {
         $response = array(
             "status" => "error",

@@ -75,6 +75,7 @@ class Admins
      * Updates selected admin, returns response
      * @param $id
      * @param $username
+     * @param $oldUsername
      * @param $password
      * @return string[]
      */
