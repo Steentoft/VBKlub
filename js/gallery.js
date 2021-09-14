@@ -47,8 +47,9 @@ $("#dateSelect").on('change', function(e) {
     $("#leftCol").html("");
     $("#rightCol").html("");
     $("#categorySelect").html("");
-    $('#categorySelect').append("<option value='Alle'>Alle</option>");
+    $('#categorySelect').append("<option selected value='Alle'>Alle</option>");
     date = $('#dateSelect').val();
+    category = "Alle";
     location.href = "#category="+category+"&date="+date;
 
     $.post("adminpanel/galleri/galleriHandler.php",

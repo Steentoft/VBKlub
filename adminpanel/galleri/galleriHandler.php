@@ -69,7 +69,10 @@ if ($action == 'Select'){
     }
 
     $result = "";
-    if ($date =="" && $category!=""){
+    if ($category == "Alle" && $date != ""){
+        $result = $pic->LoadSpecificYear($date);
+    }
+    elseif ($date =="" && $category!=""){
         $result = $pic->LoadSpecificCategory($category);
     }
     elseif ($date !="" && $category==""){
@@ -77,9 +80,6 @@ if ($action == 'Select'){
     }
     elseif($date !="" && $category!=""){
         $result = $pic->LoadSpecific($date, $category);
-    }
-    if ($category == "Alle" && $date != ""){
-        $result = $pic->LoadSpecificYear($date);
     }
 
     echo json_encode($result);
