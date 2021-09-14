@@ -10,30 +10,29 @@ $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http
 echo("<script>history.replaceState({},'','$url');</script>");
 ?>
 
+<div class="select-div">
+    <select class="custom-select select-image" id="dateSelect">
+        <option selected value="">Årstal</option>
 
-<select class="custom-select" id="dateSelect">
-    <option selected value="">Årstal</option>
+        <?php
+        $od="";
+        foreach ($pictures as $picture){
+            $dato = date("Y", strtotime($picture['date']));
+            if ($od == $dato)
+                continue; $od = $dato;
+            $od = $dato;
 
-<?php
-$od="";
-foreach ($pictures as $picture){
-    $dato = date("Y", strtotime($picture['date']));
-    if ($od == $dato)
-        continue; $od = $dato;
-    $od = $dato;
+            echo "<option value='$dato'>$dato</option>";
 
-    echo "<option value='$dato'>$dato</option>";
+        }
+        ?>
+    </select>
 
-}
-?>
+    <select class="custom-select d-none select-image" id="categorySelect">
+        <option selected value="">Kategori</option>
 
-</select>
-
-<select class="custom-select d-none" id="categorySelect">
-    <option selected value="">Kategori</option>
-
-</select>
-
+    </select>
+</div>
 <div class="row content justify-content-center">
     <?php
     if (count($pictures) <1)
