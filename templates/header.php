@@ -57,7 +57,7 @@ session_start();
             <?php
             } else{
             ?>
-                <form action="BL/verification/verify_login.php" method="post" id="loginForm" class="my-2 my-lg-0">
+                <form method="post" id="loginForm" class="my-2 my-lg-0">
                     <div class="form-row align-items-right" style="justify-content: flex-end">
                         <div class="col-sm-3 my-1">
                             <input class="form-control mr-sm-2" id="username" name="username" placeholder="Brugernavn"/>
@@ -66,7 +66,7 @@ session_start();
                             <input class="form-control mr-sm-2" id="password" type="password" y name="password" placeholder="Kodeord" />
                         </div>
                         <div class="col-auto my-1">
-                            <button type="submit" class="btn btn-outline-success my-2 my-sm-0" >Login</button>
+                            <button class="btn btn-outline-success my-2 my-sm-0">Login</button>
                         </div>
                     </div>
                 </form>
