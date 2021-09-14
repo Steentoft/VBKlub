@@ -3,6 +3,10 @@
 
 class Frontpage
 {
+    /**
+     * Gets everything from frontpage table
+     * @return array|string|null
+     */
     static function Load(){
         global $conn;
         if ($conn) {
@@ -17,7 +21,12 @@ class Frontpage
         return $content;
     }
 
-    static function Update($content){
+    /**
+     * Updates frontpage table
+     * @param string $content
+     * @return string|void
+     */
+    static function Update(string $content){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE frontpage SET content=? WHERE id=1");
@@ -30,6 +39,10 @@ class Frontpage
         }
     }
 
+    /**
+     * Gets images to be shown on the frontpage
+     * @return mixed|string
+     */
     static function LoadPictures(){
         global $conn;
         if ($conn) {

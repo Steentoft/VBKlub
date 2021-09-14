@@ -3,6 +3,10 @@
 
 class Tilmelding
 {
+    /**
+     * Gets everything from registration table
+     * @return array|string|null
+     */
     static function Load(){
         global $conn;
         if ($conn) {
@@ -17,7 +21,12 @@ class Tilmelding
         return $content;
     }
 
-    static function Update($content){
+    /**
+     * Updates registration table
+     * @param string $content
+     * @return string|void
+     */
+    static function Update(string $content){
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE registration SET content=? WHERE id=1");
