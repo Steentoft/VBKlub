@@ -282,6 +282,15 @@ class Galleri
 
         $path = "../../billeder/".$category."/".$picture;
 //return realpath($path);
+        if (!file_exists($path)){
+            $sql = "DELETE FROM pictures WHERE id=?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            echo "no file found but row deleted";
+            $removed = true;
+        }
+
         if(unlink(realpath($path))){
             $sql = "DELETE FROM pictures WHERE id=?";
             $stmt = $conn->prepare($sql);
