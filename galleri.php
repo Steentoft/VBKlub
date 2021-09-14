@@ -35,6 +35,9 @@ foreach ($pictures as $picture){
 </select>
 
 <div class="row content justify-content-center">
+    <?php
+    if (count($pictures) <1)
+        echo "<img class='noImage' src='billeder/noImage.png'>"?>
     <div class="row img-row">
         <div id="leftCol" class="column img-column justify-content-center">
             </div>
