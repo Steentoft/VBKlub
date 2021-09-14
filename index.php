@@ -12,96 +12,6 @@ $replace = '';
 $content['content'] = str_replace($order, $replace, $content['content']);
 ;?>
 
-<style>
-    .d-block{
-        height: 50vh !important;
-        margin: auto;
-    }
-
-    .carousel{
-        background: black !important;
-    }
-
-    .animation {
-        height: 125px;
-        margin-bottom: 5%;
-        position: relative;
-        animation: example 2s infinite;
-    }
-
-    @keyframes example {
-        from {
-            transform:rotate(0deg);
-        }
-        to {
-            transform:rotate(360deg);
-        }
-    }
-
-
-
-    @media screen and (max-width: 768px) {
-
-        #animationVB{
-            display: none;
-        }
-    }
-
-    @media (min-width: 768px) {
-
-        .animation {
-            animation: example 1.5s infinite;
-        }
-
-        @keyframes example {
-            0%,
-            100% {
-                left: -14%;
-            }
-            50% {
-                left: 44%;
-                transform:rotate(180deg);
-            }
-        }
-    }
-
-    @media (min-width: 992px) {
-
-        .animation {
-            animation: example 2s infinite;
-        }
-
-        @keyframes example {
-            0%,
-            100% {
-                left: -10%;
-            }
-            50% {
-                left: 57.5%;
-                transform:rotate(360deg);
-            }
-        }
-    }
-
-    @media (min-width: 1200px) {
-        .animation {
-            animation: example 2.5s infinite;
-        }
-
-        @keyframes example {
-            0%,
-            100% {
-                left: -10%;
-            }
-            50% {
-                left: 65%;
-                transform:rotate(720deg);
-            }
-        }
-    }
-
-</style>
-
 <div style="padding: 1%">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -129,11 +39,12 @@ $content['content'] = str_replace($order, $replace, $content['content']);
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <div id="animationVB" style="margin-top: 2%">
-        <img src="billeder/volleyballhand.png" style="height: 200px">
-        <img src="billeder/volleyball.png" class="animation" style="z-index: 5">
-        <img src="billeder/volleyballhand.png" style="float: right;  height: 200px; transform: scaleX(-1); z-index: -1">
-    </div>
+
+<!--    <div id="animationVB" style="margin-top: 2%">-->
+<!--        <img src="billeder/volleyballhand.png" style="height: 200px">-->
+<!--        <img src="billeder/volleyball.png" class="animation" style="z-index: 5">-->
+<!--        <img src="billeder/volleyballhand.png" style="float: right;  height: 200px; transform: scaleX(-1); z-index: -1">-->
+<!--    </div>-->
 
     <?php echo stripslashes($content['content']); ?>
 </div>

@@ -109,7 +109,8 @@ if ($conn) {
             "dom": 'rtip',
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.11.1/i18n/da.json'
-            }
+            },
+            "order": [[ 1, "asc" ]]
         });
     } );
 </script>

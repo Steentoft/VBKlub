@@ -6,7 +6,7 @@ include "../BL/dbConnections/dbConnection.php";
 global $conn;
 ?>
 
-<div class="table-responsive-sm">
+<div class="table-responsive">
      <table class="table table-striped table-responsive-sm" id="ConventionTable">
         <thead class="thead-dark" >
          <tr>

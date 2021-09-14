@@ -1,105 +1,96 @@
-
-body{
-}
-
-.logo-container{
-    height: 20vh;
-}
-
-.logo{
-    margin-top: 1%;
-    height: 90%;
-}
-
-.container{
-    padding: 0;
-}
-
-.container-custom{
-    box-shadow: 1px 1px 5px 5px lightgrey;
-    height: auto;
-    min-height: 80vh;
-}
-
-.content{
-    padding: 2%;
-}
-
-.opening-hours{
-    background: darkgray;
-    height: 40vh;
-}
-
-.gallery-picture{
-    width: 25vw;
+.d-block{
+    height: 27.5vw;
     margin: auto;
-    cursor: pointer;
-}
-.modal-body{
-    display: flex;
+    opacity: 1.0 !important;
 }
 
-.img-row {
-    display: flex;
-    flex-wrap: wrap;
+.carousel{
+    background: rgb(0,0, 0, 0.5) !important;
 }
 
-/* Create four equal columns that sits next to each other */
-.img-column {
-    flex: 50%;
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-
-.img-column img {
-    margin-top: 8px;
-    /*margin-left: 14px;*/
-    vertical-align: top;
-    width: 90%;
-}
-
-/* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
-    .img-column {
-        margin-left: 3%;
-        flex: 45%;
-        max-width: 45%;
-    }
-
-    .member{
-        flex: 50%;
-        max-width: 50%;
-    }
-
-}
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-    .img-column {
-        margin-left: 14px;
-        flex: 100%;
-        max-width: 100%;
-    }
-
-    .img-column img {
-        margin-left: 3%;
-    }
-
-}
-
-@media screen and (max-width: 450px) {{
-}
-    .member{
-        flex: 100%;
-        max-width: 100%;
-    }
-}
-
-#modalPicture{
-    width: 100%;
-}
-
-.card{
+.animation {
+    height: 125px;
     margin-bottom: 5%;
+    position: relative;
+    animation: example 2s infinite;
+}
+
+@keyframes example {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    #animationVB{
+        display: none;
+    }
+
+    .d-block{
+        height: 50vw ;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .animation {
+        animation: example 1.5s infinite;
+    }
+
+    @keyframes example {
+        0%,
+        100% {
+            left: -14%;
+        }
+        50% {
+            left: 44%;
+            transform:rotate(180deg);
+        }
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .animation {
+        animation: example 2s infinite;
+    }
+
+    @keyframes example {
+        0%,
+        100% {
+            left: -10%;
+        }
+        50% {
+            left: 57.5%;
+            transform:rotate(360deg);
+        }
+    }
+}
+
+@media (max-width: 1300px) {
+    .animation {
+        animation: example 2.5s infinite;
+    }
+
+    .d-block{
+        height: 40vw;
+    }
+
+    @keyframes example {
+        0%,
+        100% {
+            left: -10%;
+        }
+        50% {
+            left: 65%;
+            transform:rotate(720deg);
+        }
+    }
 }
