@@ -31,8 +31,12 @@ class Bestyrelse
         return json_encode($member);
     }
 
-    static function Delete($id)
+    static function Delete($id):array
     {
+        $response = array(
+            "status" => "error",
+            "message" => "Ukendt fejl"
+        );
         global $conn;
 
         if ($conn) {
@@ -41,10 +45,15 @@ class Bestyrelse
             if ($sql->execute()){
                 $result = $sql->get_result();
                 while ($row = $result->fetch_assoc()) {
+                    if ($row['picture_path']=="bestyrelseDefault.png")
+                        continue;
                     unlink('../../billeder/bestyrelse/' . $row['picture_path']);
                 }
             }else{
-                return 'error';
+                $response = array(
+                    "status" => "error",
+                    "message" => "Kunne ikke finde bestyrelsesmedlemet i databasen"
+                );
             }
         }
 
@@ -52,15 +61,26 @@ class Bestyrelse
             $sql2 = $conn->prepare("DELETE FROM members WHERE id=?");
             $sql2->bind_param("i", $id);
             if ($sql2->execute()){
-                return 'success';
+                $response = array(
+                    "status" => "success",
+                    "message" => "Bestyrelsesmedlem slettet"
+                );
             }else{
-                return 'error';
+                $response = array(
+                    "status" => "error",
+                    "message" => "Kunne ikke slette fra databasen"
+                );
             }
         }
+        return $response;
     }
 
-    static function Update($id, $name, $title, $picture_path, $phoneNumber, $email)
+    static function Update($id, $name, $title, $picture_path, $phoneNumber, $email):array
     {
+        $response = array(
+            "status" => "error",
+            "message" => "Ukendt fejl"
+        );
         global $conn;
         if ($phoneNumber == "" || $phoneNumber == 0)
             $phoneNumber = NULL;
@@ -72,10 +92,15 @@ class Bestyrelse
                 if ($sql->execute()) {
                     $result = $sql->get_result();
                     while ($row = $result->fetch_assoc()) {
+                        if ($row['picture_path'] == "bestyrelseDefault.png")
+                            continue;
                         unlink('../../billeder/bestyrelse/' . $row['picture_path']);
                     }
                 } else {
-                    return 'error';
+                    $response = array(
+                        "status" => "error",
+                        "message" => "Kunne ikke finde bestyrelsesmedlemet i databasen"
+                    );
                 }
             }
 
@@ -84,18 +109,22 @@ class Bestyrelse
 
 
             $location = "../../billeder/bestyrelse/" . $picture_path;
-            $uploadOk = 1;
 
-            if ($uploadOk == 0) {
-                echo 0;
+
+            if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)) {
+
+                $response = array(
+                    "status" => "success",
+                    "message" => "Billede tilføjet til serveren"
+                );
             } else {
-                if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)) {
-                    echo $location;
-                } else {
-                    echo 0;
-                }
+                $response = array(
+                    "status" => "error",
+                    "message" => "Kunne tilføje billedet til serveren"
+                );
             }
         }
+
 
         if (!isset($_FILES["fileUpload"]))
             $picture_path = "bestyrelseDefault.png";
@@ -104,15 +133,26 @@ class Bestyrelse
             $sql = $conn->prepare("UPDATE members SET fullname=?, title=?, picture_path=?, phonenumber=?, email=? WHERE id=?");
             $sql->bind_param("sssisi", $name, $title, $picture_path, $phoneNumber, $email, $id);
             if ($sql->execute()){
-                return 'success';
+                $response = array(
+                    "status" => "success",
+                    "message" => "Bestyrelsesmedlem opdateret"
+                );
             }else{
-                return 'error';
+                $response = array(
+                    "status" => "error",
+                    "message" => "Kunne ikke opdatere bestyrelsesmedlemmet"
+                );
             }
         }
+        return $response;
     }
 
-    static function Create($name, $title, $picture_path, $phoneNumber, $email)
+    static function Create($name, $title, $phoneNumber, $email):array
     {
+        $response = array(
+            "status" => "error",
+            "message" => "Ukendt fejl"
+        );
         global $conn;
 
         if ($phoneNumber == "" || $phoneNumber == 0)
@@ -125,27 +165,37 @@ class Bestyrelse
             $filename = "bestyrelseDefault.png";
 
         $location = "../../billeder/bestyrelse/".$filename;
-        $uploadOk = 1;
 
-        if($uploadOk == 0){
-            echo 0;
-        }else{
-            if(move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)){
-                echo $location;
-            }else{
-                echo 0;
-            }
+
+        if(move_uploaded_file($_FILES['fileUpload']['tmp_name'], $location)){
+            $response = array(
+                "status" => "success",
+                "message" => "Billede tilføjet til serveren"
+            );
+        } else {
+            $response = array(
+                "status" => "error",
+                "message" => "Kunne tilføje billedet til serveren"
+            );
         }
+
 
         if ($conn) {
             $sql = $conn->prepare("INSERT INTO members (fullname, title, picture_path, phonenumber, email) VALUES (?,?,?,?,?)");
             $sql->bind_param("sssis", $name, $title, $filename, $phoneNumber, $email);
             if ($sql->execute()){
-                return 'success';
+                $response = array(
+                    "status" => "success",
+                    "message" => "Bestyrelsesmedlem tilføjet til databasen"
+                );
             }else{
-                return 'error';
+                $response = array(
+                    "status" => "error",
+                    "message" => "Kunne ikke tilføje bestyrelsesmedlemmet til databasen"
+                );
             }
         }
+        return $response;
     }
 
 }

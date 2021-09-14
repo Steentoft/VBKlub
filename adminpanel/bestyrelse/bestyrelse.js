@@ -60,28 +60,13 @@ function createRow(){
         contentType: false,
         processData: false,
         success: function(response){
-            location.reload();
+            let info = JSON.parse(response);
+            if (info['status'] === "error")
+                alert(info['message']);
+            if (info['status'] === "success")
+                location.reload();
         },
     });
-}
-
-function editRow(ele){
-    let id = ele.getAttribute('value');
-
-    $.post("bestyrelse/bestyrelseHandler.php",
-        {
-            action: 'single',
-            id: id
-        },
-        function(data){
-            let infomation = JSON.parse(data);
-            $('#name').val(infomation['fullname']);
-            $('#title').val(infomation['title']);
-            $('#phonenumber').val(infomation['phonenumber']);
-            $('#email').val(infomation['email']);
-            $('#picture_path').text(infomation['picture_path']);
-            $('#hiddenID').attr('value', infomation['id'])
-        });
 }
 
 function updateRow(){
@@ -133,9 +118,32 @@ function updateRow(){
         contentType: false,
         processData: false,
         success: function(response){
-            location.reload();
+            let info = JSON.parse(response);
+            if (info['status'] === "error")
+                alert(info['message']);
+            if (info['status'] === "success")
+                location.reload();
         },
     });
+}
+
+function editRow(ele){
+    let id = ele.getAttribute('value');
+
+    $.post("bestyrelse/bestyrelseHandler.php",
+        {
+            action: 'single',
+            id: id
+        },
+        function(data){
+            let infomation = JSON.parse(data);
+            $('#name').val(infomation['fullname']);
+            $('#title').val(infomation['title']);
+            $('#phonenumber').val(infomation['phonenumber']);
+            $('#email').val(infomation['email']);
+            $('#picture_path').text(infomation['picture_path']);
+            $('#hiddenID').attr('value', infomation['id'])
+        });
 }
 
 function deleteConfirm(ele){
@@ -150,8 +158,12 @@ function deleteRow(ele){
             action: 'delete',
             id: id
         },
-        function(data){
-            location.reload();
+        function(response){
+            let info = JSON.parse(response);
+            if (info['status'] === "error")
+                alert(info['message']);
+            if (info['status'] === "success")
+                location.reload();
         });
 }
 
