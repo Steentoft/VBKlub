@@ -40,30 +40,30 @@ global $conn;
                 <form method="post" id="AddConventionForm">
                     <table class="table table-striped table-responsive-sm">
                         <thead class="thead-dark">
-                            <tr>
-                                <td>Navn</td>
-                                <td><label for="LocationName"></label><input id="LocationName" maxlength="255" required/></td>
+                            <tr class="form-group">
+                                <td class="col-sm-10"><label>Navn</label></td>
+                                <td class="col-sm-10"><input class="form-control" id="LocationName" maxlength="255" required/></td>
                             </tr>
-                            <tr>
-                                <td>Dato</td>
-                                <td><label for="LocationDate"></label><input id="LocationDate" type="date" required/></td>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Dato</td>
+                                <td class="col-sm-10"><input class="form-control" id="LocationDate" type="date" required/></td>
                             </tr>
-                            <tr>
-                                <td>Start tid</td>
-                                <td><label for="LocationStart"></label><input id="LocationStart" type="time" required/></td>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Start tid</td>
+                                <td class="col-sm-10"><input class="form-control" id="LocationStart" type="time" required/></td>
                             </tr>
-                            <tr>
-                                <td>Stop tid</td>
-                                <td><label for="LocationEnd"></label><input id="LocationEnd" type="time" required/></td>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Stop tid</td>
+                                <td class="col-sm-10"><input class="form-control" id="LocationEnd" type="time" required/></td>
                             </tr>
-                            <tr>
-                                <td>Lokation</td>
-                                <td><label for="LocationSelect"></label><select id="LocationSelect">
+                            <tr class="form-group">
+                                <td class="col-sm-10">Lokation</td>
+                                <td class="col-sm-10"><select class="form-control" id="LocationSelect">
                                     </select></td>
                             </tr>
-                            <tr>
-                                <td id="NewLocationHidden" type="hidden">Ny Lokation</td>
-                                <td type="hidden" id="NewLocationInput"><label for="LocationInput"></label><input id="LocationInput" /></td>
+                            <tr class="form-group">
+                                <td class="col-sm-10" id="NewLocationHidden" type="hidden">Ny Lokation</td>
+                                <td class="col-sm-10" type="hidden" id="NewLocationInput"><input class="form-control" id="LocationInput" /></td>
                             </tr>
                         </thead>
                         <tbody id="Table">
@@ -89,37 +89,37 @@ global $conn;
             </div>
             <div class="modal-body">
                 <form method="post" id="EditConventionForm">
-                <table class="table table-striped table-responsive-sm">
-                    <thead class="thead-dark">
-                        <tr>
-                            <td>Navn</td>
-                            <td><label for="EditLocationName"></label><input id="EditLocationName" maxlength="255" required/></td>
-                        </tr>
-                        <tr>
-                            <td>Dato</td>
-                            <td><label for="EditLocationDate"></label><input id="EditLocationDate" type="date" required/></td>
-                        </tr>
-                        <tr>
-                            <td>Start tid</td>
-                            <td><label for="EditLocationStart"></label><input id="EditLocationStart" type="time" required/></td>
-                        </tr>
-                        <tr>
-                            <td>Stop tid</td>
-                            <td><label for="EditLocationEnd"></label><input id="EditLocationEnd" type="time" required/></td>
-                        </tr>
-                        <tr>
-                            <td>Lokation</td>
-                            <td><label for="EditLocationSelect"></label><select id="EditLocationSelect">
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td id="EditNewLocationHidden" type="hidden">Ny Lokation</td>
-                            <td type="hidden" id="EditNewLocationInput"><label for="EditLocationInput"></label><input id="EditLocationInput" /></td>
-                        </tr>
-                    </thead>
-                    <tbody id="Table">
-                    </tbody>
-                </table>
+                    <table class="table table-striped table-responsive-sm">
+                        <thead class="thead-dark">
+                            <tr class="form-group">
+                                <td class="col-sm-10">Navn</td>
+                                <td class="col-sm-10"><input class="form-control" id="EditLocationName" maxlength="255" required/></td>
+                            </tr>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Dato</td>
+                                <td class="col-sm-10"><input class="form-control" id="EditLocationDate" type="date" required/></td>
+                            </tr>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Start tid</td>
+                                <td class="col-sm-10"><input class="form-control" id="EditLocationStart" type="time" required/></td>
+                            </tr>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Stop tid</td>
+                                <td class="col-sm-10"><input class="form-control" id="EditLocationEnd" type="time" required/></td>
+                            </tr>
+                            <tr class="form-group">
+                                <td class="col-sm-10">Lokation</td>
+                                <td class="col-sm-10"><select class="form-control" id="EditLocationSelect">
+                                    </select></td>
+                            </tr>
+                            <tr class="form-group">
+                                <td class="col-sm-10" id="EditNewLocationHidden" type="hidden">Ny Lokation</td>
+                                <td class="col-sm-10" type="hidden" id="EditNewLocationInput"><input class="form-control" id="EditLocationInput" /></td>
+                            </tr>
+                        </thead>
+                        <tbody id="Table">
+                        </tbody>
+                    </table>
                 </form>
             </div>
             <div class="modal-footer">
