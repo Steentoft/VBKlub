@@ -65,7 +65,7 @@ class Bestyrelse
         if ($phoneNumber == "" || $phoneNumber == 0)
             $phoneNumber = NULL;
 
-        if ($_FILES["fileUpload"]["name"] != null) {
+        if (isset($_FILES["fileUpload"]) && $_FILES["fileUpload"]["name"] != null) {
             if ($conn) {
                 $sql = $conn->prepare("SELECT * FROM members WHERE id=?");
                 $sql->bind_param("i", $id);
@@ -82,8 +82,6 @@ class Bestyrelse
             $temp = explode(".", $_FILES["fileUpload"]["name"]);
             $picture_path = round(microtime(true)) . '.' . end($temp);
 
-            if (!isset($_FILES["fileUpload"]))
-                $picture_path = "bestyrelseDefault.png";
 
             $location = "../../billeder/bestyrelse/" . $picture_path;
             $uploadOk = 1;
@@ -99,6 +97,8 @@ class Bestyrelse
             }
         }
 
+        if (!isset($_FILES["fileUpload"]))
+            $picture_path = "bestyrelseDefault.png";
 
         if ($conn) {
             $sql = $conn->prepare("UPDATE members SET fullname=?, title=?, picture_path=?, phonenumber=?, email=? WHERE id=?");
