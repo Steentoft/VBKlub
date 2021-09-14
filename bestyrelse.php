@@ -29,7 +29,7 @@
             <div class="card-body">
                 <h5><?php echo $member['title'] ?></h5>
                 <p class="card-text"><?php echo $member['fullname'] ?></p>
-                <p class="card-text">Mobil: <?php echo $member['phonenumber'] ?></p>
+                <p class="card-text"> <?php if ($member['phonenumber']) echo "Mobil: ".$member['phonenumber'] ?></p>
                 <a href = "mailto: <?php echo $member['email'] ?>"><?php echo $member['email'] ?></a>
             </div>
         </div>
