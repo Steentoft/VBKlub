@@ -18,7 +18,7 @@
 </style>
 
 <h2 style="padding: 1%">Bestyrelse</h2>
-<div class="row" style="padding: 1%">
+<div class="row" style="padding: 1%; margin: 0">
     <?php
     foreach ($members as $member)
     {
