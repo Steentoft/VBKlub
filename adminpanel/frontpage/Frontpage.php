@@ -8,6 +8,7 @@ class Frontpage
      * @return array|string|null
      */
     static function Load(){
+        $content = array();
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM frontpage WHERE id=1");
@@ -44,6 +45,7 @@ class Frontpage
      * @return mixed|string
      */
     static function LoadPictures(){
+        $content = array();
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT pictures.*, categories.category FROM pictures INNER JOIN categories ON categories.id = pictures.category WHERE frontpageEnabled=1");
