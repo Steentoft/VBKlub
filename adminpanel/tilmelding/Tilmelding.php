@@ -32,11 +32,17 @@ class Tilmelding
         if ($conn) {
             $sql = $conn->prepare("UPDATE registration SET content=? WHERE id=1");
             $sql->bind_param("s", $content);
-            if ($sql->execute()) {
-
+            if ($sql->execute() and $sql->affected_rows == 1) {
+                return 'Success';
             } else {
-                return 'error';
+                $sql2 = $conn->prepare("INSERT INTO registration(id, content) VALUES (1,?)");
+                $sql2->bind_param("s", $content);
+                if ($sql2->execute()) {
+                    return "success";
+                }
             }
+        } else{
+            return 'error';
         }
     }
 }

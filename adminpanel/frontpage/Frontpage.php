@@ -30,13 +30,19 @@ class Frontpage
     static function Update(string $content){
         global $conn;
         if ($conn) {
-            $sql = $conn->prepare("UPDATE frontpage SET content=? WHERE id=1");
-            $sql->bind_param("s", $content);
-            if ($sql->execute()) {
-
+            $stmt = $conn->prepare("UPDATE frontpage SET content=? WHERE id=1");
+            $stmt->bind_param("s", $content);
+            if ($stmt->execute() and $stmt->affected_rows == 1) {
+                return 'Success';
             } else {
-                return 'error';
+                $sql2 = $conn->prepare("INSERT INTO frontpage(id, content) VALUES (1,?)");
+                $sql2->bind_param("s", $content);
+                if ($sql2->execute()) {
+                    return "success";
+                }
             }
+        } else{
+            return 'error';
         }
     }
 

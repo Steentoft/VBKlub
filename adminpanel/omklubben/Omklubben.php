@@ -30,31 +30,26 @@ class Omklubben
     /**
      * Updates the text in the about page
      * @param string $content
-     * @return string[]
+     * @return string|void
      */
-    static function Update(string $content):array
+    static function Update(string $content)
     {
-        $response = array(
-            "status" => "error",
-            "message" => "Ukendt fejl"
-        );
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE about SET content=? WHERE id=1");
             $sql->bind_param("s", $content);
-            if ($sql->execute()) {
-                $response = array(
-                    "status" => "success",
-                    "message" => "Info om klubben opdateret"
-                );
+            if ($sql->execute() and $sql->affected_rows == 1) {
+                return 'Success';
             } else {
-                $response = array(
-                    "status" => "error",
-                    "message" => "Kunne ikke opdatere info om klubben"
-                );
+                $sql2 = $conn->prepare("INSERT INTO about(id, content) VALUES (1,?)");
+                $sql2->bind_param("s", $content);
+                if ($sql2->execute()) {
+                    return "success";
+                }
             }
+        } else{
+            return 'error';
         }
-        return $response;
     }
 
 }
