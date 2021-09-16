@@ -10,10 +10,8 @@ if (isset($_POST['deleteImage']))
 
 ?>
 
-<div class="btn-create row">
-    <div class="col">
-        <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">Ny række</button>
-    </div>
+<div class="btn-create">
+    <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">Ny række</button>
 </div>
 <div class="table-responsive">
     <table id="editGallery" class="table table-striped">
@@ -39,10 +37,10 @@ if (isset($_POST['deleteImage']))
                 <td><?php echo $picture['date'] ?></td>
                 <?php
                 if ($picture['frontpageEnabled']==true){
-                    echo "<td data-sort=0 ><img data-id=$id class='img-row-show' src='../billeder/check.png' value='true' ";
+                    echo "<td data-sort=0 ><img alt='Show on frontpage' data-id=$id class='img-row-show' src='../billeder/check.png' value='true' ";
                 }
                 else{
-                    echo "<td data-sort=1 ><img data-id=$id class='img-row-show' src='../billeder/cross.png' value='false' ";
+                    echo "<td data-sort=1 ><img alt='Do not show on frontpage' data-id=$id class='img-row-show' src='../billeder/cross.png' value='false' ";
                 }
                 ?>
                 onclick="changeState(this);"></td>
