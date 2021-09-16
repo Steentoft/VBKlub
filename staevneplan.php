@@ -36,64 +36,82 @@ if ($conn) {
     }
 </style>
 
-<div class="table-responsive">
-    <h4 class="h4-padding">Kommende stævner</h4>
-    <table class="table table-striped" id="ComingConventions">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Navn</th>
-        <th scope="col">Dato</th>
-        <th scope="col">Tidspunkt</th>
-        <th scope="col">Lokation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    foreach ($conventions as $convention)
-    {
-    ?>
-    <tr>
-        <td><?php echo $convention['name'] ?></td>
-        <td><?php echo $convention['date'] ?></td>
-        <td><?php echo date("H:i", strtotime($convention['start_time'])) . ' Til ' . date("H:i", strtotime($convention['end_time'])); ?></td>
-        <td><?php echo $convention['location'] ?></td>
-    </tr>
-    <?php
-    }
-    ?>
-    </tbody>
-</table>
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="nav-item"><a class="nav-link active" href="#upcoming" aria-controls="1" role="tab" data-toggle="tab">Kommende stævner</a></li>
+    <li role="presentation" class="nav-item"><a class="nav-link" href="#old" aria-controls="2" role="tab" data-toggle="tab">Ældre stævner</a></li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="upcoming" aria-labelledby="upcoming">
+
+        <div class="table-responsive">
+            <h4 class="h4-padding">Kommende stævner</h4>
+            <table class="table table-striped" id="ComingConventions">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Navn</th>
+                    <th scope="col">Dato</th>
+                    <th scope="col">Tidspunkt</th>
+                    <th scope="col">Lokation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($conventions as $convention)
+                {
+                    ?>
+                    <tr>
+                        <td><?php echo $convention['name'] ?></td>
+                        <td><?php echo $convention['date'] ?></td>
+                        <td><?php echo date("H:i", strtotime($convention['start_time'])) . ' Til ' . date("H:i", strtotime($convention['end_time'])); ?></td>
+                        <td><?php echo $convention['location'] ?></td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="old" aria-labelledby="old">
+
+        <div class="table-responsive">
+            <h4 class="h4-padding">Ældre stævner</h4>
+            <table class="table table-striped" id="FinishedConventions">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Navn</th>
+                    <th scope="col">Dato</th>
+                    <th scope="col">Tidspunkt</th>
+                    <th scope="col">Lokation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($oldConventions as $oldConvention)
+                {
+                    ?>
+                    <tr>
+                        <td><?php echo $oldConvention['name'] ?></td>
+                        <td><?php echo $oldConvention['date'] ?></td>
+                        <td><?php echo date("H:i", strtotime($oldConvention['start_time'])) . ' Til ' . date("H:i", strtotime($oldConvention['end_time'])); ?></td>
+                        <td><?php echo $oldConvention['location'] ?></td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </div>
 
 
-<div class="table-responsive">
-    <h4 class="h4-padding">Ældre stævner</h4>
-    <table class="table table-striped" id="FinishedConventions">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Navn</th>
-            <th scope="col">Dato</th>
-            <th scope="col">Tidspunkt</th>
-            <th scope="col">Lokation</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($oldConventions as $oldConvention)
-        {
-            ?>
-            <tr>
-                <td><?php echo $oldConvention['name'] ?></td>
-                <td><?php echo $oldConvention['date'] ?></td>
-                <td><?php echo date("H:i", strtotime($oldConvention['start_time'])) . ' Til ' . date("H:i", strtotime($oldConvention['end_time'])); ?></td>
-                <td><?php echo $oldConvention['location'] ?></td>
-            </tr>
-            <?php
-        }
-        ?>
-        </tbody>
-    </table>
-</div>
+
+
+
 <?php include "templates/footer.php"; ?>
 <script>
     $(document).ready( function () {
