@@ -11,7 +11,8 @@
 }
 
 .select-image{
-    width: 20%;
+    min-width: 20%;
+    width: auto;
 }
 
 .select-div{

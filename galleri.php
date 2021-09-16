@@ -33,11 +33,11 @@ echo("<script>history.replaceState({},'','$url');</script>");
 
     </select>
 </div>
-<div class="row content justify-content-center">
+<div class="content justify-content-center">
     <?php
     if (count($pictures) <1)
         echo "<img class='noImage' src='billeder/noImage.png'>"?>
-    <div class="row img-row">
+    <div class="img-row">
         <div id="leftCol" class="column img-column justify-content-center">
             </div>
         <div id="rightCol" class="column img-column justify-content-center">
