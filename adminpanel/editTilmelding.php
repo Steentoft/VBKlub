@@ -7,13 +7,14 @@ include "tilmelding/Tilmelding.php";
 $content = Tilmelding::Load();
 $order   = array('\r\n', '\n', '\r' );
 $replace = '<br />';
-$content['content'] = str_replace($order, "", $content['content']);
+if ($content != null)
+    $content['content'] = str_replace($order, "", $content['content']);
 ?>
 
 
 
 <form>
-    <textarea id="editor"> <?php echo stripslashes($content['content']); ?> </textarea>
+    <textarea id="editor"> <?php if ($content != null) echo stripslashes($content['content']); ?> </textarea>
 </form>
 <div class="btn-create">
 <button class="btn btn-dark" onclick="Update();">Gem</button>

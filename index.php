@@ -16,7 +16,7 @@ $content['content'] = str_replace($order, $replace, $content['content']);
     <div id="pictureCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img <?php if(count($pictures) > 0){ echo 'src="billeder/' .  $pictures[0]['category'] . '/' . $pictures[0]['path'] . '"'; }else echo 'src="billeder/default.png"'?> class="d-block justify-content-center">
+                <img <?php if($pictures!=null && count($pictures) > 0){ echo 'src="billeder/' .  $pictures[0]['category'] . '/' . $pictures[0]['path'] . '"'; }else echo 'src="billeder/default.png"'?> class="d-block justify-content-center">
             </div>
             <?php
             unset($pictures[0]);

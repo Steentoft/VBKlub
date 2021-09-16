@@ -8,6 +8,7 @@ class Tilmelding
      * @return array|string|null
      */
     static function Load(){
+        $content = array();
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM registration WHERE id=1");
