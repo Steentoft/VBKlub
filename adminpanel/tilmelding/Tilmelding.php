@@ -35,7 +35,7 @@ class Tilmelding
                         );
                     }else
                         $response = array(
-                            "status" => "success",
+                            "status" => "alert",
                             "message" => "Oprettede en ny række"
                         );
                 }
@@ -80,15 +80,10 @@ class Tilmelding
                 }else {
                     $response = array(
                         "status" => "error",
-                        "message" => "Kunne ikke oprette en ny tilmelding"
+                        "message" => "Kunne ikke opdatere"
                     );
                 }
             }
-        } else{
-            $response = array(
-                "status" => "error",
-                "message" => "Kunne ikke forbinde til databasen"
-            );
         }
         return $response;
     }

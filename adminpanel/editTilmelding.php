@@ -4,17 +4,13 @@ include "../BL/dbConnections/dbConnection.php";
 global $conn;
 
 include "tilmelding/Tilmelding.php";
-$content = null;//Tilmelding::Load();
-$order   = array('\r\n', '\n', '\r' );
-$replace = '<br />';
-if ($content != null)
-    $content['content'] = str_replace($order, "", $content['content']);
+
 ?>
 
 
 
 <form>
-    <textarea id="editor"> <?php //if ($content != null) echo stripslashes($content['content']); ?> </textarea>
+    <textarea id="editor"></textarea>
 </form>
 <div class="btn-create">
 <button class="btn btn-dark" onclick="Update();">Gem</button>

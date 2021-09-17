@@ -5,18 +5,38 @@ class Omklubben
 {
     /**
      * Gets all info about the club
-     * @return string[]|null
+     * @return string[]
      */
-    static function Load():array|null
+    static function Load():array
     {
-        $response = array();
+        $response = array(
+            "status" => "error",
+            "message" => "Ukendt fejl"
+        );
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("SELECT * FROM about WHERE id=1");
             if ($sql->execute()) {
                 $result = $sql->get_result();
-                $content = $result->fetch_assoc();
-                $response =$content;
+                if ($content = $result->fetch_assoc()){
+                    $response = array(
+                        "status" => "success",
+                        "message" => $content['content']
+                    );
+                }else{
+                    $sql2 = $conn->prepare("INSERT INTO about(id, content) VALUES (1,'')");
+                    if ($sql2->execute()) {
+                        $response = array(
+                            "status" => "alert",
+                            "message" => "Oprettede en ny række"
+                        );
+                    }else{
+                        $response = array(
+                            "status" => "error",
+                            "message" => "Kunne ikke finde noget data i databasen"
+                        );
+                    }
+                }
             } else {
                 $response = array(
                     "status" => "error",
@@ -30,26 +50,40 @@ class Omklubben
     /**
      * Updates the text in the about page
      * @param string $content
-     * @return string|void
+     * @return string[]
      */
-    static function Update(string $content)
+    static function Update(string $content):array
     {
+        $response = array(
+            "status" => "error",
+            "message" => "Ukendt fejl"
+        );
         global $conn;
         if ($conn) {
             $sql = $conn->prepare("UPDATE about SET content=? WHERE id=1");
             $sql->bind_param("s", $content);
             if ($sql->execute() and $sql->affected_rows == 1) {
-                return 'Success';
+                $response = array(
+                    "status" => "success",
+                    "message" => "Opdaterede om klubben"
+                );
             } else {
                 $sql2 = $conn->prepare("INSERT INTO about(id, content) VALUES (1,?)");
                 $sql2->bind_param("s", $content);
                 if ($sql2->execute()) {
-                    return "success";
+                    $response = array(
+                        "status" => "success",
+                        "message" => "Opdaterede om klubben"
+                    );
+                }else {
+                    $response = array(
+                        "status" => "error",
+                        "message" => "Kunne ikke opdatere"
+                    );
                 }
             }
-        } else{
-            return 'error';
         }
+        return $response;
     }
 
 }

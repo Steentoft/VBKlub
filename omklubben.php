@@ -4,7 +4,12 @@
     global $conn;
 
     include "adminpanel/omklubben/Omklubben.php";
-    $content = Omklubben::Load();
+    $response = Omklubben::Load();
+    $content = "";
+    if ($response['status'] == 'success')
+        $content = $response['message'];
+    elseif($response['status'] == 'error')
+        echo '<script>alert("'.$response["message"].'");</script>';
     $order   = array('\r\n', '\n', '\r');
     $replace = '';
     $content['content'] = str_replace($order, $replace, $content['content']);

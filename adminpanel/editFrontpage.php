@@ -4,23 +4,24 @@ include "../BL/dbConnections/dbConnection.php";
 global $conn;
 
 include "frontpage/Frontpage.php";
-$content = Frontpage::Load();
+$response = Frontpage::Load();
+$content = "";
+if ($response['status'] == 'success')
+    $content = $response['message'];
+elseif($response['status'] == 'error')
+    echo '<script>alert("'.$response["message"].'");</script>';
 $order   = array('\r\n', '\n', '\r' );
 $replace = '<br />';
 if ($content != null)
-    $content['content'] = str_replace($order, "", $content['content']);
+    $content = str_replace($order, "", $content);
 ?>
 
-
-
 <form>
-    <textarea id="editor"> <?php if ($content != null) echo stripslashes($content['content']); ?> </textarea>
+    <textarea id="editor"> <?php if ($content != null) echo stripslashes($content); ?> </textarea>
 </form>
 <div class="btn-create">
 <button class="btn btn-dark" onclick="Update();">Gem</button>
 </div>
-
-
 
 </div>
 
@@ -35,8 +36,12 @@ if ($content != null)
                 action: 'update',
                 content: content
             },
-            function(data){
-                location.reload();
+            function(response){
+                let info = JSON.parse(response);
+                if (info['status'] === "error")
+                    alert(info['message']);
+                if (info['status'] === "success")
+                    location.reload();
             });
     }
 </script>

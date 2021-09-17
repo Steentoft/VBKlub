@@ -8,7 +8,7 @@ $response = Tilmelding::Load();
 $content = "";
 if ($response['status'] == 'success')
     $content = $response['message'];
-else
+elseif($response['status'] == 'error')
     echo '<script>alert("'.$response["message"].'");</script>';
 
 $order   = array('\r\n', '\n', '\r');

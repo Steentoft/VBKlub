@@ -4,12 +4,21 @@ include "BL/dbConnections/dbConnection.php";
 global $conn;
 
 include "adminpanel/frontpage/Frontpage.php";
-$content = Frontpage::Load();
+$response = Frontpage::Load();
+$content = "";
+if ($response['status'] == 'success')
+    $content = $response['message'];
+elseif($response['status'] == 'error')
+    echo '<script>alert("'.$response["message"].'");</script>';
 
-$pictures = Frontpage::LoadPictures();
+$pic = Frontpage::LoadPictures();
+$pictures = array();
+if ($pic['status'] == 'success')
+    $pictures = $pic['message'];
+
 $order   = array('\r\n', '\n', '\r');
 $replace = '';
-$content['content'] = str_replace($order, $replace, $content['content']);
+$content = str_replace($order, $replace, $content);
 ;?>
 
 <div style="padding: 1%">
@@ -40,13 +49,8 @@ $content['content'] = str_replace($order, $replace, $content['content']);
         </a>
     </div>
 
-<!--    <div id="animationVB" style="margin-top: 2%">-->
-<!--        <img src="billeder/volleyballhand.png" style="height: 200px">-->
-<!--        <img src="billeder/volleyball.png" class="animation" style="z-index: 5">-->
-<!--        <img src="billeder/volleyballhand.png" style="float: right;  height: 200px; transform: scaleX(-1); z-index: -1">-->
-<!--    </div>-->
 
-    <?php echo stripslashes($content['content']); ?>
+    <?php echo stripslashes($content); ?>
 </div>
 
 
