@@ -8,11 +8,9 @@ $action = mysqli_real_escape_string($conn, $_POST['action']);
 
 if ($action == 'load'){
 
-    $id = mysqli_real_escape_string($conn, $_POST['id']);
-
     $content = Tilmelding::Load();
 
-    echo $content;
+    echo json_encode($content);
 }
 
 if ($action == 'update'){
@@ -21,5 +19,5 @@ if ($action == 'update'){
 
     $result = Tilmelding::Update($content);
 
-    echo $result;
+    echo json_encode($result);
 }
