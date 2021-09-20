@@ -1,3 +1,7 @@
+<footer class="footer">
+        <span>Copyright © Nrlynvk.dk</span>
+</footer>
+
 </div>
 
 <!-- JavaScript -->

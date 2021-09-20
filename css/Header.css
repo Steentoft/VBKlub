@@ -21,6 +21,7 @@ body {
     height: auto;
     min-height: 85vh;
     background: white;
+    padding-bottom: 10%;
 }
 
 .content{
@@ -89,8 +90,8 @@ body {
 
 }
 
-@media screen and (max-width: 450px) {{
-}
+@media screen and (max-width: 450px){
+
     .member{
         flex: 100%;
         max-width: 100%;
@@ -103,6 +104,22 @@ body {
 
 .card{
     margin-bottom: 5%;
+}
+
+.font-w{
+    color: white !important;
+}
+
+nav{
+    background: darkred !important;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color: white;
+}
+
+.h4-padding{
+    padding: 2% 1% 0% 1%;
 }
 
 .navbar-input {
@@ -119,6 +136,10 @@ body {
     height: 28px;
 }
 
+.navbar-toggler{
+    background: white;    
+}
+
 .navbar-button:hover {
     color:black;
     border: 1px solid black;
@@ -127,3 +148,18 @@ body {
 .card-img-top{
     min-height: 35vh;
 }
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    padding-left: 20%;
+    width: 100%;
+    height: 60px;
+    color: white;
+    line-height: 60px;
+    background-color: darkred;
+}    
+
+
+    
+

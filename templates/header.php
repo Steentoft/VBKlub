@@ -21,7 +21,7 @@ session_start();
     <a href="./"><img class="logo" src="billeder/logo.png"></a>
 </div>
 <div class="container container-custom">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,15 +45,18 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" href="bestyrelse.php">Bestyrelse</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="links.php">Links</a>
+                </li>
             </ul>
             <?php
             if($_SESSION['volleyball_validation'] == true){
             ?>
                 <div class="my-2 my-lg-0 mr-3">
-                    <a href="adminpanel/" class="mb-0">Adminpanel</a>
+                    <a href="adminpanel/" class="mb-0 font-w">Adminpanel</a>
                 </div>
                 <div class="my-2 my-lg-0">
-                    <a href="BL/verification/verify_logout.php" class="mb-0">Log ud</a>
+                    <a href="BL/verification/verify_logout.php" class="mb-0 font-w">Log ud</a>
                 </div>
             <?php
             } else{
@@ -67,7 +70,7 @@ session_start();
                             <input class="form-control mr-sm-2" id="password" type="password" y name="password" placeholder="Kodeord" />
                         </div>
                         <div class="col-auto my-1">
-                            <button class="btn btn-outline-success my-2 my-sm-0">Login</button>
+                            <button class="btn btn-outline-light my-2 my-sm-0">Login</button>
                         </div>
                     </div>
                 </form>

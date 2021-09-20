@@ -28,7 +28,7 @@ if ($_SESSION['volleyball_validation'] == false){
     <a href="../"><img class="logo" src="../billeder/logo.png"></a>
 </div>
 <div class="container container-custom">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,27 +38,27 @@ if ($_SESSION['volleyball_validation'] == false){
                     <a class="nav-link" href="../">Forside</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../omklubben.php">Om klubben</a>
+                    <a class="nav-link" href="../omklubben">Om klubben</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../staevneplan.php">Stævneplan</a>
+                    <a class="nav-link" href="../staevneplan">Stævneplan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../tilmelding.php">Tilmelding</a>
+                    <a class="nav-link" href="../tilmelding">Tilmelding</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../galleri.php">Galleri</a>
+                    <a class="nav-link" href="../galleri">Galleri</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../bestyrelse.php">Bestyrelse</a>
+                    <a class="nav-link" href="../bestyrelse">Bestyrelse</a>
                 </li>
 
             </ul>
             <div class="my-2 my-lg-0 mr-3">
-                <a href="./" class="mb-0">Adminpanel</a>
+                <a href="./" class="mb-0 font-w">Adminpanel</a>
             </div>
             <div class="my-2 my-lg-0">
-                <a href="../BL/verification/verify_logout.php" class="mb-0">Log ud</a>
+                <a href="../BL/verification/verify_logout.php" class="mb-0 font-w">Log ud</a>
             </div>
         </div>
     </nav>

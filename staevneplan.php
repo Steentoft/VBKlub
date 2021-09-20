@@ -30,12 +30,6 @@ if ($conn) {
 
 ?>
 
-<style>
-    .h4-padding{
-        padding: 2% 1% 0% 1%;
-    }
-</style>
-
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="nav-item"><a class="nav-link active" href="#upcoming" aria-controls="1" role="tab" data-toggle="tab">Kommende stævner</a></li>
     <li role="presentation" class="nav-item"><a class="nav-link" href="#old" aria-controls="2" role="tab" data-toggle="tab">Ældre stævner</a></li>

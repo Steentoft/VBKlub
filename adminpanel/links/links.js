@@ -16,21 +16,22 @@ $(document).ready( function () {
 } );
 
 function createRow(){
-    let username = $('#createUsername').val();
-    let password = $('#createPassword').val();
+    let title = $('#createTitle').val();
+    let link_path = $('#createLink_path').val();
 
     let fd = new FormData();
     fd.append('action', 'create');
-    fd.append('username',username);
-    fd.append('password',password);
+    fd.append('title',title);
+    fd.append('link_path',link_path);
 
     $.ajax({
-        url: 'admins/adminsHandler.php',
+        url: 'links/linksHandler.php',
         type: 'post',
         data: fd,
         contentType: false,
         processData: false,
         success: function(response){
+            console.log(response);
             let info = JSON.parse(response);
             if (info['status'] === "error")
                 alert(info['message']);
@@ -43,15 +44,16 @@ function createRow(){
 function editRow(ele){
     let id = ele.getAttribute('value');
 
-    $.post("admins/adminsHandler.php",
+    $.post("links/linksHandler.php",
         {
             action: 'single',
             id: id
         },
         function(data){
+        console.log(data);
             let infomation = JSON.parse(data);
-            $('#username').val(infomation['username']);
-            $('#username').attr('data-oldName',infomation['username']);
+            $('#title').val(infomation['title']);
+            $('#link_path').val(infomation['link_path']);
             $('#hiddenID').attr('value', infomation['id'])
 
         });
@@ -59,25 +61,24 @@ function editRow(ele){
 
 function updateRow(){
     let id = $('#hiddenID').val();
-    let username = $('#username').val();
-    let oldUsername = $('#username').attr('data-oldName');
-    let password = $('#password').val();
+    let title = $('#title').val();
+    let link_path = $('#link_path').val();
 
     let fd = new FormData();
     fd.append('action', 'update');
     fd.append('id',id);
-    fd.append('username',username);
-    fd.append('oldUsername',oldUsername);
-    fd.append('password',password);
+    fd.append('title',title);
+    fd.append('link_path',link_path);
 
     $.ajax({
-        url: 'admins/adminsHandler.php',
+        url: 'links/linksHandler.php',
         type: 'post',
         data: fd,
         contentType: false,
         processData: false,
         success: function(response){
-            let info = JSON.parse(response);
+            // console.log(response);
+             let info = JSON.parse(response);
             if (info['status'] === "error")
                 alert(info['message']);
             if (info['status'] === "success")
@@ -93,12 +94,13 @@ function deleteConfirm(ele){
 function deleteRow(ele){
     let id = ele.getAttribute('value');
 
-    $.post("admins/adminsHandler.php",
+    $.post("links/linksHandler.php",
         {
             action: 'delete',
             id: id
         },
         function(data){
+        console.log(data);
             location.reload();
         });
 }
